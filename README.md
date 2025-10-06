@@ -1,2 +1,3 @@
-# ai-sdk-panel
-The config panel for ai sdk providers.
+# AI SDK Panel
+
+The config panel for AI SDK.

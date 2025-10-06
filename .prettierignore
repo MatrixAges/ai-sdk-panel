@@ -1,0 +1,22 @@
+# Ignore artifacts:
+build
+dist
+.next
+
+# Ignore development tools:
+node_modules
+.git
+
+# Ignore specific files:
+*.min.js
+*.map
+
+# Ignore logs:
+logs
+*.log
+
+# Ignore configuration files that might be auto-generated or managed by other tools:
+.env
+.env.local
+.env.development
+.env.production
