@@ -14,7 +14,8 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"asp": ["./ai-sdk-panel/*"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"plugins": [

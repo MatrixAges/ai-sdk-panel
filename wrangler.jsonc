@@ -1,0 +1,12 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "ai-sdk-panel",
+	"compatibility_date": "2024-12-30",
+	"workers_dev": false,
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+	"services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "ai-sdk-panel" }],
+	"r2_buckets": [{ "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "ai-sdk-panel-cache" }],
+	"routes": [{ "pattern": "ai-sdk-panel.matrixages.com", "custom_domain": true }]
+}
