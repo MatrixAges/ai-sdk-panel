@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES2017",
+		"target": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"skipLibCheck": true,
@@ -13,8 +13,6 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"declaration": true,
-		"emitDeclarationOnly": true,
 		"paths": {
 			"@/*": ["./*"]
 		},

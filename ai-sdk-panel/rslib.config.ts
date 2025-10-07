@@ -1,3 +1,4 @@
+import { pluginReact } from '@rsbuild/plugin-react'
 import { defineConfig } from '@rslib/core'
 
 import type { RslibConfig } from '@rslib/core'
@@ -8,24 +9,17 @@ const postcss_plugins = ['postcss-import', 'postcss-nested', '@tailwindcss/postc
 
 const prod_output = {} as RslibConfig['output']
 
-// if (is_prod) prod_output!['minify'] = {}
-
-console.log(process.env.NODE_ENV)
+if (is_prod) prod_output!['minify'] = {}
 
 export default defineConfig({
 	mode: is_dev ? 'development' : 'production',
-	lib: [{ format: 'esm', autoExternal: false, dts: true }],
-	source: {
-		entry: { index: './src/index.ts' },
-		tsconfigPath: './tsconfig.json'
-	},
+	lib: [{ format: 'esm', autoExternal: is_dev, externalHelpers: true, dts: true }],
 	output: {
 		target: 'web',
+		injectStyles: true,
 		sourceMap: is_dev,
-		// injectStyles: true,
-		distPath: { root: './dist' },
 		cleanDistPath: is_prod,
-		externals: ['react', 'react-dom'],
+		externals: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
 		...prod_output
 	},
 	tools: {
@@ -37,5 +31,6 @@ export default defineConfig({
 	},
 	server: {
 		publicDir: { copyOnBuild: false }
-	}
+	},
+	plugins: [pluginReact()]
 })
