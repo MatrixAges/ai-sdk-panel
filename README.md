@@ -12,23 +12,23 @@ pnpm i @matrixages/ai-sdk-panel
 
 `ai-sdk-panel` provides below components:
 
-- **ProvidersPanel** : panel for config ai sdk providers.
+- **Providers** : component for config ai sdk providers.
 
-- **ModelConfigPanel** : panel for config model arguments.
+- **ModelConfig** : component for config model arguments.
 
-- **Chatbox** : textarea for input user messages.
+- **Chatbox** : component for input user messages and select model.
 
-### ProvidersPanel
+### Providers
 
-The `ProvidersPanel` props:
-
--
+The `Providers` props:
 
 -
 
-### ModelConfigPanel
+-
 
-The `Chatbox` props:
+### ModelConfig
+
+The `ModelConfig` props:
 
 -
 

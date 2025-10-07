@@ -1,1 +1,1 @@
-export { default as ProvidersPanel } from './ProvidersPanel'
+export { default as Providers } from './Providers'
