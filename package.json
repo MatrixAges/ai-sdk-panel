@@ -4,9 +4,9 @@
 	"description": "The config panel for ai sdk.",
 	"author": "1yasa",
 	"license": "MIT",
-	"main": "ai-sdk-panel/index.js",
+	"main": "ai-sdk-panel/dist/index.js",
 	"files": [
-		"./ai-sdk-panel",
+		"./ai-sdk-panel/dist",
 		"./package.json",
 		"./README.md"
 	],
