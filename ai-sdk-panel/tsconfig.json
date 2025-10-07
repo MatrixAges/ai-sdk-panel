@@ -2,7 +2,6 @@
 	"compilerOptions": {
 		"target": "ES2017",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"noEmit": true,
@@ -15,16 +14,10 @@
 		"jsx": "preserve",
 		"declaration": true,
 		"emitDeclarationOnly": true,
-		"paths": {
-			"@/*": ["./*"]
-		},
 		"forceConsistentCasingInFileNames": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		]
+		"paths": {
+			"@/*": ["../*"]
+		}
 	},
-	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "postcss.config.mjs"],
-	"exclude": ["node_modules", "./ai-sdk-panel/**/*"]
+	"include": ["../ai-sdk-panel/**/*.ts"]
 }

@@ -5,7 +5,7 @@ import type { PropsWithChildren } from 'react'
 
 export default ({ children }: PropsWithChildren) => {
 	return (
-		<html lang='en' data-theme='dark'>
+		<html lang='en'>
 			<head>
 				<link id='favicon' rel='icon' type='image/svg+xml' href='logo.svg' />
 			</head>

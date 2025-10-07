@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@matrixages/ai-sdk-panel':
+        specifier: workspace:*
+        version: link:ai-sdk-panel
       '@opennextjs/cloudflare':
         specifier: ^1.9.1
         version: 1.9.1(wrangler@4.42.0)
@@ -39,9 +42,6 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.7.0
         version: 4.7.0(prettier@3.6.2)
-      '@rslib/core':
-        specifier: ^0.15.0
-        version: 0.15.0(typescript@5.9.3)
       '@tailwindcss/postcss':
         specifier: ^4.1.14
         version: 4.1.14
@@ -57,9 +57,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
-      cross-env:
-        specifier: ^10.1.0
-        version: 10.1.0
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -90,6 +87,67 @@ importers:
       wrangler:
         specifier: ^4.42.0
         version: 4.42.0
+
+  ai-sdk-panel:
+    dependencies:
+      '@phosphor-icons/react':
+        specifier: ^2.1.10
+        version: 2.1.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      ahooks:
+        specifier: ^3.9.5
+        version: 3.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      classix:
+        specifier: ^2.2.4
+        version: 2.2.4
+      es-toolkit:
+        specifier: ^1.39.10
+        version: 1.39.10
+      fast-equals:
+        specifier: ^5.3.2
+        version: 5.3.2
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@rslib/core':
+        specifier: ^0.15.0
+        version: 0.15.0(typescript@5.9.3)
+      '@tailwindcss/postcss':
+        specifier: ^4.1.14
+        version: 4.1.14
+      '@types/node':
+        specifier: ^24.6.2
+        version: 24.6.2
+      '@types/react':
+        specifier: ^19.2.0
+        version: 19.2.0
+      '@types/react-dom':
+        specifier: ^19.2.0
+        version: 19.2.0(@types/react@19.2.0)
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
+      cross-env:
+        specifier: ^10.1.0
+        version: 10.1.0
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      postcss-import:
+        specifier: ^16.1.1
+        version: 16.1.1(postcss@8.5.6)
+      postcss-nested:
+        specifier: ^7.0.2
+        version: 7.0.2(postcss@8.5.6)
+      tailwindcss:
+        specifier: ^4.1.14
+        version: 4.1.14
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
 packages:
 
