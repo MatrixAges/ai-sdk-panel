@@ -24,9 +24,9 @@ import volcengine from './volcengine'
 import xai from './xai'
 import zhipu from './zhipu'
 
-export const preset = [openai, anthropic, google_gemini, xai, deepseek, openrouter, ollama, custom]
+export const preset_providers = [openai, anthropic, google_gemini, xai, deepseek, openrouter, ollama]
 
-export const all = [
+export const all_providers = [
 	openai,
 	anthropic,
 	google_gemini,
@@ -50,8 +50,7 @@ export const all = [
 	tencent_hunyuan,
 	volcengine,
 	azure_openai,
-	amazon_bedrock,
-	custom
+	amazon_bedrock
 ]
 
 export {

@@ -1,7 +1,7 @@
 import { memo } from '@/utils'
 
 const Index = () => {
-	return 'form'
+	return null
 }
 
 export default memo(Index)

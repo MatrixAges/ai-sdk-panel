@@ -1,4 +1,4 @@
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
+// import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 
 import type { NextConfig } from 'next'
 
@@ -11,4 +11,4 @@ const config: NextConfig = {
 
 export default config
 
-if (is_dev) initOpenNextCloudflareForDev()
+// if (is_dev) initOpenNextCloudflareForDev()

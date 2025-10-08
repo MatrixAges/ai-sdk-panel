@@ -1,7 +1,7 @@
 import type { PresetProvider } from '../types'
 
 export default {
-	name: 'openai_compatible',
+	name: 'custom',
 	enabled: true,
 	api_key: '',
 	base_url: '',

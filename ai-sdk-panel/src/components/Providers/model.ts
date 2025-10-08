@@ -1,13 +1,13 @@
 import { proxy } from 'valtio'
 
+import type { Config } from './types'
+
 export class Model {
-	count = 1
+	config = null as Config | null
 
-	init() {}
-
-	on() {}
-
-	off() {}
+	init(config: Config) {
+		this.config = config
+	}
 }
 
 export default proxy(new Model())

@@ -2,18 +2,23 @@ import i18n from '@/i18n'
 
 import type { Model as DataModel } from './model'
 
-export interface IProps {
+export interface IPropsProviders {
 	config: Config
+	tab_type?: 'tab' | 'list'
+	model_type?: 'list' | 'card'
 	borderless?: boolean
 	i18n?: Record<keyof typeof i18n.providers, string>
 }
 
-export interface IPropsTab {}
+export interface IPropsTab {
+	tab_type: IPropsProviders['tab_type']
+	items: Array<Pick<Provider, 'name' | 'enabled'>>
+}
 
 export interface IPropsForm {}
 
 export interface Config {
-	providers: Array<PresetProvider>
+	providers: Array<PresetProvider | SpecialProvider>
 	custom_providers?: Array<Provider>
 }
 
