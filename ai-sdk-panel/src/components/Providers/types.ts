@@ -1,18 +1,39 @@
-import i18n from '@/i18n'
+import { providers_locales } from '@/i18n'
 
 import type { Model as DataModel } from './model'
 
+export type ProvidersLocales = typeof providers_locales
+
+export interface TabTab {
+	type: 'tab'
+	layout: 'between' | 'scroll'
+}
+
+export interface ListTab {
+	type: 'list'
+}
+
 export interface IPropsProviders {
 	config: Config
-	tab_type?: 'tab' | 'list'
+	tab?: TabTab | ListTab
 	model_type?: 'list' | 'card'
 	borderless?: boolean
-	i18n?: Record<keyof typeof i18n.providers, string>
+	locales?: ProvidersLocales
+	width?: number | string
 }
 
 export interface IPropsTab {
-	tab_type: IPropsProviders['tab_type']
+	locales: ProvidersLocales
+	tab: IPropsProviders['tab']
 	items: Array<Pick<Provider, 'name' | 'enabled'>>
+	current: DataModel['current']
+	onChangeCurrent: (v: string) => void
+}
+
+export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrent'> {
+	item: IPropsTab['items'][number]
+	display_name: string
+	active: boolean
 }
 
 export interface IPropsForm {}

@@ -24,7 +24,7 @@ import volcengine from './volcengine'
 import xai from './xai'
 import zhipu from './zhipu'
 
-export const preset_providers = [openai, anthropic, google_gemini, xai, deepseek, openrouter, ollama]
+export const preset_providers = [openai, anthropic, google_gemini, xai, deepseek, ollama]
 
 export const all_providers = [
 	openai,
