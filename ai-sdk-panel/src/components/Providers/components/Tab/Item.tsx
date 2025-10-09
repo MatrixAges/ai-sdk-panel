@@ -1,5 +1,4 @@
 import { useMemoizedFn } from 'ahooks'
-import cx from 'classix'
 
 import { ProviderIcon } from '@/components'
 import { useScrollToItem } from '@/hooks'
@@ -15,16 +14,28 @@ const Index = (props: IPropsTabItem) => {
 
 	return (
 		<div
-			className={cx(
-				'flex flex-col items-center gap-3 text-gray-400 hover:text-gray-500 active:scale-95 select-none cursor-pointer transition-[colors,scale] duration-150',
-				active && '!text-black'
-			)}
+			data-active={active}
 			onClick={onClick}
+			className='
+				flex flex-col items-center
+				gap-3
+				text-asp-gray-600/60
+				hover:text-gray-600
+				group
+				data-[active=true]:!text-asp-black clickable
+			'
 		>
 			<span className='flex justify-center items-center text-xl'>
 				<ProviderIcon name={item.name} />
 			</span>
-			<span className='text-[13px]'>{display_name}</span>
+			<span
+				className='
+					text-xsm text-asp-gray-600/40
+					group-data-[active=true]:!text-asp-black
+				'
+			>
+				{display_name}
+			</span>
 		</div>
 	)
 }

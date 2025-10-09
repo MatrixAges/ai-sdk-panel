@@ -9,11 +9,11 @@ const Index = () => {
 		config: { providers: all_providers },
 		tab: { type: 'tab', layout: 'scroll' },
 		// config: { providers: preset_providers },
-		width: 566
+		width: 690
 	}
 
 	return (
-		<div className='w-screen h-screen flex justify-center items-center'>
+		<div className='w-screen h-screen flex justify-center items-center bg-amber-50/20'>
 			<Providers {...props_providers} />
 		</div>
 	)

@@ -14,9 +14,7 @@ pnpm i @matrixages/ai-sdk-panel
 
 - **Providers** : component for config ai sdk providers.
 
-- **ModelConfig** : component for config model arguments.
-
-- **Chatbox** : component for input user messages and select model.
+- **ModelSelect** : component for select ai model.
 
 ### Providers
 
@@ -26,17 +24,9 @@ The `Providers` props:
 
 -
 
-### ModelConfig
+### ModelSelect
 
-The `ModelConfig` props:
-
--
-
--
-
-### Chatbox
-
-The `Chatbox` props:
+The `ModelSelect` props:
 
 -
 

@@ -1,0 +1,13 @@
+@reference '../../../../index.css';
+
+.label {
+	@apply text-asp-gray-900/60 text-xsm;
+}
+
+.input_wrap {
+	@apply rounded-2xl border border-asp-gray-200 relative flex items-center bg-asp-white/60 focus-within:border-asp-gray-400 transition-colors duration-150;
+}
+
+.input {
+	@apply text-xsm w-full outline-none px-4 placeholder:text-asp-gray-300 transition duration-150;
+}

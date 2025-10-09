@@ -8,10 +8,10 @@ import { useProxy } from 'valtio/utils'
 import { providers_locales } from '@/i18n'
 import { copy, memo } from '@/utils'
 
-import { Form, Tab } from './components'
+import { Custom, Form, Tab } from './components'
 import model from './model'
 
-import type { IPropsForm, IPropsProviders, IPropsTab } from './types'
+import type { IPropsCustom, IPropsForm, IPropsProviders, IPropsTab } from './types'
 
 const Index = (props: IPropsProviders) => {
 	const { config, borderless = true, tab, model_type = 'list', locales, width } = props
@@ -38,12 +38,23 @@ const Index = (props: IPropsProviders) => {
 		onChangeCurrent: useMemoizedFn((v: string) => (x.current = v))
 	}
 
+	const props_form: IPropsForm = {
+		provider: useMemo(
+			() => target_config?.providers.find(item => item.name === x.current)!,
+			[target_config, x.current]
+		)
+	}
+
+	const props_custom: IPropsCustom = {
+		custom_providers: target_config?.custom_providers
+	}
+
 	if (!x.config) return null
 
 	return (
-		<div className='flex flex-col items-center' style={{ width }}>
+		<div className='flex flex-col items-center gap-8' style={{ width }}>
 			<Tab {...props_tab} />
-			<Form />
+			{x.current === 'custom' ? <Custom {...props_custom} /> : <Form {...props_form} />}
 		</div>
 	)
 }

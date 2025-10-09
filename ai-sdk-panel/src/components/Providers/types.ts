@@ -36,7 +36,13 @@ export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrent'> {
 	active: boolean
 }
 
-export interface IPropsForm {}
+export interface IPropsForm {
+	provider: Config['providers'][number]
+}
+
+export interface IPropsCustom {
+	custom_providers: Config['custom_providers']
+}
 
 export interface Config {
 	providers: Array<PresetProvider | SpecialProvider>

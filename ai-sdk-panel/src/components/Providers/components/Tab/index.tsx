@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import cx from 'classix'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 
 import { memo } from '@/utils'
@@ -15,8 +14,13 @@ const Index = (props: IPropsTab) => {
 		const styles = { scroller: '', container: '' }
 
 		if (tab.type === 'tab') {
-			styles['scroller'] = 'max-w-full'
-			styles['container'] = tab.layout === 'between' ? 'w-full justify-between' : ''
+			styles['scroller'] += ' max-w-full'
+
+			if (tab.layout === 'scroll') {
+				styles['scroller'] += ' overflow-scroll no-scrollbar'
+			} else {
+				styles['container'] += ' w-full justify-between'
+			}
 		} else {
 			styles['scroller'] = 'max-h-full'
 			styles['container'] = 'flex-col gap-4'
@@ -35,8 +39,8 @@ const Index = (props: IPropsTab) => {
 	))
 
 	return (
-		<div className={cx('w-full flex overflow-scroll scrollbar scrollbar-w-0 scrollbar-h-0', scroller)}>
-			<div className={cx('flex', container)}>
+		<div className={`flex w-full ${scroller}`}>
+			<div className={`flex ${container}`}>
 				{tab.type === 'tab' && tab.layout === 'scroll' ? (
 					<ScrollMenu wrapperClassName='w-full' scrollContainerClassName='gap-10'>
 						{Items}

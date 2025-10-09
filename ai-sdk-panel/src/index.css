@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@plugin 'tailwind-scrollbar';
-
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
@@ -19,6 +17,9 @@
 
 	--color-asp-black: #000;
 	--color-asp-white: #fff;
+
+	--text-xsm: 13px;
+	--text-xsm--line-height: 1.25rem;
 }
 
 [data-theme='dark'] {
@@ -40,4 +41,23 @@
 
 * {
 	box-sizing: border-box;
+}
+
+@utility clickable {
+	@apply cursor-pointer select-none active:scale-95 transition-all duration-150;
+}
+
+@layer components {
+	.btn {
+		@apply clickable flex justify-center items-center text-asp-gray-500 hover:text-asp-black hover:bg-asp-gray-50 active:bg-asp-gray-100;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
 }

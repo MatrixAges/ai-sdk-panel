@@ -5,6 +5,7 @@ import type { RslibConfig } from '@rslib/core'
 
 const is_dev = process.env.NODE_ENV === 'development'
 const is_prod = process.env.NODE_ENV === 'production'
+
 const postcss_plugins = ['postcss-import', 'postcss-nested', '@tailwindcss/postcss', 'autoprefixer']
 
 const prod_output = {} as RslibConfig['output']
