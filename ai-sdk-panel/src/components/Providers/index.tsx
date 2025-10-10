@@ -14,7 +14,7 @@ import model from './model'
 import type { IPropsCustom, IPropsForm, IPropsProviders, IPropsTab } from './types'
 
 const Index = (props: IPropsProviders) => {
-	const { config, borderless = true, tab, model_type = 'list', locales, width } = props
+	const { config, tab, model_type = 'list', locales, width } = props
 	const x = useProxy(model)
 	const target_config = copy(x.config)
 
@@ -25,20 +25,26 @@ const Index = (props: IPropsProviders) => {
 	}, [config])
 
 	const props_tab: IPropsTab = {
-		locales: useMemo(() => ({ ...providers_locales, ...locales }), [locales]),
+		locales: useMemo(() => ({ ...providers_locales.providers, ...locales?.providers }), [locales?.providers]),
 		tab,
 		items: useMemo(() => {
 			if (!target_config) return []
 
 			return target_config.providers
 				.map(item => ({ name: item.name, enabled: item.enabled }))
-				.concat({ name: 'custom', enabled: true })
+				.concat(
+					...[
+						{ name: 'custom', enabled: true },
+						{ name: 'disabled', enabled: true }
+					]
+				)
 		}, [target_config]),
 		current: x.current,
 		onChangeCurrent: useMemoizedFn((v: string) => (x.current = v))
 	}
 
 	const props_form: IPropsForm = {
+		locales: useMemo(() => ({ ...providers_locales.desc, ...locales?.desc }), [locales?.desc]),
 		provider: useMemo(
 			() => target_config?.providers.find(item => item.name === x.current)!,
 			[target_config, x.current]
@@ -52,7 +58,7 @@ const Index = (props: IPropsProviders) => {
 	if (!x.config) return null
 
 	return (
-		<div className='flex flex-col items-center gap-8' style={{ width }}>
+		<div style={{ width }} className='flex flex-col items-center gap-8'>
 			<Tab {...props_tab} />
 			{x.current === 'custom' ? <Custom {...props_custom} /> : <Form {...props_form} />}
 		</div>
@@ -61,5 +67,4 @@ const Index = (props: IPropsProviders) => {
 
 export default memo(Index)
 
-export * from './providers'
 export * from './types'

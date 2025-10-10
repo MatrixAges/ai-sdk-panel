@@ -1,17 +1,24 @@
 import { memo } from '@/utils'
-import { WifiHighIcon } from '@phosphor-icons/react'
+import { WifiHighIcon, PlusIcon, ClockClockwiseIcon, EyeClosedIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
-import type { IPropsForm } from '../../types'
+import type { IPropsForm, SpecialProvider } from '../../types'
+import { useMemo } from 'react'
 
 const Index = (props: IPropsForm) => {
-	const { provider } = props
+	const { locales, provider } = props
+	const { api_key, base_url, models } = provider
+
+	const locales_keys = useMemo(() => Object.keys(locales), [locales])
+
+	const custom_fields = (provider as SpecialProvider)?.custom_fields || {}
+	const custom_keys = Object.keys(custom_fields)
 
 	return (
 		<div className='flex flex-col w-full gap-5'>
-			{provider?.api_key !== undefined && (
-				<div className='flex flex-col gap-2'>
+			{api_key !== undefined && (
+				<div className='flex flex-col gap-2.5'>
 					<span className={`${styles.label}`}>API Key</span>
 					<div className={`${styles.input_wrap} h-14`}>
 						<input
@@ -35,8 +42,8 @@ const Index = (props: IPropsForm) => {
 					</div>
 				</div>
 			)}
-			{provider?.base_url !== undefined && (
-				<div className='flex flex-col gap-2'>
+			{base_url !== undefined && (
+				<div className='flex flex-col gap-2.5'>
 					<span className={`${styles.label}`}>Base URL</span>
 					<input
 						placeholder='sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -45,6 +52,97 @@ const Index = (props: IPropsForm) => {
 					/>
 				</div>
 			)}
+			{custom_keys.length > 0 &&
+				custom_keys.map(key => (
+					<div key={key} className='flex flex-col gap-2.5'>
+						<span className={`${styles.label}`}>{key}</span>
+						<input
+							placeholder={`Input field ${key}`}
+							defaultValue={custom_fields[key]}
+							className={`${styles.input_wrap} h-14 ${styles.input}`}
+						/>
+					</div>
+				))}
+			<div className='flex flex-col gap-2.5'>
+				<span className={`${styles.label}`}>Models</span>
+				<div
+					className='
+						flex flex-col
+						rounded-2xl border border-std-600/10
+						overflow-hidden
+					'
+				>
+					{models?.length ? (
+						models?.map(item => (
+							<div
+								key={item.id}
+								className='
+									flex justify-between items-center
+									p-4
+									bg-std-white/60
+									border-b border-std-400/10
+									transition-colors
+									hover:bg-std-100/10
+									cursor-pointer last:border-none
+								'
+							>
+								<div className='flex flex-col gap-0.5'>
+									<span className={`${styles.label}`}>{item.name}</span>
+									<div className='flex items-center text-xs text-std-900/30'>
+										{item.desc ||
+											locales[
+												locales_keys.find(i => item.id === i) ||
+													locales_keys.find(
+														i => item.id.indexOf(i) !== -1
+													) ||
+													'no_desc'
+											]}
+									</div>
+								</div>
+							</div>
+						))
+					) : (
+						<div
+							className='
+								flex justify-center
+								text-xsm text-std-600/50
+								bg-std-white/60
+								px-4 py-5
+							'
+						>
+							No models added
+						</div>
+					)}
+				</div>
+			</div>
+			<div className='flex flex-col gap-2.5'>
+				<span className={`${styles.label}`}>Actions</span>
+				<div
+					className='
+						flex justify-between
+						p-3
+						text-xsm
+						bg-std-white/60
+						rounded-2xl border border-std-600/10
+						overflow-hidden
+					'
+				>
+					<div className='flex'>
+						<button className='rounded-2xl px-2.5 py-1.5 btn'>
+							<PlusIcon className='text-sm' />
+							Add Model
+						</button>
+						<button className='rounded-2xl px-2.5 py-1.5 btn'>
+							<ClockClockwiseIcon className='text-sm' />
+							Reset Models
+						</button>
+					</div>
+					<button className='text-red-400 rounded-2xl px-2.5 py-1.5 btn'>
+						<EyeClosedIcon className='text-sm' />
+						Disable Provider
+					</button>
+				</div>
+			</div>
 		</div>
 	)
 }

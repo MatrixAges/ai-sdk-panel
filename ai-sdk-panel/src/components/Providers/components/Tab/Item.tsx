@@ -19,10 +19,10 @@ const Index = (props: IPropsTabItem) => {
 			className='
 				flex flex-col items-center
 				gap-3
-				text-asp-gray-600/60
+				text-std-600/60
 				hover:text-gray-600
 				group
-				data-[active=true]:!text-asp-black clickable
+				data-[active=true]:!text-std-black clickable
 			'
 		>
 			<span className='flex justify-center items-center text-xl'>
@@ -30,8 +30,8 @@ const Index = (props: IPropsTabItem) => {
 			</span>
 			<span
 				className='
-					text-xsm text-asp-gray-600/40
-					group-data-[active=true]:!text-asp-black
+					text-xsm text-std-600/40
+					group-data-[active=true]:!text-std-black
 				'
 			>
 				{display_name}

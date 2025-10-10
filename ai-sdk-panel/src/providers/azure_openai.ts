@@ -1,39 +1,45 @@
-import type { PresetProvider } from '../types'
+import type { SpecialProvider } from '../components'
 
 export default {
-	name: 'vercel',
+	name: 'azure_openai',
 	enabled: true,
 	api_key: '',
+	custom_fields: {
+		api_version: '2024-10-01-preview',
+		resourceName: ''
+	},
 	models: [
 		{
 			enabled: true,
-			id: 'v0-1.5-md',
-			name: 'V0 1.5 MD',
+			id: 'gpt-4.1',
+			name: 'GPT 4.1',
 			features: {
 				function_calling: true,
 				structured_output: true,
+				web_search: true,
 				image_input: true
 			}
 		},
 		{
 			enabled: true,
-			id: 'v0-1.5-lg',
-			name: 'V0 1.5 LG',
+			id: 'gpt-4o',
+			name: 'GPT 4o',
 			features: {
 				function_calling: true,
 				structured_output: true,
+				web_search: true,
 				image_input: true
 			}
 		},
 		{
 			enabled: true,
-			id: 'v0-1.0-md',
-			name: 'V0 1.0- MD',
+			id: 'gpt-3.5-turbo',
+			name: 'GPT 3.5 Turbo',
 			features: {
 				function_calling: true,
 				structured_output: true,
-				image_input: true
+				web_search: true
 			}
 		}
 	]
-} as PresetProvider
+} as SpecialProvider

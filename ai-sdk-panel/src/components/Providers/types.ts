@@ -17,13 +17,12 @@ export interface IPropsProviders {
 	config: Config
 	tab?: TabTab | ListTab
 	model_type?: 'list' | 'card'
-	borderless?: boolean
-	locales?: ProvidersLocales
+	locales?: Partial<ProvidersLocales>
 	width?: number | string
 }
 
 export interface IPropsTab {
-	locales: ProvidersLocales
+	locales: ProvidersLocales['providers']
 	tab: IPropsProviders['tab']
 	items: Array<Pick<Provider, 'name' | 'enabled'>>
 	current: DataModel['current']
@@ -38,6 +37,7 @@ export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrent'> {
 
 export interface IPropsForm {
 	provider: Config['providers'][number]
+	locales: ProvidersLocales['desc']
 }
 
 export interface IPropsCustom {
@@ -61,7 +61,6 @@ export interface Provider {
 export interface PresetProvider extends Omit<Provider, 'base_url'> {
 	api_key: string
 	base_url?: string
-	custom_models?: Array<Model>
 }
 
 export interface SpecialProvider extends Partial<Omit<Provider, 'name' | 'enabled'>> {
@@ -74,6 +73,7 @@ export interface Model {
 	name: string
 	id: string
 	enabled: boolean
+	desc?: string
 	features?: Features
 }
 

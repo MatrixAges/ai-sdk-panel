@@ -1,4 +1,4 @@
-import type { SpecialProvider } from '../types'
+import type { SpecialProvider } from '../components'
 
 export default {
 	name: 'ollama',

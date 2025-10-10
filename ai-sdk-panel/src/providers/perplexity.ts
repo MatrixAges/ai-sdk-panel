@@ -1,4 +1,4 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
 	name: 'perplexity',

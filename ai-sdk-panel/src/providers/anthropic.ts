@@ -1,4 +1,4 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
 	name: 'anthropic',
@@ -7,8 +7,8 @@ export default {
 	models: [
 		{
 			enabled: true,
-			id: 'claude-4-opus-20250514',
-			name: 'Claude 4 Opus',
+			id: 'claude-sonnet-4-5',
+			name: 'Claude Sonnet 4.5',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -20,8 +20,8 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'claude-4-sonnet-20250514',
-			name: 'Claude 4 Sonnet',
+			id: 'claude-sonnet-4',
+			name: 'Claude Sonnet 4',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -33,8 +33,8 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'claude-4-haiku-20250514',
-			name: 'Claude 4 Haiku',
+			id: 'claude-sonnet-3-7',
+			name: 'Claude Sonnet 3.7',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -46,8 +46,8 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'claude-3-opus-20240229',
-			name: 'Claude 3 Opus',
+			id: 'claude-opus-4-1',
+			name: 'Claude Opus 4.1',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -59,8 +59,8 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'claude-3-sonnet-20240229',
-			name: 'Claude 3 Sonnet',
+			id: 'claude-opus-4-0',
+			name: 'Claude Opus 4.0',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -72,8 +72,8 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'claude-3-haiku-20240307',
-			name: 'Claude 3 Haiku',
+			id: 'claude-3-5-haiku',
+			name: 'Claude Haiku 3.5',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -81,30 +81,6 @@ export default {
 				reasoning_optional: true,
 				web_search: true,
 				image_input: true
-			}
-		},
-		{
-			enabled: true,
-			id: 'claude-2.1',
-			name: 'Claude 2.1',
-			features: {
-				function_calling: true,
-				structured_output: true,
-				reasoning: true,
-				reasoning_optional: true,
-				web_search: true
-			}
-		},
-		{
-			enabled: true,
-			id: 'claude-instant-1.2',
-			name: 'Claude Instant 1.2',
-			features: {
-				function_calling: true,
-				structured_output: true,
-				reasoning: true,
-				reasoning_optional: true,
-				web_search: true
 			}
 		}
 	]

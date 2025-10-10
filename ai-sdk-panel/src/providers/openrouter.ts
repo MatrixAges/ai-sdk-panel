@@ -1,24 +1,24 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
-	name: 'groq',
+	name: 'openrouter',
 	enabled: true,
 	api_key: '',
 	models: [
 		{
 			enabled: true,
-			id: 'meta-llama/llama-4-scout-17b-16e-instruct',
-			name: 'Llama 4',
+			id: 'deepseek/deepseek-r1-0528:free',
+			name: 'Deepseek R1',
 			features: {
 				function_calling: true,
 				structured_output: true,
-				image_input: true
+				reasoning: true
 			}
 		},
 		{
 			enabled: true,
-			id: 'llama-3.3-70b-versatile',
-			name: 'Llama 3',
+			id: 'deepseek/deepseek-chat-v3-0324:free',
+			name: 'Deepseek V3',
 			features: {
 				function_calling: true,
 				structured_output: true
@@ -26,17 +26,18 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'deepseek-r1-distill-qwen-32b',
-			name: 'Deepseek R1 Distill (Qwen 32B)',
+			id: 'google/gemini-2.0-flash-exp:free',
+			name: 'Gemini 2.0 Flash',
 			features: {
 				function_calling: true,
-				structured_output: true
+				structured_output: true,
+				web_search: true
 			}
 		},
 		{
 			enabled: true,
-			id: 'deepseek-r1-distill-llama-70b',
-			name: 'Deepseek R1 Distill (Llama 70B)',
+			id: 'qwen/qwen3-32b:free',
+			name: 'Qwen3 32B',
 			features: {
 				function_calling: true,
 				structured_output: true

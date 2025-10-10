@@ -13,7 +13,14 @@ const Index = () => {
 	}
 
 	return (
-		<div className='w-screen h-screen flex justify-center items-center bg-amber-50/20'>
+		<div
+			className='
+				flex justify-center items-center
+				w-screen min-h-screen
+				bg-amber-50/20
+				py-20
+			'
+		>
 			<Providers {...props_providers} />
 		</div>
 	)

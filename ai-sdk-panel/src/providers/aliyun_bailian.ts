@@ -1,7 +1,7 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
-	name: 'custom',
+	name: 'aliyun_bailian',
 	enabled: true,
 	api_key: '',
 	base_url: '',

@@ -1,7 +1,7 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
-	name: 'tencent_hunyuan',
+	name: 'custom',
 	enabled: true,
 	api_key: '',
 	base_url: '',

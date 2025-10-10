@@ -27,7 +27,7 @@ import {
 	Volcengine,
 	Zhipu
 } from '@lobehub/icons'
-import { BoulesIcon, RobotIcon } from '@phosphor-icons/react'
+import { BoulesIcon, RobotIcon, EyeClosedIcon } from '@phosphor-icons/react'
 
 import type { IconType } from '@lobehub/icons'
 import type { Icon } from '@phosphor-icons/react'
@@ -57,7 +57,8 @@ export const module_icon = {
 	volcengine: Volcengine,
 	xai: Grok,
 	zhipu: Zhipu,
-	custom: BoulesIcon
+	custom: BoulesIcon,
+	disabled: EyeClosedIcon
 } as Record<string, IconType | Icon>
 
 interface IProps {

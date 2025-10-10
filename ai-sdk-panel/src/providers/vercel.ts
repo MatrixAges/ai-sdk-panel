@@ -1,40 +1,38 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
-	name: 'openai',
+	name: 'vercel',
 	enabled: true,
 	api_key: '',
 	models: [
 		{
 			enabled: true,
-			id: 'gpt-4.1',
-			name: 'GPT 4.1',
+			id: 'v0-1.5-md',
+			name: 'V0 1.5 MD',
 			features: {
 				function_calling: true,
 				structured_output: true,
-				web_search: true,
 				image_input: true
 			}
 		},
 		{
 			enabled: true,
-			id: 'gpt-4o',
-			name: 'GPT 4o',
+			id: 'v0-1.5-lg',
+			name: 'V0 1.5 LG',
 			features: {
 				function_calling: true,
 				structured_output: true,
-				web_search: true,
 				image_input: true
 			}
 		},
 		{
 			enabled: true,
-			id: 'gpt-3.5-turbo',
-			name: 'GPT 3.5 Turbo',
+			id: 'v0-1.0-md',
+			name: 'V0 1.0- MD',
 			features: {
 				function_calling: true,
 				structured_output: true,
-				web_search: true
+				image_input: true
 			}
 		}
 	]

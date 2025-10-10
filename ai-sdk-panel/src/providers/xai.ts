@@ -1,14 +1,14 @@
-import type { PresetProvider } from '../types'
+import type { PresetProvider } from '../components'
 
 export default {
-	name: 'deepseek',
+	name: 'xai',
 	enabled: true,
 	api_key: '',
 	models: [
 		{
 			enabled: true,
-			id: 'deepseek-reasoner',
-			name: 'Deepseek R1',
+			id: 'grok-4-0709',
+			name: 'Grok 4',
 			features: {
 				function_calling: true,
 				structured_output: true,
@@ -17,8 +17,17 @@ export default {
 		},
 		{
 			enabled: true,
-			id: 'deepseek-chat',
-			name: 'Deepseek V3',
+			id: 'grok-3',
+			name: 'Grok 3',
+			features: {
+				function_calling: true,
+				structured_output: true
+			}
+		},
+		{
+			enabled: true,
+			id: 'grok-3-fast',
+			name: 'Grok 3 Fast',
 			features: {
 				function_calling: true,
 				structured_output: true

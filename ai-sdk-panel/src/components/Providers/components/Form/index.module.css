@@ -1,13 +1,13 @@
 @reference '../../../../index.css';
 
 .label {
-	@apply text-asp-gray-900/60 text-xsm;
+	@apply text-std-900/70 text-xsm;
 }
 
 .input_wrap {
-	@apply rounded-2xl border border-asp-gray-200 relative flex items-center bg-asp-white/60 focus-within:border-asp-gray-400 transition-colors duration-150;
+	@apply rounded-2xl border border-std-900/20 relative flex items-center bg-std-white/60 focus-within:border-std-900/50 transition-colors duration-150;
 }
 
 .input {
-	@apply text-xsm w-full outline-none px-4 placeholder:text-asp-gray-300 transition duration-150;
+	@apply text-xsm w-full outline-none px-4 placeholder:text-std-600/50 transition duration-150;
 }
