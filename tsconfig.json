@@ -9,20 +9,20 @@
 		"incremental": true,
 		"module": "esnext",
 		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"paths": {
-			"@/*": ["./*"]
-		},
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"rootDir": "./src",
+		"outDir": "./dist",
 		"forceConsistentCasingInFileNames": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		]
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	},
-	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "postcss.config.mjs"],
-	"exclude": ["node_modules", "./ai-sdk-panel/**/*"]
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": ["node_modules"]
 }

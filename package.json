@@ -1,58 +1,54 @@
 {
-	"name": "monorepo",
-	"version": "1.0.0",
+	"name": "@matrixages/ai-sdk-panel",
+	"version": "0.1.0",
 	"description": "The config panel for ai sdk.",
 	"author": "1yasa",
 	"license": "MIT",
 	"type": "module",
-	"main": "ai-sdk-panel/dist/index.mjs",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"files": [
-		"./ai-sdk-panel/dist",
+		"./dist",
 		"./package.json",
-		"./README.md"
+		"../README.md"
 	],
 	"scripts": {
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-		"dev": "next dev --turbo",
-		"make": "opennextjs-cloudflare build",
-		"preview": "opennextjs-cloudflare preview",
-		"upload": "opennextjs-cloudflare deploy",
-		"deploy": "pnpm run make && pnpm run upload",
-		"login": "wrangler login",
-		"build:lib": "cross-env NODE_ENV=production rslib build",
-		"watch:lib": "cross-env NODE_ENV=development rslib build -w"
-	},
-	"simple-git-hooks": {
-		"pre-commit": "pnpm pretty-quick --pattern \"**/*.*(md|css|js|jsx|ts|tsx)\" --staged"
+		"dev": "cross-env NODE_ENV=development rslib build -w",
+		"build": "cross-env NODE_ENV=production rslib build",
+		"tsc": "tsc"
 	},
 	"dependencies": {
-		"@matrixages/ai-sdk-panel": "workspace:*",
-		"@opennextjs/cloudflare": "^1.9.1",
+		"@dnd-kit/core": "^6.3.1",
+		"@dnd-kit/sortable": "^10.0.0",
+		"@dnd-kit/utilities": "^3.2.2",
+		"@lobehub/icons": "^2.38.0",
 		"@phosphor-icons/react": "^2.1.10",
+		"@swc/helpers": "^0.5.17",
 		"ahooks": "^3.9.5",
 		"classix": "^2.2.4",
 		"es-toolkit": "^1.39.10",
 		"fast-equals": "^5.3.2",
-		"next": "^15.5.4",
 		"react": "^19.2.0",
-		"react-dom": "^19.2.0"
+		"react-dom": "^19.2.0",
+		"react-horizontal-scrolling-menu": "^8.2.0",
+		"rfdc": "^1.4.1",
+		"smooth-scroll-into-view-if-needed": "^2.0.2",
+		"valtio": "^2.1.8",
+		"valtio-reactive": "^0.1.2"
 	},
 	"devDependencies": {
-		"@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+		"@rsbuild/plugin-react": "^1.4.1",
+		"@rslib/core": "^0.15.0",
 		"@tailwindcss/postcss": "^4.1.14",
 		"@types/node": "^24.6.2",
 		"@types/react": "^19.2.0",
 		"@types/react-dom": "^19.2.0",
 		"autoprefixer": "^10.4.21",
+		"cross-env": "^10.1.0",
 		"postcss": "^8.5.6",
 		"postcss-import": "^16.1.1",
-		"postcss-load-config": "^6.0.1",
 		"postcss-nested": "^7.0.2",
-		"prettier": "^3.6.2",
-		"pretty-quick": "^4.2.2",
-		"simple-git-hooks": "^2.13.1",
 		"tailwindcss": "^4.1.14",
-		"typescript": "^5.9.3",
-		"wrangler": "^4.42.0"
+		"typescript": "^5.9.3"
 	}
 }
