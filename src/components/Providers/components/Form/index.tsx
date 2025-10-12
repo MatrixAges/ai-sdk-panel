@@ -1,19 +1,35 @@
 import { memo } from '@/utils'
-import { WifiHighIcon, PlusIcon, ClockClockwiseIcon, EyeClosedIcon } from '@phosphor-icons/react'
-
+import {
+	WifiHighIcon,
+	PlusIcon,
+	ClockClockwiseIcon,
+	EyeClosedIcon,
+	CheckIcon,
+	XIcon,
+	SpinnerIcon
+} from '@phosphor-icons/react'
 import styles from './index.module.css'
+import { Switch } from '@/components'
 
 import type { IPropsForm, SpecialProvider } from '../../types'
 import { useMemo } from 'react'
 
 const Index = (props: IPropsForm) => {
-	const { locales, provider } = props
+	const { locales, provider, test, onTest } = props
 	const { api_key, base_url, models } = provider
+	const { loading, res } = test
 
 	const locales_keys = useMemo(() => Object.keys(locales), [locales])
 
 	const custom_fields = (provider as SpecialProvider)?.custom_fields || {}
 	const custom_keys = Object.keys(custom_fields)
+
+	const Status = useMemo(() => {
+		if (loading) return <SpinnerIcon />
+		if (res == null) return <WifiHighIcon />
+
+		return res ? <CheckIcon size={15} weight='bold' /> : <XIcon size={15} weight='bold' />
+	}, [loading, res])
 
 	return (
 		<div className='flex flex-col w-full gap-5'>
@@ -29,16 +45,21 @@ const Index = (props: IPropsForm) => {
 								blur-xs placeholder-shown:!blur-none ${styles.input}
 							`}
 						/>
-						<span
-							className='
-								w-8 h-8
-								text-xl
-								rounded-full
-								btn absolute right-2
-							'
-						>
-							<WifiHighIcon />
-						</span>
+						{onTest && (
+							<span
+								onClick={onTest}
+								className={`
+									w-8 h-8
+									text-xl
+									absolute
+									rounded-full
+									btn right-2 ${loading && 'animate-spin'}
+									${res !== null && (res ? 'text-lime-300' : 'text-rose-300')}
+								`}
+							>
+								{Status}
+							</span>
+						)}
 					</div>
 				</div>
 			)}
@@ -68,7 +89,8 @@ const Index = (props: IPropsForm) => {
 				<div
 					className='
 						flex flex-col
-						rounded-2xl border border-border-gray
+						border border-border-gray
+						rounded-2xl
 						overflow-hidden
 					'
 				>
@@ -82,8 +104,8 @@ const Index = (props: IPropsForm) => {
 									bg-bg-main
 									border-b border-border-light
 									transition-colors
-									hover:bg-bg-main-hover
-									cursor-pointer last:border-none
+									hover:bg-bg-main-hover active:bg-bg-main-active
+									select-none cursor-pointer last:border-none
 								'
 							>
 								<div className='flex flex-col gap-0.5'>
@@ -99,6 +121,7 @@ const Index = (props: IPropsForm) => {
 											]}
 									</div>
 								</div>
+								<Switch />
 							</div>
 						))
 					) : (
@@ -123,7 +146,8 @@ const Index = (props: IPropsForm) => {
 						p-3
 						text-xsm
 						bg-bg-main
-						rounded-2xl border border-border-gray
+						border border-border-gray
+						rounded-2xl
 						overflow-hidden
 					'
 				>

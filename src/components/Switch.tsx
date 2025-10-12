@@ -1,0 +1,36 @@
+import { Switch } from '@base-ui-components/react/switch'
+import { memo } from '@/utils'
+
+import type {} from '@base-ui-components/react/switch'
+
+const Index = (props: Switch.Root.Props) => {
+	const { checked, onCheckedChange } = props
+
+	return (
+		<Switch.Root
+			className={`
+				flex
+				h-4 w-7
+				p-px
+				bg-solid
+				transition-[background]
+				rounded-full
+				data-[checked]:bg-soft
+			' '
+			`}
+		>
+			<Switch.Thumb
+				className='
+					h-full
+					bg-std-white
+					transition-[translate]
+					rounded-full
+					data-[checked]:translate-x-[calc(var(--spacing)*7-var(--spacing)*4)]
+					aspect-square
+				'
+			/>
+		</Switch.Root>
+	)
+}
+
+export default memo(Index)

@@ -1,6 +1,7 @@
 import 'react-horizontal-scrolling-menu/dist/styles.css'
+import { proxy } from 'valtio'
 
-import { useLayoutEffect, useMemo } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { deepEqual } from 'fast-equals'
 import { useProxy } from 'valtio/utils'
@@ -9,20 +10,21 @@ import { providers_locales } from '@/i18n'
 import { copy, memo } from '@/utils'
 
 import { Custom, Form, Tab } from './components'
-import model from './model'
+import Model from './model'
 
 import type { IPropsCustom, IPropsForm, IPropsProviders, IPropsTab } from './types'
 
 const Index = (props: IPropsProviders) => {
-	const { config, tab, model_type = 'list', locales, width } = props
-	const x = useProxy(model)
+	const { value, tab, model_type = 'list', locales, width, onChange, onTest } = props
+	const state = useRef(proxy(new Model()))
+	const x = useProxy(state.current)
 	const target_config = copy(x.config)
 
 	useLayoutEffect(() => {
-		if (deepEqual(config, x.config)) return
+		if (deepEqual(value, x.config)) return
 
-		x.init(config)
-	}, [config])
+		x.init({ value, onChange, onTest })
+	}, [value, onChange, onTest])
 
 	const props_tab: IPropsTab = {
 		locales: useMemo(() => ({ ...providers_locales.providers, ...locales?.providers }), [locales?.providers]),
@@ -45,10 +47,9 @@ const Index = (props: IPropsProviders) => {
 
 	const props_form: IPropsForm = {
 		locales: useMemo(() => ({ ...providers_locales.desc, ...locales?.desc }), [locales?.desc]),
-		provider: useMemo(
-			() => target_config?.providers.find(item => item.name === x.current)!,
-			[target_config, x.current]
-		)
+		provider: copy(x.provider),
+		test: copy(x.test),
+		onTest: x.onTest
 	}
 
 	const props_custom: IPropsCustom = {

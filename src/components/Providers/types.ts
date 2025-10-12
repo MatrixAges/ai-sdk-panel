@@ -1,6 +1,6 @@
 import { providers_locales } from '@/i18n'
 
-import type { Model as DataModel } from './model'
+import type { default as DataModel } from './model'
 
 export type ProvidersLocales = typeof providers_locales
 
@@ -14,12 +14,16 @@ export interface ListTab {
 }
 
 export interface IPropsProviders {
-	config: Config
+	value: Config
 	tab?: TabTab | ListTab
 	model_type?: 'list' | 'card'
 	locales?: Partial<ProvidersLocales>
 	width?: number | string
+	onChange: (v: Config) => void
+	onTest?: (provider: PresetProvider | SpecialProvider) => Promise<boolean>
 }
+
+export interface ArgsInit extends Pick<IPropsProviders, 'value' | 'onChange' | 'onTest'> {}
 
 export interface IPropsTab {
 	locales: ProvidersLocales['providers']
@@ -38,6 +42,8 @@ export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrent'> {
 export interface IPropsForm {
 	provider: Config['providers'][number]
 	locales: ProvidersLocales['desc']
+	test: DataModel['test']
+	onTest: DataModel['onTest']
 }
 
 export interface IPropsCustom {

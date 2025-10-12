@@ -14,19 +14,9 @@ pnpm i @matrixages/ai-sdk-panel
 
 - **Providers** : component for config ai sdk providers.
 
-- **ModelSelect** : component for select ai model.
-
 ### Providers
 
 The `Providers` props:
-
--
-
--
-
-### ModelSelect
-
-The `ModelSelect` props:
 
 -
 
