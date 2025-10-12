@@ -68,7 +68,7 @@ const Index = (props: IPropsForm) => {
 				<div
 					className='
 						flex flex-col
-						rounded-2xl border border-std-600/10
+						rounded-2xl border border-border-gray
 						overflow-hidden
 					'
 				>
@@ -79,16 +79,16 @@ const Index = (props: IPropsForm) => {
 								className='
 									flex justify-between items-center
 									p-4
-									bg-std-white/60
-									border-b border-std-400/10
+									bg-bg-main
+									border-b border-border-light
 									transition-colors
-									hover:bg-std-100/10
+									hover:bg-bg-main-hover
 									cursor-pointer last:border-none
 								'
 							>
 								<div className='flex flex-col gap-0.5'>
 									<span className={`${styles.label}`}>{item.name}</span>
-									<div className='flex items-center text-xs text-std-900/30'>
+									<div className='flex items-center text-xs text-softlight'>
 										{item.desc ||
 											locales[
 												locales_keys.find(i => item.id === i) ||
@@ -105,8 +105,8 @@ const Index = (props: IPropsForm) => {
 						<div
 							className='
 								flex justify-center
-								text-xsm text-std-600/50
-								bg-std-white/60
+								text-xsm text-soft
+								bg-bg-main
 								px-4 py-5
 							'
 						>
@@ -122,8 +122,8 @@ const Index = (props: IPropsForm) => {
 						flex justify-between
 						p-3
 						text-xsm
-						bg-std-white/60
-						rounded-2xl border border-std-600/10
+						bg-bg-main
+						rounded-2xl border border-border-gray
 						overflow-hidden
 					'
 				>
