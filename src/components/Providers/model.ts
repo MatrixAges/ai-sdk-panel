@@ -25,7 +25,14 @@ export default class Index {
 		this.refs.onChange = onChange
 		this.refs.onTest = onTest
 
+		this.onProviderChange = this.onProviderChange.bind(this)
 		this.onTest = this.onTest.bind(this)
+	}
+
+	onProviderChange(v: Partial<Index['provider']>) {
+		const index = this.config?.providers.findIndex(item => item.name === this.current)!
+
+		this.config!.providers[index] = { ...this.config?.providers[index], ...v } as Index['provider']
 	}
 
 	async onTest() {

@@ -44,10 +44,19 @@ export interface IPropsForm {
 	locales: ProvidersLocales['desc']
 	test: DataModel['test']
 	onTest: DataModel['onTest']
+	onProviderChange: DataModel['onProviderChange']
 }
 
 export interface IPropsFormAPIKey extends Pick<IPropsForm, 'test' | 'onTest'> {
 	api_key: IPropsForm['provider']['api_key']
+}
+
+export interface IPropsFormBaseUrl {
+	base_url: IPropsForm['provider']['base_url']
+}
+
+export interface IPropsFormCustomFields {
+	custom_fields: SpecialProvider['custom_fields']
 }
 
 export interface IPropsCustom {

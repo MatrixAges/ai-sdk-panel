@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { memo } from '@/utils'
 
-import { WifiHighIcon, CheckIcon, XIcon, SpinnerIcon } from '@phosphor-icons/react'
+import { memo } from '@/utils'
+import { CheckIcon, SpinnerIcon, WifiHighIcon, XIcon } from '@phosphor-icons/react'
 
 import styles from './index.module.css'
 
@@ -26,6 +26,8 @@ const Index = (props: IPropsFormAPIKey) => {
 			<div className={`${styles.input_wrap} border-border-solid h-14`}>
 				<input
 					placeholder='sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+					name='api_key'
+					defaultValue={api_key}
 					className={`
 						h-full
 						focus:blur-none

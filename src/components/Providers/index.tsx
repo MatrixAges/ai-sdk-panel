@@ -1,9 +1,9 @@
 import 'react-horizontal-scrolling-menu/dist/styles.css'
-import { proxy } from 'valtio'
 
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { deepEqual } from 'fast-equals'
+import { proxy } from 'valtio'
 import { useProxy } from 'valtio/utils'
 
 import { providers_locales } from '@/i18n'
@@ -34,12 +34,7 @@ const Index = (props: IPropsProviders) => {
 
 			return target_config.providers
 				.map(item => ({ name: item.name, enabled: item.enabled }))
-				.concat(
-					...[
-						{ name: 'custom', enabled: true },
-						{ name: 'disabled', enabled: true }
-					]
-				)
+				.concat({ name: 'custom', enabled: true }, { name: 'disabled', enabled: true })
 		}, [target_config]),
 		current: x.current,
 		onChangeCurrent: useMemoizedFn((v: string) => (x.current = v))
@@ -49,7 +44,8 @@ const Index = (props: IPropsProviders) => {
 		locales: useMemo(() => ({ ...providers_locales.desc, ...locales?.desc }), [locales?.desc]),
 		provider: copy(x.provider),
 		test: copy(x.test),
-		onTest: x.onTest
+		onTest: x.onTest,
+		onProviderChange: x.onProviderChange
 	}
 
 	const props_custom: IPropsCustom = {

@@ -1,62 +1,41 @@
-import { useMemo } from 'react'
-import { memo } from '@/utils'
-import {
-	WifiHighIcon,
-	PlusIcon,
-	ClockClockwiseIcon,
-	EyeClosedIcon,
-	CheckIcon,
-	XIcon,
-	SpinnerIcon
-} from '@phosphor-icons/react'
-import styles from './index.module.css'
+import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useMemoizedFn } from 'ahooks'
+
 import { Switch } from '@/components'
+import { memo } from '@/utils'
+import { ClockClockwiseIcon, EyeClosedIcon, PlusIcon } from '@phosphor-icons/react'
+
 import APIKey from './APIKey'
+import BaseUrl from './BaseUrl'
+import CustomFields from './CustomFields'
+
+import styles from './index.module.css'
 
 import type { IPropsForm, SpecialProvider } from '../../types'
 
 const Index = (props: IPropsForm) => {
-	const { locales, provider, test, onTest } = props
+	const { locales, provider, test, onTest, onProviderChange } = props
 	const { api_key, base_url, models } = provider
-	const { loading, res } = test
+	const form = useRef<HTMLFormElement>(null)
+
+	useLayoutEffect(() => {
+		form.current!.reset()
+	}, [provider])
 
 	const locales_keys = useMemo(() => Object.keys(locales), [locales])
 
-	const custom_fields = (provider as SpecialProvider)?.custom_fields || {}
-	const custom_keys = Object.keys(custom_fields)
+	const onValuesChange = useMemoizedFn(() => {
+		const form_data = new FormData(form.current!)
+		const data = Object.fromEntries(form_data.entries()) as Partial<IPropsForm['provider']>
+
+		onProviderChange({ ...provider, ...data })
+	})
 
 	return (
-		<div className='flex flex-col w-full gap-5'>
+		<form onChange={onValuesChange} ref={form} className='flex flex-col w-full gap-5'>
 			<APIKey {...{ api_key, test, onTest }} />
-			{base_url !== undefined && (
-				<div className='flex flex-col gap-2.5'>
-					<span className={`${styles.label}`}>Base URL</span>
-					<input
-						placeholder='sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-						defaultValue={provider.base_url}
-						className={`
-							h-14
-							border-border-gray
-							${styles.input_wrap} ${styles.input}
-						`}
-					/>
-				</div>
-			)}
-			{custom_keys.length > 0 &&
-				custom_keys.map(key => (
-					<div key={key} className='flex flex-col gap-2.5'>
-						<span className={`${styles.label}`}>{key}</span>
-						<input
-							placeholder={`Input field ${key}`}
-							defaultValue={custom_fields[key]}
-							className={`
-								h-14
-								border-border-gray
-								${styles.input_wrap} ${styles.input}
-							`}
-						/>
-					</div>
-				))}
+			<BaseUrl {...{ base_url }} />
+			<CustomFields custom_fields={(provider as SpecialProvider).custom_fields} />
 			<div className='flex flex-col gap-2.5'>
 				<span className={`${styles.label}`}>Models</span>
 				<div
@@ -140,7 +119,7 @@ const Index = (props: IPropsForm) => {
 					</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	)
 }
 

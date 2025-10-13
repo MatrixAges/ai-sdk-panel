@@ -1,5 +1,5 @@
-import { Switch } from '@base-ui-components/react/switch'
 import { memo } from '@/utils'
+import { Switch } from '@base-ui-components/react/switch'
 
 import type {} from '@base-ui-components/react/switch'
 
@@ -15,10 +15,10 @@ const Index = (props: Switch.Root.Props) => {
 					flex
 					h-4 w-7
 					p-px
-					bg-solid
+					bg-soft/30
 					transition-[background]
 					rounded-full
-					data-[checked]:bg-soft
+					data-[checked]:bg-solid
 				'
 			>
 				<Switch.Thumb
