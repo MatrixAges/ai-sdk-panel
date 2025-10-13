@@ -46,6 +46,10 @@ export interface IPropsForm {
 	onTest: DataModel['onTest']
 }
 
+export interface IPropsFormAPIKey extends Pick<IPropsForm, 'test' | 'onTest'> {
+	api_key: IPropsForm['provider']['api_key']
+}
+
 export interface IPropsCustom {
 	custom_providers: Config['custom_providers']
 }

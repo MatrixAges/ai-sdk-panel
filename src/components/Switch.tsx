@@ -7,29 +7,32 @@ const Index = (props: Switch.Root.Props) => {
 	const { checked, onCheckedChange } = props
 
 	return (
-		<Switch.Root
-			className={`
-				flex
-				h-4 w-7
-				p-px
-				bg-solid
-				transition-[background]
-				rounded-full
-				data-[checked]:bg-soft
-			' '
-			`}
-		>
-			<Switch.Thumb
+		<div onClick={e => e.stopPropagation()}>
+			<Switch.Root
+				checked={checked}
+				onCheckedChange={onCheckedChange}
 				className='
-					h-full
-					bg-std-white
-					transition-[translate]
+					flex
+					h-4 w-7
+					p-px
+					bg-solid
+					transition-[background]
 					rounded-full
-					data-[checked]:translate-x-[calc(var(--spacing)*7-var(--spacing)*4)]
-					aspect-square
+					data-[checked]:bg-soft
 				'
-			/>
-		</Switch.Root>
+			>
+				<Switch.Thumb
+					className='
+						h-full
+						bg-std-white
+						transition-[translate]
+						rounded-full
+						data-[checked]:translate-x-[calc(var(--spacing)*7-var(--spacing)*4)]
+						aspect-square
+					'
+				/>
+			</Switch.Root>
+		</div>
 	)
 }
 
