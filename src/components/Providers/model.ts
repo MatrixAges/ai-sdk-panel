@@ -4,8 +4,10 @@ import type { ArgsInit, Config, IPropsProviders } from './types'
 
 export default class Index {
 	config = null as Config | null
-	current = ''
+	current_tab = 0
+	current_model = null as number | null
 	test = { loading: false, res: null as boolean | null }
+
 	refs = ref({
 		timer_test: null as NodeJS.Timeout | null,
 		onChange: null as unknown as IPropsProviders['onChange'],
@@ -13,14 +15,13 @@ export default class Index {
 	})
 
 	get provider() {
-		return this.config?.providers.find(item => item.name === this.current)!
+		return this.config?.providers[this.current_tab]!
 	}
 
 	init(args: ArgsInit) {
-		const { value, onChange, onTest } = args
+		const { config, onChange, onTest } = args
 
-		this.config = value
-		this.current = value.providers[0].name
+		this.config = config
 
 		this.refs.onChange = onChange
 		this.refs.onTest = onTest
@@ -29,10 +30,8 @@ export default class Index {
 		this.onTest = this.onTest.bind(this)
 	}
 
-	onProviderChange(v: Partial<Index['provider']>) {
-		const index = this.config?.providers.findIndex(item => item.name === this.current)!
-
-		this.config!.providers[index] = { ...this.config?.providers[index], ...v } as Index['provider']
+	onProviderChange(v: Index['provider']) {
+		this.config!.providers[this.current_tab] = v
 	}
 
 	async onTest() {

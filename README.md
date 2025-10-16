@@ -1,6 +1,6 @@
 # AI SDK Panel
 
-The config panel for AI SDK, built with shadcn-ui and tailwind.css.
+The config panel for AI SDK, built with base-ui, tailwind.css, react-hook-form and valtio.
 
 ## Install
 

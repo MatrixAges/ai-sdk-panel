@@ -5,9 +5,9 @@
 }
 
 .input_wrap {
-	@apply rounded-2xl border relative flex items-center bg-bg-main focus-within:border-border-solid-active transition-colors duration-150;
+	@apply rounded-2xl border relative flex items-center bg-bg-main focus-within:border-border-solid-active transition-colors;
 }
 
 .input {
-	@apply text-xsm w-full outline-none px-4 placeholder:text-soft transition duration-150;
+	@apply rounded-2xl text-xsm w-full outline-none px-4 placeholder:text-soft transition-colors;
 }

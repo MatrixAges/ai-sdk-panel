@@ -56,7 +56,7 @@
 }
 
 @utility clickable {
-	@apply cursor-pointer select-none active:scale-95 transition-all duration-150;
+	@apply cursor-pointer select-none active:scale-95 transition-all;
 }
 
 @layer components {

@@ -8,7 +8,7 @@ import Item from './Item'
 import type { IPropsTab, ProvidersLocales } from '../../types'
 
 const Index = (props: IPropsTab) => {
-	const { locales, tab = { type: 'tab', layout: 'between' }, items, current, onChangeCurrent } = props
+	const { locales, tab = { type: 'tab', layout: 'between' }, items, current_tab, onChangeCurrentTab } = props
 
 	const { scroller, container } = useMemo(() => {
 		const styles = { scroller: '', container: '' }
@@ -29,12 +29,13 @@ const Index = (props: IPropsTab) => {
 		return styles
 	}, [tab])
 
-	const Items = items.map(item => (
+	const Items = items.map((item, index) => (
 		<Item
+			index={index}
 			display_name={locales[item.name as keyof ProvidersLocales['providers']]}
-			active={current === item.name}
-			{...{ item, onChangeCurrent }}
+			active={current_tab === index}
 			key={item.name}
+			{...{ item, onChangeCurrentTab }}
 		/>
 	))
 

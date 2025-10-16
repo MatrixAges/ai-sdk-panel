@@ -1,5 +1,6 @@
 import { providers_locales } from '@/i18n'
 
+import type { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import type { default as DataModel } from './model'
 
 export type ProvidersLocales = typeof providers_locales
@@ -14,26 +15,29 @@ export interface ListTab {
 }
 
 export interface IPropsProviders {
-	value: Config
-	tab?: TabTab | ListTab
-	model_type?: 'list' | 'card'
+	config: Config
+	variant?: {
+		tab?: TabTab | ListTab
+		model?: 'list' | 'card'
+	}
 	locales?: Partial<ProvidersLocales>
 	width?: number | string
 	onChange: (v: Config) => void
 	onTest?: (provider: PresetProvider | SpecialProvider) => Promise<boolean>
 }
 
-export interface ArgsInit extends Pick<IPropsProviders, 'value' | 'onChange' | 'onTest'> {}
+export interface ArgsInit extends Pick<IPropsProviders, 'config' | 'onChange' | 'onTest'> {}
 
 export interface IPropsTab {
 	locales: ProvidersLocales['providers']
-	tab: IPropsProviders['tab']
+	tab: Required<IPropsProviders>['variant']['tab']
 	items: Array<Pick<Provider, 'name' | 'enabled'>>
-	current: DataModel['current']
-	onChangeCurrent: (v: string) => void
+	current_tab: DataModel['current_tab']
+	onChangeCurrentTab: (v: number) => void
 }
 
-export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrent'> {
+export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrentTab'> {
+	index: number
 	item: IPropsTab['items'][number]
 	display_name: string
 	active: boolean
@@ -41,22 +45,47 @@ export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrent'> {
 
 export interface IPropsForm {
 	provider: Config['providers'][number]
-	locales: ProvidersLocales['desc']
+	locales: ProvidersLocales['form']
 	test: DataModel['test']
+	current_model: DataModel['current_model']
 	onTest: DataModel['onTest']
 	onProviderChange: DataModel['onProviderChange']
+	onChangeCurrentModel: (v: number) => void
 }
 
 export interface IPropsFormAPIKey extends Pick<IPropsForm, 'test' | 'onTest'> {
 	api_key: IPropsForm['provider']['api_key']
+	register: UseFormRegister<IPropsForm['provider']>
 }
 
 export interface IPropsFormBaseUrl {
 	base_url: IPropsForm['provider']['base_url']
+	register: UseFormRegister<IPropsForm['provider']>
 }
 
 export interface IPropsFormCustomFields {
 	custom_fields: SpecialProvider['custom_fields']
+	register: UseFormRegister<IPropsForm['provider']>
+}
+
+export interface IPropsFormModels extends Pick<IPropsForm, 'current_model' | 'onChangeCurrentModel'> {
+	models: SpecialProvider['models']
+	control: Control<IPropsForm['provider']>
+	locales_desc: IPropsForm['locales']['desc']
+	register: UseFormRegister<IPropsForm['provider']>
+	setValue: UseFormSetValue<IPropsForm['provider']>
+}
+
+export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'locales_desc' | 'onChangeCurrentModel'> {
+	index: number
+	item: Model
+	desc_keys: Array<string>
+}
+
+export interface IPropsFormModelForm {
+	index: number
+	item: Model
+	register: UseFormRegister<IPropsForm['provider']>
 }
 
 export interface IPropsCustom {
@@ -64,9 +93,11 @@ export interface IPropsCustom {
 }
 
 export interface Config {
-	providers: Array<PresetProvider | SpecialProvider>
+	providers: Array<ConfigProvider>
 	custom_providers?: Array<Provider>
 }
+
+export type ConfigProvider = PresetProvider | SpecialProvider
 
 export interface Provider {
 	name: string
@@ -92,6 +123,7 @@ export interface Model {
 	name: string
 	id: string
 	enabled: boolean
+	fid?: string
 	desc?: string
 	features?: Features
 }

@@ -6,11 +6,11 @@ import { useScrollToItem } from '@/hooks'
 import type { IPropsTabItem } from '../../types'
 
 const Index = (props: IPropsTabItem) => {
-	const { item, display_name, active, onChangeCurrent } = props
+	const { index, item, display_name, active, onChangeCurrentTab } = props
 
 	useScrollToItem(item.name, active)
 
-	const onClick = useMemoizedFn(() => onChangeCurrent(item.name))
+	const onClick = useMemoizedFn(() => onChangeCurrentTab(index))
 
 	return (
 		<div
@@ -20,9 +20,10 @@ const Index = (props: IPropsTabItem) => {
 				flex flex-col items-center
 				gap-3
 				text-light
-				hover:text-gray-600
 				group
-				data-[active=true]:!text-dark clickable
+				data-[active=true]:!text-dark
+				hover:text-gray-600
+				clickable
 			'
 		>
 			<span className='flex justify-center items-center text-xl'>

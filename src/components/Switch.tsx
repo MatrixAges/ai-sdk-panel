@@ -1,16 +1,16 @@
 import { memo } from '@/utils'
 import { Switch } from '@base-ui-components/react/switch'
 
-import type {} from '@base-ui-components/react/switch'
+import type { ControllerRenderProps } from 'react-hook-form'
 
-const Index = (props: Switch.Root.Props) => {
-	const { checked, onCheckedChange } = props
+interface IProps {}
+
+const Index = (props: IProps) => {
+	const { name, value, ref, onChange } = props as ControllerRenderProps
 
 	return (
 		<div onClick={e => e.stopPropagation()}>
 			<Switch.Root
-				checked={checked}
-				onCheckedChange={onCheckedChange}
 				className='
 					flex
 					h-4 w-7
@@ -20,6 +20,10 @@ const Index = (props: Switch.Root.Props) => {
 					rounded-full
 					data-[checked]:bg-solid
 				'
+				name={name}
+				checked={value}
+				inputRef={ref}
+				onCheckedChange={onChange}
 			>
 				<Switch.Thumb
 					className='
