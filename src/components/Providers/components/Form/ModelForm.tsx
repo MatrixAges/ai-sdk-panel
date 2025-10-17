@@ -19,7 +19,7 @@ const Index = (props: IPropsFormModelForm) => {
 							w-full h-full
 							leading-none
 							outline-none
-							placeholder:text-soft disabled:text-gray
+							autofill-transparent placeholder:text-soft disabled:text-gray
 						`}
 						placeholder='Input model ID'
 						disabled={!adding_model}

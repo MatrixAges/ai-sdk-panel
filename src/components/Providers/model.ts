@@ -1,4 +1,7 @@
 import { ref } from 'valtio'
+import { deepClone } from 'valtio/utils'
+
+import { downloadFile, uploadFile } from '@/utils'
 
 import type { ArgsInit, Config, IPropsProviders } from './types'
 
@@ -23,17 +26,22 @@ export default class Index {
 	init(args: ArgsInit) {
 		const { config, onChange, onTest } = args
 
-		this.config = config
+		this.config = deepClone(config)
 
 		this.refs.onChange = onChange
 		this.refs.onTest = onTest
 
 		this.onProviderChange = this.onProviderChange.bind(this)
+		this.download = this.download.bind(this)
 		this.onTest = this.onTest.bind(this)
 	}
 
 	onProviderChange(v: Index['provider']) {
 		this.config!.providers[this.current_tab] = v
+	}
+
+	download() {
+		downloadFile('ai-sdk-provider.config', JSON.stringify(this.config, null, 6), 'json')
 	}
 
 	async onTest() {
@@ -49,4 +57,6 @@ export default class Index {
 			this.test.res = null
 		}, 2400)
 	}
+
+	async upload() {}
 }

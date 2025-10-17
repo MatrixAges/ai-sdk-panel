@@ -1,6 +1,7 @@
 import { useMemoizedFn } from 'ahooks'
+import { deepClone } from 'valtio/utils'
 
-import { copy, memo } from '@/utils'
+import { memo } from '@/utils'
 
 import Feature, { feature_keys, feature_metadata } from './Feature'
 
@@ -16,7 +17,7 @@ const Index = (props: IPropsFormModelFormFeatures) => {
 	} = props as IPropsFormModelFormFeatures & ControllerRenderProps
 
 	const onItem = useMemoizedFn((key: string) => {
-		const target = copy(features) || {}
+		const target = deepClone(features) || {}
 
 		target[key] = !target[key]
 

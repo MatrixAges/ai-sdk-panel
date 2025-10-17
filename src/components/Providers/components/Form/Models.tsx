@@ -1,5 +1,4 @@
 import { Fragment, useMemo } from 'react'
-import { useFieldArray } from 'react-hook-form'
 
 import { Show } from '@/components'
 import { memo } from '@/utils'
@@ -13,21 +12,6 @@ const Index = (props: IPropsFormModels) => {
 	const { models, control, locales, current_model, register, onChangeCurrentModel } = props
 
 	const desc_keys = useMemo(() => Object.keys(locales.desc), [locales.desc])
-
-	const { fields, append, remove } = useFieldArray({
-		control,
-		name: 'models',
-		keyName: '_'
-	})
-
-	const target_fields = useMemo(() => {
-		return fields.map(item => {
-			// @ts-ignore
-			delete item['_']
-
-			return item
-		})
-	}, [fields])
 
 	if (!models?.length)
 		return (
@@ -54,7 +38,7 @@ const Index = (props: IPropsFormModels) => {
 				overflow-hidden
 			'
 		>
-			{target_fields.map((item, index) => (
+			{models.map((item, index) => (
 				<Fragment key={item.id}>
 					<Model
 						locales_desc={locales.desc}

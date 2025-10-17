@@ -51,6 +51,7 @@ export interface IPropsForm {
 	adding_model: DataModel['adding_model']
 	onTest: DataModel['onTest']
 	onProviderChange: DataModel['onProviderChange']
+	download: DataModel['download']
 	onChangeCurrentModel: (v: number) => void
 	toggleAddingModel: () => void
 }

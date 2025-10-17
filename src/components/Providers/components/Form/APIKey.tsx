@@ -41,7 +41,7 @@ const Index = (props: IPropsFormAPIKey) => {
 							absolute
 							rounded-full
 							btn right-2 ${loading && 'animate-spin'}
-							${res !== null && (res ? 'text-lime-500' : 'text-rose-300')}
+							${res !== null && (res ? 'text-lime-500' : 'text-rose-400')}
 						`}
 						onClick={onTest}
 					>

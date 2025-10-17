@@ -4,12 +4,11 @@ import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { deepmerge } from 'deepmerge-ts'
 import { deepEqual } from 'fast-equals'
-import { motion } from 'motion/react'
 import { proxy } from 'valtio'
-import { useProxy } from 'valtio/utils'
+import { deepClone, useProxy } from 'valtio/utils'
 
 import { providers_locales } from '@/i18n'
-import { copy, memo } from '@/utils'
+import { memo } from '@/utils'
 
 import AnimateBox from '../AnimateBox'
 import { Custom, Form, Tab } from './components'
@@ -22,7 +21,7 @@ const Index = (props: IPropsProviders) => {
 	const { tab, model = 'list' } = variant || {}
 	const state = useRef(proxy(new Model()))
 	const x = useProxy(state.current)
-	const target_config = copy(x.config)
+	const target_config = deepClone(x.config)
 	const target_locales = deepmerge(providers_locales, locales)
 
 	useLayoutEffect(() => {
@@ -44,18 +43,20 @@ const Index = (props: IPropsProviders) => {
 		current_tab: x.current_tab,
 		onChangeCurrentTab: useMemoizedFn((v: number) => {
 			x.current_model = null
+			x.adding_model = false
 			x.current_tab = v
 		})
 	}
 
 	const props_form: IPropsForm = {
 		locales: target_locales['form']!,
-		provider: copy(x.provider),
-		test: copy(x.test),
+		provider: deepClone(x.provider),
+		test: deepClone(x.test),
 		current_model: x.current_model,
 		adding_model: x.adding_model,
 		onTest: x.onTest,
 		onProviderChange: x.onProviderChange,
+		download: x.download,
 		onChangeCurrentModel: useMemoizedFn((v: number) => {
 			x.current_model = v === x.current_model ? null : v
 		}),
