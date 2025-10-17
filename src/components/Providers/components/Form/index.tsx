@@ -29,6 +29,7 @@ const Index = (props: IPropsForm) => {
 		onTest,
 		onProviderChange,
 		download,
+		upload,
 		onChangeCurrentModel,
 		toggleAddingModel
 	} = props
@@ -215,7 +216,7 @@ const Index = (props: IPropsForm) => {
 							<ClockClockwiseIcon className='text-sm' />
 							Export Config
 						</button>
-						<button className='rounded-2xl px-2.5 py-1.5 btn' type='button'>
+						<button className='rounded-2xl px-2.5 py-1.5 btn' type='button' onClick={upload}>
 							<ClockClockwiseIcon className='text-sm' />
 							Import Config
 						</button>

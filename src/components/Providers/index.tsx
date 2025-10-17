@@ -7,6 +7,7 @@ import { deepEqual } from 'fast-equals'
 import { proxy } from 'valtio'
 import { deepClone, useProxy } from 'valtio/utils'
 
+import { Show } from '@/components'
 import { providers_locales } from '@/i18n'
 import { memo } from '@/utils'
 
@@ -57,6 +58,7 @@ const Index = (props: IPropsProviders) => {
 		onTest: x.onTest,
 		onProviderChange: x.onProviderChange,
 		download: x.download,
+		upload: x.upload,
 		onChangeCurrentModel: useMemoizedFn((v: number) => {
 			x.current_model = v === x.current_model ? null : v
 		}),
@@ -78,6 +80,14 @@ const Index = (props: IPropsProviders) => {
 				) : (
 					<Form {...props_form} />
 				)}
+				<Show
+					className='text-rose-400 text-xsm overflow-hidden py-2'
+					visible={x.upload_error !== ''}
+					initial={{ opacity: 0, width: 0 }}
+					animate={{ opacity: 1, width: 'auto' }}
+				>
+					{x.upload_error}
+				</Show>
 			</AnimateBox>
 		</div>
 	)

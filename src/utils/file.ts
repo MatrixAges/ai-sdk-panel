@@ -18,7 +18,7 @@ export const downloadFile = (filename: string, text: string, ext: string, mime_t
 }
 
 export const uploadFile = (args?: { max_count?: number; accept?: string }) => {
-	const { max_count, accept } = args || {}
+	const { max_count = 1, accept } = args || {}
 	const input = document.createElement('input') as HTMLInputElement
 
 	input.style.display = 'none'
@@ -27,7 +27,7 @@ export const uploadFile = (args?: { max_count?: number; accept?: string }) => {
 
 	if (accept) input.accept = accept
 
-	const { promise, resolve } = Promise.withResolvers<Array<File> | false>()
+	const { promise, resolve } = Promise.withResolvers<Array<File> | File | false>()
 
 	const onChange = (e: Event) => {
 		let files = Array.from((e.target as HTMLInputElement).files!)
@@ -39,7 +39,7 @@ export const uploadFile = (args?: { max_count?: number; accept?: string }) => {
 		input.removeEventListener('change', onChange)
 		input.remove()
 
-		resolve(files)
+		resolve(max_count === 1 ? files[0] : files)
 	}
 
 	input.addEventListener('change', onChange)

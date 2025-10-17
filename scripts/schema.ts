@@ -8,7 +8,7 @@ const cwd = process.cwd()
 const input_path = resolve(`${cwd}/src/components/Providers/types.ts`)
 const output_path = resolve(`${cwd}/src/schema.json`)
 
-const config = { path: input_path, type: 'Config', skipTypeCheck: true } as Config
+const config = { path: input_path, type: 'Config', skipTypeCheck: true, schemaId: 'https://_.json' } as Config
 
 const schema = tsj.createGenerator(config).createSchema(config.type)
 
