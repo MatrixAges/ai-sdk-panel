@@ -1,6 +1,6 @@
 import { providers_locales } from '@/i18n'
 
-import type { Control, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import type { Control, UseFormRegister } from 'react-hook-form'
 import type { default as DataModel } from './model'
 
 export type ProvidersLocales = typeof providers_locales
@@ -48,9 +48,11 @@ export interface IPropsForm {
 	locales: ProvidersLocales['form']
 	test: DataModel['test']
 	current_model: DataModel['current_model']
+	adding_model: DataModel['adding_model']
 	onTest: DataModel['onTest']
 	onProviderChange: DataModel['onProviderChange']
 	onChangeCurrentModel: (v: number) => void
+	toggleAddingModel: () => void
 }
 
 export interface IPropsFormAPIKey extends Pick<IPropsForm, 'test' | 'onTest'> {
@@ -69,23 +71,30 @@ export interface IPropsFormCustomFields {
 }
 
 export interface IPropsFormModels extends Pick<IPropsForm, 'current_model' | 'onChangeCurrentModel'> {
+	locales: IPropsForm['locales']
 	models: SpecialProvider['models']
 	control: Control<IPropsForm['provider']>
-	locales_desc: IPropsForm['locales']['desc']
 	register: UseFormRegister<IPropsForm['provider']>
-	setValue: UseFormSetValue<IPropsForm['provider']>
 }
 
-export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'locales_desc' | 'onChangeCurrentModel'> {
+export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onChangeCurrentModel'> {
+	locales_desc: IPropsFormModels['locales']['desc']
 	index: number
 	item: Model
 	desc_keys: Array<string>
 }
 
 export interface IPropsFormModelForm {
-	index: number
-	item: Model
-	register: UseFormRegister<IPropsForm['provider']>
+	locales_features: IPropsFormModels['locales']['features']
+	control: Control<IPropsForm['provider']> | Control<Model>
+	index?: number
+	item?: Model
+	adding_model?: DataModel['adding_model']
+	register: UseFormRegister<IPropsForm['provider']> | UseFormRegister<Model>
+}
+
+export interface IPropsFormModelFormFeatures {
+	locales_features: IPropsFormModelForm['locales_features']
 }
 
 export interface IPropsCustom {

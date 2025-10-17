@@ -10,9 +10,9 @@ import ModelForm from './ModelForm'
 import type { IPropsFormModels } from '../../types'
 
 const Index = (props: IPropsFormModels) => {
-	const { models, control, locales_desc, current_model, register, setValue, onChangeCurrentModel } = props
+	const { models, control, locales, current_model, register, onChangeCurrentModel } = props
 
-	const desc_keys = useMemo(() => Object.keys(locales_desc), [locales_desc])
+	const desc_keys = useMemo(() => Object.keys(locales.desc), [locales.desc])
 
 	const { fields, append, remove } = useFieldArray({
 		control,
@@ -29,7 +29,7 @@ const Index = (props: IPropsFormModels) => {
 		})
 	}, [fields])
 
-	if (!models?.length || locales_desc.desc)
+	if (!models?.length)
 		return (
 			<div
 				className='
@@ -56,24 +56,25 @@ const Index = (props: IPropsFormModels) => {
 		>
 			{target_fields.map((item, index) => (
 				<Fragment key={item.id}>
-					<Model {...{ index, item, control, locales_desc, desc_keys, onChangeCurrentModel }} />
+					<Model
+						locales_desc={locales.desc}
+						{...{ index, item, control, desc_keys, onChangeCurrentModel }}
+					/>
 					<Show
 						className='overflow-hidden'
 						visible={current_model !== null && current_model === index}
 						initial={{ opacity: 0, height: 0 }}
 						animate={{ opacity: 1, height: 'auto' }}
 					>
-						<ModelForm {...{ item, index, register }} />
+						<ModelForm
+							locales_features={locales.features}
+							{...{ item, index, control, register }}
+						/>
 					</Show>
 				</Fragment>
 			))}
 		</div>
 	)
 }
-
-const Test = memo(() => {
-	console.log('test')
-	return null
-})
 
 export default memo(Index)

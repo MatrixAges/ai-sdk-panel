@@ -23,7 +23,7 @@ const Index = (props: IProps) => {
 				focus-within:border-b-border-solid-active
 				nth-of-type-[2n]:border-r-0 ${valued && 'justify-start'}
 				${className}
-			`}
+`}
 		>
 			<label
 				className={`
@@ -35,7 +35,7 @@ const Index = (props: IProps) => {
 					group-focus-within:text-[10px]
 					left-0 px-3 top-2 capitalize
 					${valued ? 'text-[10px]' : 'group-not-focus-within:top-5'}
-				`}
+`}
 			>
 				{label}
 			</label>
@@ -43,10 +43,11 @@ const Index = (props: IProps) => {
 				className={`
 					flex
 					w-full h-full
+					text-solid
 					transition-opacity
 					absolute
 					pt-4 px-3 left-0 ${!valued && 'group-not-focus-within:opacity-0'}
-				`}
+`}
 			>
 				{children}
 			</div>

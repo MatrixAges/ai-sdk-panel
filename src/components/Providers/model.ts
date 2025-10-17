@@ -7,6 +7,8 @@ export default class Index {
 	current_tab = 0
 	current_model = null as number | null
 	test = { loading: false, res: null as boolean | null }
+	adding_model = false
+	adding_provider = false
 
 	refs = ref({
 		timer_test: null as NodeJS.Timeout | null,

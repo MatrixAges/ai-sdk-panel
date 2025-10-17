@@ -110,6 +110,19 @@ export default {
 			'grok-3-fast': 'Speed-optimized variant.',
 
 			no_desc: 'This model has no description, you can search by yourself.'
-		} as Record<string, string>
+		} as Record<string, string>,
+		features: {
+			vision: 'Vision Model',
+			voice: 'Voice Model',
+			function_calling: 'Function Calling',
+			structured_output: 'Structured Output',
+			reasoning: 'Reasoning',
+			reasoning_optional: 'Optional Reasoning',
+			web_search: 'Web Search',
+			image_input: 'Image Input',
+			image_output: 'Image Output',
+			embedding: 'Embedding',
+			reranking: 'Reranking'
+		}
 	}
 }

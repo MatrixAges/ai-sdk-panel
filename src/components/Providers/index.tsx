@@ -53,11 +53,13 @@ const Index = (props: IPropsProviders) => {
 		provider: copy(x.provider),
 		test: copy(x.test),
 		current_model: x.current_model,
+		adding_model: x.adding_model,
 		onTest: x.onTest,
 		onProviderChange: x.onProviderChange,
 		onChangeCurrentModel: useMemoizedFn((v: number) => {
 			x.current_model = v === x.current_model ? null : v
-		})
+		}),
+		toggleAddingModel: useMemoizedFn(() => (x.adding_model = !x.adding_model))
 	}
 
 	const props_custom: IPropsCustom = {
