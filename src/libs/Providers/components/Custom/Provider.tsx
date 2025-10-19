@@ -32,7 +32,6 @@ const Index = (props: IPropsCustomProvider) => {
 			className='
 				flex flex-col
 				p-4 gap-5 pt-2
-				bg-bg-main
 				border border-border-gray
 				rounded-2xl
 			'
