@@ -14,7 +14,7 @@
 	],
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development rslib build -w",
-		"build": "cross-env NODE_ENV=production rslib build",
+		"build": "pnpm run build:schema && cross-env NODE_ENV=production rslib build",
 		"build:schema": "bun ./scripts/schema"
 	},
 	"dependencies": {

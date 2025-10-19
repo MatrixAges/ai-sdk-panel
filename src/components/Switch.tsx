@@ -3,10 +3,13 @@ import { Switch } from '@base-ui-components/react/switch'
 
 import type { ControllerRenderProps } from 'react-hook-form'
 
-interface IProps {}
+interface IProps {
+	checked?: boolean
+	onCheckedChange?: (v: boolean) => void
+}
 
 const Index = (props: IProps) => {
-	const { name, value, ref, onChange } = props as ControllerRenderProps
+	const { name, value, checked, ref, onChange, onCheckedChange } = props as IProps & ControllerRenderProps
 
 	return (
 		<div onClick={e => e.stopPropagation()}>
@@ -21,9 +24,9 @@ const Index = (props: IProps) => {
 					data-[checked]:bg-solid
 				'
 				name={name}
-				checked={value}
+				checked={value || checked}
 				inputRef={ref}
-				onCheckedChange={onChange}
+				onCheckedChange={onChange || onCheckedChange}
 			>
 				<Switch.Thumb
 					className='

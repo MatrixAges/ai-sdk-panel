@@ -1,4 +1,4 @@
 import './index.css'
 
-export * from './providers'
+export * from './libs'
 export * from './components'

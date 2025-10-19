@@ -87,6 +87,18 @@
                         },
                         "features": {
                               "$ref": "#/definitions/Features"
+                        },
+                        "fee": {
+                              "type": "object",
+                              "properties": {
+                                    "output": {
+                                          "type": "number"
+                                    },
+                                    "input": {
+                                          "type": "number"
+                                    }
+                              },
+                              "additionalProperties": false
                         }
                   },
                   "required": [
