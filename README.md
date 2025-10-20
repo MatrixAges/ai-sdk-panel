@@ -1,6 +1,6 @@
 # AI SDK Panel
 
-Still work in progress...
+Still work in progress. Preview in [MatrixAges stack](https://github.com/MatrixAges/stack)
 
 The config panel for AI SDK built with base-ui tailwind.css react-hook-form and valtio.
 
