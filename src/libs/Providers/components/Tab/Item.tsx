@@ -8,7 +8,7 @@ import type { IPropsTabItem } from '../../types'
 const Index = (props: IPropsTabItem) => {
 	const { index, item, display_name, active, onChangeCurrentTab } = props
 
-	useScrollToItem(item.name, active)
+	useScrollToItem(item, active)
 
 	const onClick = useMemoizedFn(() => onChangeCurrentTab(index))
 
@@ -27,7 +27,7 @@ const Index = (props: IPropsTabItem) => {
 			'
 		>
 			<span className='flex justify-center items-center text-xl'>
-				<ProviderIcon name={item.name} />
+				<ProviderIcon name={item} />
 			</span>
 			<span
 				className='

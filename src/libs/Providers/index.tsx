@@ -14,7 +14,7 @@ import { memo } from '@/utils'
 import { Custom, Disabled, Form, Tab } from './components'
 import Model from './model'
 
-import type { IPropsCustom, IPropsForm, IPropsProviders, IPropsTab } from './types'
+import type { IPropsCustom, IPropsDisabled, IPropsForm, IPropsProviders, IPropsTab } from './types'
 
 const Index = (props: IPropsProviders) => {
 	const { config, variant, locales, width, onChange, onTest } = props
@@ -22,6 +22,7 @@ const Index = (props: IPropsProviders) => {
 	const state = useRef(proxy(new Model()))
 	const x = useProxy(state.current)
 	const target_config = deepClone(x.config)
+	const providers = deepClone(x.providers)
 	const target_locales = deepmerge(providers_locales, locales)
 
 	useLayoutEffect(() => {
@@ -30,16 +31,19 @@ const Index = (props: IPropsProviders) => {
 		x.init({ config, onChange, onTest })
 	}, [config, onChange, onTest])
 
+	const locales_providers = useMemo(
+		() => ({ ...providers_locales.providers, ...locales?.providers }),
+		[locales?.providers]
+	)
+
 	const props_tab: IPropsTab = {
-		locales: useMemo(() => ({ ...providers_locales.providers, ...locales?.providers }), [locales?.providers]),
+		locales: locales_providers,
 		tab,
 		items: useMemo(() => {
-			if (!target_config) return []
+			if (!providers.enabled) return []
 
-			return target_config.providers
-				.map(item => ({ name: item.name, enabled: item.enabled }))
-				.concat({ name: 'custom', enabled: true }, { name: 'disabled', enabled: true })
-		}, [target_config]),
+			return providers.enabled.map(item => item.name).concat('custom', 'disabled')
+		}, [providers.enabled]),
 		current_tab: x.current_tab,
 		onChangeCurrentTab: useMemoizedFn((v: number) => {
 			x.current_model = null
@@ -61,13 +65,20 @@ const Index = (props: IPropsProviders) => {
 		onChangeCurrentModel: useMemoizedFn((v: number) => {
 			x.current_model = v === x.current_model ? null : v
 		}),
-		toggleAddingModel: useMemoizedFn(() => (x.adding_model = !x.adding_model))
+		toggleAddingModel: useMemoizedFn(() => (x.adding_model = !x.adding_model)),
+		onDisableProvider: x.onToggleProvider
 	}
 
 	const props_custom: IPropsCustom = {
 		locales: target_locales['form']!,
 		custom_providers: deepClone(target_config?.custom_providers),
 		onCustomProvidersChange: x.onCustomProvidersChange
+	}
+
+	const props_disabled: IPropsDisabled = {
+		locales: locales_providers,
+		items: providers.disabled,
+		onEnableProvider: x.onEnableProvider
 	}
 
 	if (!x.config || !target_config) return
@@ -77,14 +88,14 @@ const Index = (props: IPropsProviders) => {
 			<Tab {...props_tab} />
 			<AnimateBox className='w-full'>
 				{x.current_tab === props_tab.items.length - 1 ? (
-					<Disabled />
+					<Disabled {...props_disabled} />
 				) : x.current_tab === props_tab.items.length - 2 ? (
 					<Custom {...props_custom} />
 				) : (
 					<Form {...props_form} />
 				)}
 				<Show
-					className='text-rose-400 text-xsm overflow-hidden py-2'
+					className='py-2 text-rose-400 text-xsm overflow-hidden'
 					visible={x.upload_error !== ''}
 					initial={{ opacity: 0, width: 0 }}
 					animate={{ opacity: 1, width: 'auto' }}

@@ -36,9 +36,9 @@ export default {
 			'gpt-4.1': "OpenAI's powerful general model, suited for conversation and generation.",
 			'gpt-4.1-mini': 'Balanced for intelligence, speed, and cost.',
 			'gpt-4o': 'Low-latency, multi-modal optimized model focused on interactive experiences.',
-			'gpt-4o-mini': 'Faster, more affordable reasoning model.',
-			'o4-mini': 'Faster, more affordable reasoning model',
-			o3: 'Most powerful reasoning model',
+			'gpt-4o-mini': 'Fast, affordable small model for focused tasks.',
+			'o4-mini': 'Fast, cost-efficient reasoning model.',
+			o3: 'Most powerful reasoning model.',
 
 			// Anthropic / Claude
 

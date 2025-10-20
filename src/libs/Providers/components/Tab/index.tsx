@@ -32,9 +32,9 @@ const Index = (props: IPropsTab) => {
 	const Items = items.map((item, index) => (
 		<Item
 			index={index}
-			display_name={locales[item.name as keyof ProvidersLocales['providers']]}
+			display_name={locales[item as keyof ProvidersLocales['providers']]}
 			active={current_tab === index}
-			key={item.name}
+			key={item}
 			{...{ item, onChangeCurrentTab }}
 		/>
 	))

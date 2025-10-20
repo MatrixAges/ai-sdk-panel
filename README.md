@@ -1,10 +1,10 @@
 # AI SDK Panel
 
-![ai-sdk-panel](./images/ai-sdk-panel.png)
-
 Still work in progress...
 
 The config panel for AI SDK built with base-ui tailwind.css react-hook-form and valtio.
+
+![ai-sdk-panel](./images/ai-sdk-panel.png)
 
 ## Install
 

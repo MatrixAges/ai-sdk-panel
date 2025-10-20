@@ -31,7 +31,7 @@ export interface ArgsInit extends Pick<IPropsProviders, 'config' | 'onChange' | 
 export interface IPropsTab {
 	locales: ProvidersLocales['providers']
 	tab: Required<IPropsProviders>['variant']['tab']
-	items: Array<Pick<Provider, 'name' | 'enabled'>>
+	items: Array<string>
 	current_tab: DataModel['current_tab']
 	onChangeCurrentTab: (v: number) => void
 }
@@ -56,6 +56,7 @@ export interface IPropsForm {
 	upload?: DataModel['upload']
 	onChangeCurrentModel: (v: number) => void
 	toggleAddingModel: () => void
+	onDisableProvider?: () => void
 	onRemoveProvider?: () => void
 }
 
@@ -127,7 +128,11 @@ export interface IPropsCustomProvider {
 	remove: UseFieldArrayRemove
 }
 
-export interface IPropsDisabled {}
+export interface IPropsDisabled {
+	locales: ProvidersLocales['providers']
+	items: Array<string>
+	onEnableProvider: DataModel['onEnableProvider']
+}
 
 export interface Config {
 	providers: Array<ConfigProvider>

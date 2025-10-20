@@ -6,7 +6,7 @@ import { deepClone } from 'valtio/utils'
 import schema from '@/schema.json'
 import { autoBind, downloadFile, uploadFile } from '@/utils'
 
-import type { ArgsInit, Config, IPropsProviders } from './types'
+import type { ArgsInit, Config, ConfigProvider, IPropsProviders } from './types'
 
 export default class Index {
 	config = null as Config | null
@@ -23,8 +23,23 @@ export default class Index {
 		onTest: null as unknown as IPropsProviders['onTest']
 	})
 
+	get providers() {
+		const enabled = [] as Array<ConfigProvider>
+		const disabled = [] as Array<string>
+
+		this.config?.providers.forEach(item => {
+			if (item.enabled) {
+				enabled.push(item)
+			} else {
+				disabled.push(item.name)
+			}
+		})
+
+		return { enabled, disabled }
+	}
+
 	get provider() {
-		return this.config?.providers[this.current_tab]!
+		return this.providers.enabled?.[this.current_tab]!
 	}
 
 	init(args: ArgsInit) {
@@ -39,11 +54,38 @@ export default class Index {
 	}
 
 	onProviderChange(v: Index['provider']) {
-		this.config!.providers[this.current_tab] = v
+		this.providers.enabled![this.current_tab] = v
+
+		this.onChange()
+	}
+
+	onToggleProvider() {
+		if (this.providers.enabled!.length <= 3) return
+
+		this.providers.enabled![this.current_tab].enabled = false
+
+		if (this.current_tab === this.providers.enabled!.length) {
+			this.current_tab = this.current_tab - 1
+		}
+
+		this.onChange()
+	}
+
+	onEnableProvider(name: string) {
+		const index = this.config!.providers.findIndex(item => item.name === name)!
+
+		this.config!.providers[index].enabled = true
+		this.current_tab += 1
 	}
 
 	onCustomProvidersChange(v: Config['custom_providers']) {
 		this.config!.custom_providers = v
+
+		this.onChange()
+	}
+
+	onChange() {
+		this.refs.onChange(deepClone(this.config!))
 	}
 
 	download() {

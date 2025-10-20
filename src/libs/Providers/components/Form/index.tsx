@@ -32,6 +32,7 @@ const Index = (props: IPropsForm) => {
 		upload,
 		onChangeCurrentModel,
 		toggleAddingModel,
+		onDisableProvider,
 		onRemoveProvider
 	} = props
 
@@ -275,7 +276,10 @@ const Index = (props: IPropsForm) => {
 								Import Config
 							</button>
 						</div>
-						<button className='px-2.5 py-1.5 text-rose-400 rounded-2xl btn'>
+						<button
+							className='px-2.5 py-1.5 text-rose-400 rounded-2xl btn'
+							onClick={onDisableProvider}
+						>
 							<EyeClosedIcon className='text-sm' />
 							Disable Provider
 						</button>
