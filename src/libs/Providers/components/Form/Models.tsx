@@ -9,7 +9,7 @@ import ModelForm from './ModelForm'
 import type { IPropsFormModels } from '../../types'
 
 const Index = (props: IPropsFormModels) => {
-	const { models, control, locales, current_model, custom, register, onChangeCurrentModel } = props
+	const { models, control, locales, current_model, custom, register, onChangeCurrentModel, remove } = props
 
 	const desc_keys = useMemo(() => Object.keys(locales.desc), [locales.desc])
 
@@ -42,7 +42,8 @@ const Index = (props: IPropsFormModels) => {
 				<Fragment key={item.id}>
 					<Model
 						locales_desc={locales.desc}
-						{...{ index, item, control, desc_keys, custom, onChangeCurrentModel }}
+						editing={current_model === index}
+						{...{ index, item, control, desc_keys, custom, onChangeCurrentModel, remove }}
 					/>
 					<Show
 						className='overflow-hidden'

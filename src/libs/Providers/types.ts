@@ -1,6 +1,6 @@
 import { providers_locales } from '@/i18n'
 
-import type { Control, UseFieldArrayUpdate, UseFormRegister } from 'react-hook-form'
+import type { Control, UseFieldArrayRemove, UseFieldArrayUpdate, UseFormRegister } from 'react-hook-form'
 import type { default as DataModel } from './model'
 
 export type ProvidersLocales = typeof providers_locales
@@ -56,6 +56,7 @@ export interface IPropsForm {
 	upload?: DataModel['upload']
 	onChangeCurrentModel: (v: number) => void
 	toggleAddingModel: () => void
+	onRemoveProvider?: () => void
 }
 
 export interface IPropsFormAPIKey extends Pick<IPropsForm, 'test' | 'onTest'> {
@@ -81,14 +82,16 @@ export interface IPropsFormModels extends Pick<IPropsForm, 'current_model' | 'on
 	control: Control<IPropsForm['provider']>
 	custom?: boolean
 	register: UseFormRegister<IPropsForm['provider']>
+	remove: UseFieldArrayRemove
 }
 
-export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onChangeCurrentModel'> {
+export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onChangeCurrentModel' | 'remove'> {
 	locales_desc: IPropsFormModels['locales']['desc']
 	index: number
 	item: Model
 	desc_keys: Array<string>
 	custom?: boolean
+	editing?: boolean
 }
 
 export interface IPropsFormModelForm {
@@ -121,6 +124,7 @@ export interface IPropsCustomProvider {
 	index: number
 	item: Provider
 	update: UseFieldArrayUpdate<{ providers: Array<Provider> }>
+	remove: UseFieldArrayRemove
 }
 
 export interface IPropsDisabled {}

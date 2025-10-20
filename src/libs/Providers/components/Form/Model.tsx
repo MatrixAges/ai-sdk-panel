@@ -4,11 +4,12 @@ import { useMemoizedFn } from 'ahooks'
 import { Controller, Switch } from '@/components'
 import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
+import { TrashIcon } from '@phosphor-icons/react'
 
 import type { IPropsFormModel } from '../../types'
 
 const Index = (props: IPropsFormModel) => {
-	const { index, item, control, locales_desc, desc_keys, custom, onChangeCurrentModel } = props
+	const { index, item, control, locales_desc, desc_keys, custom, editing, onChangeCurrentModel, remove } = props
 	const { id, name, desc } = item
 
 	const onClick = useMemoizedFn(() => onChangeCurrentModel(index))
@@ -27,6 +28,8 @@ const Index = (props: IPropsFormModel) => {
 		return locales_desc.no_desc
 	}, [desc, locales_desc, desc_keys])
 
+	const onRemove = useMemoizedFn(() => remove(index))
+
 	return (
 		<div
 			className={`
@@ -44,9 +47,16 @@ const Index = (props: IPropsFormModel) => {
 				<span className={`${styles.label} ${name === '' && 'text-gray'}`}>{name || 'Unnamed'}</span>
 				<div className='flex items-center text-xs text-softlight'>{target_desc}</div>
 			</div>
-			<Controller name={`models.${index}.enabled`} control={control}>
-				<Switch />
-			</Controller>
+			<div className='flex items-center gap-3'>
+				{editing && (
+					<button className='p-1.5 rounded-2xl btn' type='button' onClick={onRemove}>
+						<TrashIcon className='text-base' />
+					</button>
+				)}
+				<Controller name={`models.${index}.enabled`} control={control}>
+					<Switch />
+				</Controller>
+			</div>
 		</div>
 	)
 }

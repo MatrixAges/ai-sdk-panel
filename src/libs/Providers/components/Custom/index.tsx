@@ -1,5 +1,6 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useMemoizedFn, useToggle } from 'ahooks'
+import { deepEqual } from 'fast-equals'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { deepClone } from 'valtio/utils'
 
@@ -17,7 +18,7 @@ const Index = (props: IPropsCustom) => {
 	const { locales, custom_providers = [], onCustomProvidersChange } = props
 	const [visible, { toggle }] = useToggle()
 
-	const { control, register } = useForm<{
+	const { control, formState, getValues } = useForm<{
 		providers: Array<ProviderType>
 	}>({
 		values: { providers: custom_providers }
@@ -45,12 +46,20 @@ const Index = (props: IPropsCustom) => {
 	})
 
 	const onAddProvider = useMemoizedFn((v: ProviderType) => {
-		const providers = deepClone(custom_providers)
-
-		providers.unshift({ ...v, enabled: true, models: [] })
-
-		onCustomProvidersChange(providers)
+		prepend({ ...v, enabled: true, models: [] })
 	})
+
+	const onChange = useMemoizedFn(() => {
+		const values = getValues()
+
+		if (deepEqual(values, custom_providers)) return
+
+		onCustomProvidersChange(deepClone(values.providers))
+	})
+
+	useEffect(() => {
+		if (formState.isDirty) onChange()
+	}, [formState.isDirty])
 
 	return (
 		<div className='flex flex-col gap-5'>
@@ -84,7 +93,7 @@ const Index = (props: IPropsCustom) => {
 					<span className={styles.label}>Providers</span>
 					<div className='flex flex-col gap-5'>
 						{target_fields.map((item, index) => (
-							<Provider {...{ locales, index, item, update }} key={item.name} />
+							<Provider {...{ locales, index, item, update, remove }} key={item.name} />
 						))}
 					</div>
 				</div>

@@ -4,7 +4,7 @@ import { deepEqual } from 'fast-equals'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { deepClone } from 'valtio/utils'
 
-import { Show, Switch } from '@/components'
+import { Controller, Show, Switch } from '@/components'
 import { all_providers } from '@/libs'
 import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
@@ -31,10 +31,11 @@ const Index = (props: IPropsForm) => {
 		download,
 		upload,
 		onChangeCurrentModel,
-		toggleAddingModel
+		toggleAddingModel,
+		onRemoveProvider
 	} = props
 
-	const { name, api_key, base_url, enabled } = provider
+	const { name, api_key, base_url } = provider
 
 	const [error, setError] = useState('')
 
@@ -68,7 +69,7 @@ const Index = (props: IPropsForm) => {
 	})
 
 	useEffect(() => {
-		onChange()
+		if (formState.isDirty) onChange()
 	}, [formState.isDirty])
 
 	const clearError = useMemoizedFn(() => setError(''))
@@ -115,44 +116,60 @@ const Index = (props: IPropsForm) => {
 
 	return (
 		<div className='flex flex-col w-full gap-5'>
-			{custom && (
-				<div
-					className='
-						flex items-center justify-between
-						pb-2
-						text-sm
-						border-b border-border-gray
-						capitalize
-					'
-				>
-					<span>{name}</span>
-					<div className='flex items-center gap-2'>
-						<button className='p-1.5 rounded-2xl btn' type='button'>
-							<TrashIcon className='text-base' />
-						</button>
-						<Switch checked={enabled} />
-					</div>
-				</div>
-			)}
 			<form className='flex flex-col w-full gap-5'>
+				{custom && (
+					<div
+						className='
+							flex items-center justify-between
+							pb-2
+							text-sm
+							border-b border-border-gray
+							capitalize
+						'
+					>
+						<span>{name}</span>
+						<div className='flex items-center gap-3'>
+							<button
+								className='p-1.5 rounded-2xl btn'
+								type='button'
+								onClick={onRemoveProvider}
+							>
+								<TrashIcon className='text-base' />
+							</button>
+							<Controller name='enabled' control={control}>
+								<Switch />
+							</Controller>
+						</div>
+					</div>
+				)}
 				<APIKey {...{ api_key, custom, test, onTest, register }} />
 				<BaseUrl {...{ base_url, custom, register }} />
 				<CustomFields custom_fields={(provider as SpecialProvider).custom_fields} register={register} />
 				<div className='flex flex-col gap-2.5'>
 					<div className='flex justify-between items-center'>
 						<span className={`${styles.label}`}>Models</span>
-						<button
-							className='px-1.5 py-0.5 text-xsm rounded-2xl btn'
-							type='button'
-							onClick={toggleAddingModel}
-						>
-							<PlusIcon className='text-sm' />
-							Add Model
-						</button>
+						{custom && (
+							<button
+								className='px-1.5 py-0.5 text-xsm rounded-2xl btn'
+								type='button'
+								onClick={toggleAddingModel}
+							>
+								<PlusIcon className='text-sm' />
+								Add Model
+							</button>
+						)}
 					</div>
 					<Models
 						models={target_fields}
-						{...{ locales, current_model, control, custom, register, onChangeCurrentModel }}
+						{...{
+							locales,
+							current_model,
+							control,
+							custom,
+							register,
+							onChangeCurrentModel,
+							remove
+						}}
 					/>
 				</div>
 			</form>
