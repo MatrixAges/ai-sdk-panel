@@ -16,10 +16,7 @@ export interface ListTab {
 
 export interface IPropsProviders {
 	config: Config
-	variant?: {
-		tab?: TabTab | ListTab
-		model?: 'list' | 'card'
-	}
+	tab: 'between' | 'scroll'
 	locales?: Partial<ProvidersLocales>
 	width?: number | string
 	onChange: (v: Config) => void
@@ -30,7 +27,7 @@ export interface ArgsInit extends Pick<IPropsProviders, 'config' | 'onChange' | 
 
 export interface IPropsTab {
 	locales: ProvidersLocales['providers']
-	tab: Required<IPropsProviders>['variant']['tab']
+	tab: Required<IPropsProviders>['tab']
 	items: Array<string>
 	current_tab: DataModel['current_tab']
 	onChangeCurrentTab: (v: number) => void

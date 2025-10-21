@@ -8,22 +8,17 @@ import Item from './Item'
 import type { IPropsTab, ProvidersLocales } from '../../types'
 
 const Index = (props: IPropsTab) => {
-	const { locales, tab = { type: 'tab', layout: 'between' }, items, current_tab, onChangeCurrentTab } = props
+	const { locales, tab, items, current_tab, onChangeCurrentTab } = props
 
 	const { scroller, container } = useMemo(() => {
 		const styles = { scroller: '', container: '' }
 
-		if (tab.type === 'tab') {
-			styles['scroller'] += ' max-w-full'
+		styles['scroller'] += ' max-w-full'
 
-			if (tab.layout === 'scroll') {
-				styles['scroller'] += ' overflow-scroll no-scrollbar'
-			} else {
-				styles['container'] += ' w-full justify-between'
-			}
+		if (tab === 'scroll') {
+			styles['scroller'] += ' overflow-scroll no-scrollbar'
 		} else {
-			styles['scroller'] = 'max-h-full'
-			styles['container'] = 'flex-col gap-4'
+			styles['container'] += ' w-full justify-between'
 		}
 
 		return styles
@@ -42,7 +37,7 @@ const Index = (props: IPropsTab) => {
 	return (
 		<div className={`flex w-full ${scroller}`}>
 			<div className={`flex ${container}`}>
-				{tab.type === 'tab' && tab.layout === 'scroll' ? (
+				{tab === 'scroll' ? (
 					<ScrollMenu wrapperClassName='w-full' scrollContainerClassName='gap-10'>
 						{Items}
 					</ScrollMenu>

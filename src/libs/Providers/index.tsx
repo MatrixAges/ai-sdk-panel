@@ -17,8 +17,7 @@ import Model from './model'
 import type { IPropsCustom, IPropsDisabled, IPropsForm, IPropsProviders, IPropsTab } from './types'
 
 const Index = (props: IPropsProviders) => {
-	const { config, variant, locales, width, onChange, onTest } = props
-	const { tab, model = 'list' } = variant || {}
+	const { config, locales, tab, width, onChange, onTest } = props
 	const state = useRef(proxy(new Model()))
 	const x = useProxy(state.current)
 	const target_config = deepClone(x.config)

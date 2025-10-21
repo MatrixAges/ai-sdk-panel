@@ -12,29 +12,144 @@ The config panel for AI SDK built with base-ui tailwind.css react-hook-form and 
 pnpm i @matrixages/ai-sdk-panel
 ```
 
+## How to use
+
+```tsx
+const Page = () => {
+	const props_providers: IPropsProviders = {
+		config: { providers: preset_providers },
+		tab: 'between',
+		onChange: v => {
+			console.log(v)
+		},
+		onTest: useMemoizedFn(async () => {
+			await sleep(500)
+
+			return true
+		}),
+		width: 690
+	}
+
+	return (
+		<div
+			className='
+				flex justify-center
+				w-screen min-h-screen
+				py-20
+				bg-amber-100/20
+				dark:bg-amber-100/6
+			'
+		>
+			<Providers {...props_providers} />
+		</div>
+	)
+}
+```
+
 ## Features
 
 - Dark mode
-
-![ai-sdk-panel](./images/dark_mode.png)
-
 - Import and export config
-
 - Edit model and provider
-
-![ai-sdk-panel](./images/edit_model.png)
-
 - Add custom providers
-
-![ai-sdk-panel](./images/custom_providers.png)
-
 - Custom fields support
-
-![ai-sdk-panel](./images/custom_fields.png)
-
 - Variant layout
 
 ## Props
+
+```ts
+export interface IPropsProviders {
+	/* Provider config */
+	config: {
+		providers: Array<ConfigProvider>
+		custom_providers?: Array<Provider>
+	}
+	/* Tab layout */
+	tab: 'between' | 'scroll'
+	/* I18n locales */
+	locales?: Partial<ProvidersLocales>
+	/* Component width */
+	width?: number | string
+	/* Trigger when config updated */
+	onChange: (v: Config) => void
+	/* Trigger when click API Key test button */
+	onTest?: (provider: PresetProvider | SpecialProvider) => Promise<boolean>
+}
+```
+
+```ts
+export interface Provider {
+	/* Provider name */
+	name: string
+	/* API key */
+	api_key: string
+	/* Request base url */
+	base_url: string
+	/* Enable provider, default is true */
+	enabled: boolean
+	/* Provider models */
+	models: Array<Model>
+	/* Custom request headers */
+	headers?: string
+}
+
+/* Two provider: PresetProvider or SpecialProvider */
+export type ConfigProvider = PresetProvider | SpecialProvider
+
+/*  No base_url, provider supported by ai-sdk */
+export interface PresetProvider extends Omit<Provider, 'base_url'> {
+	api_key: string
+	base_url?: string
+}
+
+/* Provider with custom fields */
+export interface SpecialProvider extends Partial<Omit<Provider, 'name' | 'enabled'>> {
+	name: string
+	enabled: boolean
+	custom_fields?: Record<string, string>
+}
+
+export interface Model {
+	/* Model name */
+	name: string
+	/* Model unique id */
+	id: string
+	/* Enable model, default is true */
+	enabled: boolean
+	/* Model description */
+	desc?: string
+	/* Model features */
+	features?: Features
+	/* Model fee, input fee and output fee */
+	fee?: { output?: number; input?: number }
+}
+
+export interface Features {
+	/* Reasoning Model */
+	reasoning?: boolean
+	/* Vision model */
+	vision?: boolean
+	/* Voice(transcription) model */
+	voice?: boolean
+	/* Embedding Model */
+	embedding?: boolean
+	/* Reranking Model */
+	reranking?: boolean
+
+	/* Support switch reasoning */
+	reasoning_optional?: boolean
+	/* Support function calling */
+	function_calling?: boolean
+	/* Support structured output */
+	structured_output?: boolean
+	/* Support web search */
+	web_search?: boolean
+	/* Support input image */
+	image_input?: boolean
+	/* Support output image */
+	image_output?: boolean
+}
+```
 
 ## Providers
 
