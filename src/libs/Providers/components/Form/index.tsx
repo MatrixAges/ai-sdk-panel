@@ -16,6 +16,7 @@ import CustomFields from './CustomFields'
 import ModelForm from './ModelForm'
 import Models from './Models'
 
+import type { DragEndEvent } from '@dnd-kit/core'
 import type { IPropsForm, Model, SpecialProvider } from '../../types'
 
 const Index = (props: IPropsForm) => {
@@ -27,7 +28,7 @@ const Index = (props: IPropsForm) => {
 		adding_model,
 		custom,
 		onTest,
-		onProviderChange,
+		onChangeProvider,
 		download,
 		upload,
 		onChangeCurrentModel,
@@ -44,7 +45,7 @@ const Index = (props: IPropsForm) => {
 		values: provider
 	})
 
-	const { fields, prepend, remove } = useFieldArray({
+	const { fields, prepend, remove, move } = useFieldArray({
 		control,
 		name: 'models',
 		keyName: '_'
@@ -66,7 +67,7 @@ const Index = (props: IPropsForm) => {
 
 		if (deepEqual(values, provider)) return
 
-		onProviderChange(deepClone(values))
+		onChangeProvider(deepClone(values))
 	})
 
 	useEffect(() => {
@@ -113,6 +114,17 @@ const Index = (props: IPropsForm) => {
 		if (!target_provider) return
 
 		setValue('models', target_provider.models, { shouldDirty: true })
+	})
+
+	const onDragModel = useMemoizedFn((args: DragEndEvent) => {
+		const { active, over } = args
+
+		if (!over?.id || active.id === over.id) return
+
+		const active_index = target_fields.findIndex(item => item.id === active.id)
+		const over_index = target_fields.findIndex(item => item.id === over.id)
+
+		move(active_index, over_index)
 	})
 
 	return (
@@ -168,8 +180,9 @@ const Index = (props: IPropsForm) => {
 							control,
 							custom,
 							register,
+							remove,
 							onChangeCurrentModel,
-							remove
+							onDragModel
 						}}
 					/>
 				</div>

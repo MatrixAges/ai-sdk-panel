@@ -1,5 +1,6 @@
 import { providers_locales } from '@/i18n'
 
+import type { DragEndEvent } from '@dnd-kit/core'
 import type { Control, UseFieldArrayRemove, UseFieldArrayUpdate, UseFormRegister } from 'react-hook-form'
 import type { default as DataModel } from './model'
 
@@ -31,6 +32,7 @@ export interface IPropsTab {
 	items: Array<string>
 	current_tab: DataModel['current_tab']
 	onChangeCurrentTab: (v: number) => void
+	onDragProvider: DataModel['onDragProvider']
 }
 
 export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrentTab'> {
@@ -48,10 +50,10 @@ export interface IPropsForm {
 	adding_model: DataModel['adding_model']
 	custom?: boolean
 	onTest?: DataModel['onTest']
-	onProviderChange: DataModel['onProviderChange']
+	onChangeProvider: DataModel['onChangeProvider']
 	download?: DataModel['download']
 	upload?: DataModel['upload']
-	onChangeCurrentModel: (v: number) => void
+	onChangeCurrentModel: (v: number | null) => void
 	toggleAddingModel: () => void
 	onDisableProvider?: () => void
 	onRemoveProvider?: () => void
@@ -79,8 +81,9 @@ export interface IPropsFormModels extends Pick<IPropsForm, 'current_model' | 'on
 	models: SpecialProvider['models']
 	control: Control<IPropsForm['provider']>
 	custom?: boolean
-	register: UseFormRegister<IPropsForm['provider']>
 	remove: UseFieldArrayRemove
+	register: UseFormRegister<IPropsForm['provider']>
+	onDragModel: (args: DragEndEvent) => void
 }
 
 export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onChangeCurrentModel' | 'remove'> {
@@ -108,7 +111,7 @@ export interface IPropsFormModelFormFeatures {
 export interface IPropsCustom {
 	locales: ProvidersLocales['form']
 	custom_providers: Config['custom_providers']
-	onCustomProvidersChange: DataModel['onCustomProvidersChange']
+	onChangeCustomProviders: DataModel['onChangeCustomProviders']
 }
 
 export interface IPropsCustomForm {

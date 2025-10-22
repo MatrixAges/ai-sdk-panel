@@ -2,29 +2,43 @@ import { useMemoizedFn } from 'ahooks'
 
 import { ProviderIcon } from '@/components'
 import { useScrollToItem } from '@/hooks'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 import type { IPropsTabItem } from '../../types'
 
 const Index = (props: IPropsTabItem) => {
 	const { index, item, display_name, active, onChangeCurrentTab } = props
 
-	useScrollToItem(item, active)
+	const disabled = item === 'custom' || item === 'disabled'
+
+	const { attributes, listeners, transform, transition, isDragging, setNodeRef } = useSortable({
+		id: item,
+		disabled
+	})
+
+	useScrollToItem(item, active, isDragging)
 
 	const onClick = useMemoizedFn(() => onChangeCurrentTab(index))
 
 	return (
 		<div
-			data-active={active}
-			onClick={onClick}
-			className='
+			className={`
 				flex flex-col items-center
 				gap-3
 				text-light
 				group
 				data-[active=true]:!text-dark
 				hover:text-gray-600
-				clickable
-			'
+				${isDragging && disabled && '!cursor-not-allowed'}
+				${isDragging ? 'cursor-grab' : 'clickable'}
+			`}
+			ref={setNodeRef}
+			data-active={active}
+			style={{ transform: CSS.Translate.toString(transform), transition }}
+			onClick={onClick}
+			{...attributes}
+			{...listeners}
 		>
 			<span className='flex justify-center items-center text-xl'>
 				<ProviderIcon name={item} />

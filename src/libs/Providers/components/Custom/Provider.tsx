@@ -12,7 +12,7 @@ const Index = (props: IPropsCustomProvider) => {
 	const [current_model, setCurrentModel] = useState<number | null>(null)
 	const [adding_model, setAddingModel] = useState(false)
 
-	const onProviderChange = useMemoizedFn((v: Provider) => update(index, v))
+	const onChangeProvider = useMemoizedFn((v: Provider) => update(index, v))
 
 	const props_form: IPropsForm = {
 		locales,
@@ -20,7 +20,7 @@ const Index = (props: IPropsCustomProvider) => {
 		current_model,
 		adding_model,
 		custom: true,
-		onProviderChange,
+		onChangeProvider,
 		onChangeCurrentModel: useMemoizedFn((v: number) => {
 			setCurrentModel(v === current_model ? null : v)
 		}),

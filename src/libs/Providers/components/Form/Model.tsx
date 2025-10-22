@@ -4,6 +4,8 @@ import { useMemoizedFn } from 'ahooks'
 import { Controller, Switch } from '@/components'
 import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { TrashIcon } from '@phosphor-icons/react'
 
 import type { IPropsFormModel } from '../../types'
@@ -11,6 +13,10 @@ import type { IPropsFormModel } from '../../types'
 const Index = (props: IPropsFormModel) => {
 	const { index, item, control, locales_desc, desc_keys, custom, editing, onChangeCurrentModel, remove } = props
 	const { id, name, desc } = item
+
+	const { attributes, listeners, transform, transition, isDragging, setNodeRef } = useSortable({
+		id
+	})
 
 	const onClick = useMemoizedFn(() => onChangeCurrentModel(index))
 
@@ -34,14 +40,19 @@ const Index = (props: IPropsFormModel) => {
 		<div
 			className={`
 				flex justify-between items-center
-				p-4
+				p-4 gap-3
 				bg-bg-main
 				border-b border-border-light
 				transition-colors
 				hover:bg-bg-main-hover active:bg-bg-main-active
 				select-none cursor-pointer last:border-none ${custom && '!p-3'}
+				${isDragging && 'backdrop-blur-sm !border rounded-sm z-10'}
 			`}
+			ref={setNodeRef}
+			style={{ transform: CSS.Translate.toString(transform), transition }}
 			onClick={onClick}
+			{...attributes}
+			{...listeners}
 		>
 			<div className='flex flex-col gap-0.5'>
 				<span className={`${styles.label} ${name === '' && 'text-gray'}`}>{name || 'Unnamed'}</span>

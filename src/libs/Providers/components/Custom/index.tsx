@@ -15,7 +15,7 @@ import Provider from './Provider'
 import type { IPropsCustom, Provider as ProviderType } from '../../types'
 
 const Index = (props: IPropsCustom) => {
-	const { locales, custom_providers = [], onCustomProvidersChange } = props
+	const { locales, custom_providers = [], onChangeCustomProviders } = props
 	const [visible, { toggle }] = useToggle()
 
 	const { control, formState, getValues } = useForm<{
@@ -54,7 +54,7 @@ const Index = (props: IPropsCustom) => {
 
 		if (deepEqual(values, custom_providers)) return
 
-		onCustomProvidersChange(deepClone(values.providers))
+		onChangeCustomProviders(deepClone(values.providers))
 	})
 
 	useEffect(() => {

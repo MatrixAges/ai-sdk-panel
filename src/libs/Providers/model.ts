@@ -5,7 +5,9 @@ import { deepClone } from 'valtio/utils'
 
 import schema from '@/schema.json'
 import { autoBind, downloadFile, uploadFile } from '@/utils'
+import { arrayMove } from '@dnd-kit/sortable'
 
+import type { DragEndEvent } from '@dnd-kit/core'
 import type { ArgsInit, Config, ConfigProvider, IPropsProviders } from './types'
 
 export default class Index {
@@ -38,6 +40,12 @@ export default class Index {
 		return { enabled, disabled }
 	}
 
+	get tabs() {
+		if (!this.providers.enabled) return []
+
+		return this.providers.enabled.map(item => item.name).concat('custom', 'disabled')
+	}
+
 	get provider() {
 		return this.providers.enabled?.[this.current_tab]!
 	}
@@ -53,7 +61,13 @@ export default class Index {
 		autoBind(this)
 	}
 
-	onProviderChange(v: Index['provider']) {
+	onChangeCurrentTab(v: number) {
+		this.current_model = null
+		this.adding_model = false
+		this.current_tab = v
+	}
+
+	onChangeProvider(v: Index['provider']) {
 		this.providers.enabled![this.current_tab] = v
 
 		this.onChange()
@@ -78,7 +92,26 @@ export default class Index {
 		this.current_tab += 1
 	}
 
-	onCustomProvidersChange(v: Config['custom_providers']) {
+	onDragProvider(args: DragEndEvent) {
+		const { active, over } = args
+
+		if (!over?.id || active.id === over.id) return
+
+		const providers = this.config!.providers
+
+		const active_index = providers.findIndex(item => item.name === active.id)
+		const over_index = providers.findIndex(item => item.name === over.id)
+
+		const current_tab_name = this.tabs[this.current_tab]
+
+		this.config!.providers = arrayMove(providers, active_index, over_index)
+
+		this.current_tab = this.tabs.findIndex(item => item === current_tab_name)
+
+		this.onChange()
+	}
+
+	onChangeCustomProviders(v: Config['custom_providers']) {
 		this.config!.custom_providers = v
 
 		this.onChange()

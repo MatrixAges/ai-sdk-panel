@@ -38,17 +38,10 @@ const Index = (props: IPropsProviders) => {
 	const props_tab: IPropsTab = {
 		locales: locales_providers,
 		tab,
-		items: useMemo(() => {
-			if (!providers.enabled) return []
-
-			return providers.enabled.map(item => item.name).concat('custom', 'disabled')
-		}, [providers.enabled]),
+		items: deepClone(x.tabs),
 		current_tab: x.current_tab,
-		onChangeCurrentTab: useMemoizedFn((v: number) => {
-			x.current_model = null
-			x.adding_model = false
-			x.current_tab = v
-		})
+		onChangeCurrentTab: x.onChangeCurrentTab,
+		onDragProvider: x.onDragProvider
 	}
 
 	const props_form: IPropsForm = {
@@ -58,7 +51,7 @@ const Index = (props: IPropsProviders) => {
 		current_model: x.current_model,
 		adding_model: x.adding_model,
 		onTest: x.onTest,
-		onProviderChange: x.onProviderChange,
+		onChangeProvider: x.onChangeProvider,
 		download: x.download,
 		upload: x.upload,
 		onChangeCurrentModel: useMemoizedFn((v: number) => {
@@ -71,7 +64,7 @@ const Index = (props: IPropsProviders) => {
 	const props_custom: IPropsCustom = {
 		locales: target_locales['form']!,
 		custom_providers: deepClone(target_config?.custom_providers),
-		onCustomProvidersChange: x.onCustomProvidersChange
+		onChangeCustomProviders: x.onChangeCustomProviders
 	}
 
 	const props_disabled: IPropsDisabled = {
