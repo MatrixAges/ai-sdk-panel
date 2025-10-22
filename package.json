@@ -13,9 +13,11 @@
 		"../README.md"
 	],
 	"scripts": {
+		"install:playwright": "pnpm exec playwright install",
 		"dev": "cross-env NODE_ENV=development rslib build -w",
 		"build": "pnpm run build:schema && cross-env NODE_ENV=production rslib build",
-		"build:schema": "bun ./scripts/schema"
+		"build:schema": "bun ./scripts/schema",
+		"e2e": "bun ./e2e"
 	},
 	"dependencies": {
 		"@base-ui-components/react": "1.0.0-beta.4",
@@ -41,6 +43,7 @@
 		"valtio-reactive": "^0.1.2"
 	},
 	"devDependencies": {
+		"@playwright/experimental-ct-react": "^1.56.1",
 		"@rsbuild/plugin-react": "^1.4.1",
 		"@rslib/core": "^0.15.0",
 		"@tailwindcss/postcss": "^4.1.14",
