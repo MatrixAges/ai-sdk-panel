@@ -15,7 +15,7 @@ import Provider from './Provider'
 import type { IPropsCustom, Provider as ProviderType } from '../../types'
 
 const Index = (props: IPropsCustom) => {
-	const { locales, custom_providers = [], onChangeCustomProviders } = props
+	const { locales, locales_custom_fields, custom_providers = [], onChangeCustomProviders } = props
 	const [visible, { toggle }] = useToggle()
 
 	const { control, formState, getValues } = useForm<{
@@ -76,9 +76,9 @@ const Index = (props: IPropsCustom) => {
 			>
 				<button className='px-2.5 py-1.5 rounded-2xl btn' type='button' onClick={toggle}>
 					<PlusIcon className='text-sm' />
-					Add Provider
+					{locales.custom.add_provider}
 				</button>
-				<span className='text-gray'>OpenAI Compatible Provider</span>
+				<span className='text-gray'>{locales.custom.openai_compatible}</span>
 			</div>
 			<Show
 				className='overflow-hidden'
@@ -86,14 +86,17 @@ const Index = (props: IPropsCustom) => {
 				initial={{ opacity: 0, height: 0 }}
 				animate={{ opacity: 1, height: 'auto' }}
 			>
-				<Form {...{ toggle, checkExist, onAddProvider }} />
+				<Form locales={locales} {...{ toggle, checkExist, onAddProvider }} />
 			</Show>
 			{target_fields.length > 0 && (
 				<div className='flex flex-col w-full gap-2.5'>
-					<span className={styles.label}>Providers</span>
+					<span className={styles.label}>{locales.custom.providers}</span>
 					<div className='flex flex-col gap-5'>
 						{target_fields.map((item, index) => (
-							<Provider {...{ locales, index, item, update, remove }} key={item.name} />
+							<Provider
+								{...{ locales, locales_custom_fields, index, item, update, remove }}
+								key={item.name}
+							/>
 						))}
 					</div>
 				</div>

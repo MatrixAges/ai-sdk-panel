@@ -9,7 +9,7 @@ import { memo } from '@/utils'
 import type { IPropsCustomForm, Provider } from '../../types'
 
 const Index = (props: IPropsCustomForm) => {
-	const { toggle, checkExist, onAddProvider } = props
+	const { locales, toggle, checkExist, onAddProvider } = props
 	const [error, setError] = useState('')
 
 	const { register, handleSubmit, reset } = useForm<Provider>({})
@@ -26,7 +26,7 @@ const Index = (props: IPropsCustomForm) => {
 		if (checkExist(values.name)) {
 			setTimeout(() => setError(''), 2400)
 
-			return setError(`Provider '${values.name}' has exist`)
+			return setError(locales.custom.error.replace('{{name}}', `'${values.name}'`))
 		}
 
 		onAddProvider(values)
@@ -36,7 +36,7 @@ const Index = (props: IPropsCustomForm) => {
 		<form className='flex flex-col gap-2.5' onSubmit={handleSubmit(onSubmit)}>
 			<div className='flex justify-between items-center'>
 				<div className={`flex items-center gap-3 ${styles.label}`}>
-					Add Provider
+					{locales.custom.add_provider}
 					<Show
 						className='
 							text-rose-400
@@ -52,10 +52,10 @@ const Index = (props: IPropsCustomForm) => {
 				</div>
 				<div className='flex gap-1 text-xsm'>
 					<button className='px-1.5 py-0.5 rounded-2xl btn' type='button' onClick={onCancel}>
-						Cancel
+						{locales.cancel}
 					</button>
 					<button className='px-1.5 py-0.5 rounded-2xl btn' type='submit'>
-						Submit
+						{locales.submit}
 					</button>
 				</div>
 			</div>
@@ -69,7 +69,7 @@ const Index = (props: IPropsCustomForm) => {
 					overflow-hidden
 				'
 			>
-				<AutoLabel label='provider name' valued>
+				<AutoLabel label={locales.custom.provider_name} valued>
 					<input
 						className={`
 							w-full h-full
@@ -77,12 +77,12 @@ const Index = (props: IPropsCustomForm) => {
 							outline-none
 							placeholder:text-soft
 						`}
-						placeholder='Input provider name'
+						placeholder={locales.model_form.input + locales.custom.provider_name}
 						required
 						{...register('name')}
 					/>
 				</AutoLabel>
-				<AutoLabel label='base URL' valued>
+				<AutoLabel label={locales.base_url} valued>
 					<input
 						className={`
 							w-full h-full
@@ -90,12 +90,12 @@ const Index = (props: IPropsCustomForm) => {
 							outline-none
 							placeholder:text-soft
 						`}
-						placeholder='Input base URL'
+						placeholder={locales.model_form.input + locales.base_url}
 						required
 						{...register('base_url')}
 					/>
 				</AutoLabel>
-				<AutoLabel label='api key' valued>
+				<AutoLabel label={locales.api_key} valued>
 					<input
 						className={`
 							w-full h-full
@@ -103,11 +103,11 @@ const Index = (props: IPropsCustomForm) => {
 							outline-none
 							placeholder:text-soft
 						`}
-						placeholder='Input api key'
+						placeholder={locales.model_form.input + locales.api_key}
 						{...register('api_key')}
 					/>
 				</AutoLabel>
-				<AutoLabel className='border-b-0' label='headers (optional)' valued>
+				<AutoLabel className='border-b-0' label={locales.custom.headers} valued>
 					<input
 						className={`
 							w-full h-full
@@ -115,7 +115,7 @@ const Index = (props: IPropsCustomForm) => {
 							outline-none
 							placeholder:text-soft
 						`}
-						placeholder='{"x-custom-header":"value"}'
+						placeholder={locales.custom.headers_placeholder}
 						{...register('headers')}
 					/>
 				</AutoLabel>

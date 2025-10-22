@@ -22,6 +22,7 @@ import type { IPropsForm, Model, SpecialProvider } from '../../types'
 const Index = (props: IPropsForm) => {
 	const {
 		locales,
+		locales_custom_fields,
 		provider,
 		test,
 		current_model,
@@ -88,19 +89,19 @@ const Index = (props: IPropsForm) => {
 		if (!values['id']) {
 			setFocus('id')
 
-			return setError('Model ID is required')
+			return setError(locales.error.id_required)
 		}
 
 		if (target_fields.find(item => item.id === values['id'])) {
 			setFocus('id')
 
-			return setError('Model ID is exist')
+			return setError(locales.error.id_exsit)
 		}
 
 		if (!values['name']) {
 			setFocus('name')
 
-			return setError('Model name is required')
+			return setError(locales.error.name_required)
 		}
 
 		prepend({ ...values, enabled: true, features: values.features || {} })
@@ -155,12 +156,16 @@ const Index = (props: IPropsForm) => {
 						</div>
 					</div>
 				)}
-				<APIKey {...{ api_key, custom, test, onTest, register }} />
-				<BaseUrl {...{ base_url, custom, register }} />
-				<CustomFields custom_fields={(provider as SpecialProvider).custom_fields} register={register} />
+				<APIKey title={locales.api_key} {...{ api_key, custom, test, onTest, register }} />
+				<BaseUrl title={locales.base_url} {...{ base_url, custom, register }} />
+				<CustomFields
+					locales_custom_fields={locales_custom_fields}
+					custom_fields={(provider as SpecialProvider).custom_fields}
+					register={register}
+				/>
 				<div className='flex flex-col gap-2.5'>
 					<div className='flex justify-between items-center'>
-						<span className={`${styles.label}`}>Models</span>
+						<span className={`${styles.label}`}>{locales.models}</span>
 						{custom && (
 							<button
 								className='px-1.5 py-0.5 text-xsm rounded-2xl btn'
@@ -168,7 +173,7 @@ const Index = (props: IPropsForm) => {
 								onClick={toggleAddingModel}
 							>
 								<PlusIcon className='text-sm' />
-								Add Model
+								{locales.add_model}
 							</button>
 						)}
 					</div>
@@ -196,7 +201,7 @@ const Index = (props: IPropsForm) => {
 				<form className='flex flex-col gap-2.5' onSubmit={handleSubmit(onSubmit)}>
 					<div className='flex justify-between items-center'>
 						<div className={`flex items-center gap-3 ${styles.label}`}>
-							Add Model
+							{locales.add_model}
 							<Show
 								className='
 									text-rose-400
@@ -216,10 +221,10 @@ const Index = (props: IPropsForm) => {
 								type='button'
 								onClick={onCancel}
 							>
-								Cancel
+								{locales.cancel}
 							</button>
 							<button className='px-1.5 py-0.5 rounded-2xl btn' type='submit'>
-								Submit
+								{locales.submit}
 							</button>
 						</div>
 					</div>
@@ -233,6 +238,7 @@ const Index = (props: IPropsForm) => {
 						'
 					>
 						<ModelForm
+							locales_model_form={locales.model_form}
 							locales_features={locales.features}
 							control={control_model}
 							adding_model
@@ -243,7 +249,7 @@ const Index = (props: IPropsForm) => {
 			</Show>
 			{!custom && (
 				<div className='flex flex-col gap-2.5'>
-					<span className={`${styles.label}`}>Actions</span>
+					<span className={`${styles.label}`}>{locales.actions}</span>
 					<div
 						className='
 							flex justify-between
@@ -262,7 +268,7 @@ const Index = (props: IPropsForm) => {
 								onClick={toggleAddingModel}
 							>
 								<PlusIcon className='text-sm' />
-								Add Model
+								{locales.add_model}
 							</button>
 							<button
 								className='px-2.5 py-1.5 rounded-2xl btn'
@@ -270,7 +276,7 @@ const Index = (props: IPropsForm) => {
 								onClick={resetModels}
 							>
 								<ClockClockwiseIcon className='text-sm' />
-								Reset Models
+								{locales.reset_model}
 							</button>
 							<button
 								className='px-2.5 py-1.5 rounded-2xl btn'
@@ -278,7 +284,7 @@ const Index = (props: IPropsForm) => {
 								onClick={download}
 							>
 								<ClockClockwiseIcon className='text-sm' />
-								Export Config
+								{locales.export_config}
 							</button>
 							<button
 								className='px-2.5 py-1.5 rounded-2xl btn'
@@ -286,7 +292,7 @@ const Index = (props: IPropsForm) => {
 								onClick={upload}
 							>
 								<ClockClockwiseIcon className='text-sm' />
-								Import Config
+								{locales.import_config}
 							</button>
 						</div>
 						<button
@@ -294,7 +300,7 @@ const Index = (props: IPropsForm) => {
 							onClick={onDisableProvider}
 						>
 							<EyeClosedIcon className='text-sm' />
-							Disable Provider
+							{locales.disable_provider}
 						</button>
 					</div>
 				</div>

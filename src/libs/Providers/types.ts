@@ -24,7 +24,9 @@ export interface IPropsProviders {
 	onTest?: (provider: PresetProvider | SpecialProvider) => Promise<boolean>
 }
 
-export interface ArgsInit extends Pick<IPropsProviders, 'config' | 'onChange' | 'onTest'> {}
+export interface ArgsInit extends Pick<IPropsProviders, 'config' | 'onChange' | 'onTest'> {
+	locales_upload: ProvidersLocales['upload']
+}
 
 export interface IPropsTab {
 	locales: ProvidersLocales['providers']
@@ -45,6 +47,7 @@ export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrentTab'> {
 export interface IPropsForm {
 	provider: Config['providers'][number]
 	locales: ProvidersLocales['form']
+	locales_custom_fields: ProvidersLocales['custom_fields']
 	test?: DataModel['test']
 	current_model: DataModel['current_model']
 	adding_model: DataModel['adding_model']
@@ -60,18 +63,21 @@ export interface IPropsForm {
 }
 
 export interface IPropsFormAPIKey extends Pick<IPropsForm, 'test' | 'onTest'> {
+	title: string
 	api_key: IPropsForm['provider']['api_key']
 	custom?: boolean
 	register: UseFormRegister<IPropsForm['provider']>
 }
 
 export interface IPropsFormBaseUrl {
+	title: string
 	base_url: IPropsForm['provider']['base_url']
 	custom?: boolean
 	register: UseFormRegister<IPropsForm['provider']>
 }
 
 export interface IPropsFormCustomFields {
+	locales_custom_fields: ProvidersLocales['custom_fields']
 	custom_fields: SpecialProvider['custom_fields']
 	register: UseFormRegister<IPropsForm['provider']>
 }
@@ -96,6 +102,7 @@ export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onC
 }
 
 export interface IPropsFormModelForm {
+	locales_model_form: IPropsFormModels['locales']['model_form']
 	locales_features: IPropsFormModels['locales']['features']
 	control: Control<IPropsForm['provider']> | Control<Model>
 	index?: number
@@ -110,11 +117,13 @@ export interface IPropsFormModelFormFeatures {
 
 export interface IPropsCustom {
 	locales: ProvidersLocales['form']
+	locales_custom_fields: ProvidersLocales['custom_fields']
 	custom_providers: Config['custom_providers']
 	onChangeCustomProviders: DataModel['onChangeCustomProviders']
 }
 
 export interface IPropsCustomForm {
+	locales: ProvidersLocales['form']
 	toggle: () => void
 	checkExist: (name: string) => boolean
 	onAddProvider: (v: Provider) => void
@@ -122,6 +131,7 @@ export interface IPropsCustomForm {
 
 export interface IPropsCustomProvider {
 	locales: ProvidersLocales['form']
+	locales_custom_fields: ProvidersLocales['custom_fields']
 	index: number
 	item: Provider
 	update: UseFieldArrayUpdate<{ providers: Array<Provider> }>
@@ -129,7 +139,7 @@ export interface IPropsCustomProvider {
 }
 
 export interface IPropsDisabled {
-	locales: ProvidersLocales['providers']
+	locales: ProvidersLocales
 	items: Array<string>
 	onEnableProvider: DataModel['onEnableProvider']
 }

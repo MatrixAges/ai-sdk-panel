@@ -14,7 +14,7 @@ import { memo } from '@/utils'
 import { Custom, Disabled, Form, Tab } from './components'
 import Model from './model'
 
-import type { IPropsCustom, IPropsDisabled, IPropsForm, IPropsProviders, IPropsTab } from './types'
+import type { IPropsCustom, IPropsDisabled, IPropsForm, IPropsProviders, IPropsTab, ProvidersLocales } from './types'
 
 const Index = (props: IPropsProviders) => {
 	const { config, locales, tab, width, onChange, onTest } = props
@@ -23,12 +23,13 @@ const Index = (props: IPropsProviders) => {
 	const target_config = deepClone(x.config)
 	const providers = deepClone(x.providers)
 	const target_locales = deepmerge(providers_locales, locales)
+	const locales_upload = target_locales['upload']!
 
 	useLayoutEffect(() => {
 		if (deepEqual(config, x.config)) return
 
-		x.init({ config, onChange, onTest })
-	}, [config, onChange, onTest])
+		x.init({ locales_upload, config, onChange, onTest })
+	}, [locales_upload, config, onChange, onTest])
 
 	const locales_providers = useMemo(
 		() => ({ ...providers_locales.providers, ...locales?.providers }),
@@ -46,6 +47,7 @@ const Index = (props: IPropsProviders) => {
 
 	const props_form: IPropsForm = {
 		locales: target_locales['form']!,
+		locales_custom_fields: target_locales['custom_fields']!,
 		provider: deepClone(x.provider),
 		test: deepClone(x.test),
 		current_model: x.current_model,
@@ -54,7 +56,7 @@ const Index = (props: IPropsProviders) => {
 		onChangeProvider: x.onChangeProvider,
 		download: x.download,
 		upload: x.upload,
-		onChangeCurrentModel: useMemoizedFn((v: number) => {
+		onChangeCurrentModel: useMemoizedFn((v: number | null) => {
 			x.current_model = v === x.current_model ? null : v
 		}),
 		toggleAddingModel: useMemoizedFn(() => (x.adding_model = !x.adding_model)),
@@ -63,12 +65,13 @@ const Index = (props: IPropsProviders) => {
 
 	const props_custom: IPropsCustom = {
 		locales: target_locales['form']!,
+		locales_custom_fields: target_locales['custom_fields']!,
 		custom_providers: deepClone(target_config?.custom_providers),
 		onChangeCustomProviders: x.onChangeCustomProviders
 	}
 
 	const props_disabled: IPropsDisabled = {
-		locales: locales_providers,
+		locales: target_locales as ProvidersLocales,
 		items: providers.disabled,
 		onEnableProvider: x.onEnableProvider
 	}

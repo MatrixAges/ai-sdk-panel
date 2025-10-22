@@ -8,7 +8,7 @@ import Form from '../Form'
 import type { IPropsCustomProvider, IPropsForm, Provider } from '../../types'
 
 const Index = (props: IPropsCustomProvider) => {
-	const { locales, index, item, update, remove } = props
+	const { locales, locales_custom_fields, index, item, update, remove } = props
 	const [current_model, setCurrentModel] = useState<number | null>(null)
 	const [adding_model, setAddingModel] = useState(false)
 
@@ -16,12 +16,13 @@ const Index = (props: IPropsCustomProvider) => {
 
 	const props_form: IPropsForm = {
 		locales,
+		locales_custom_fields,
 		provider: item,
 		current_model,
 		adding_model,
 		custom: true,
 		onChangeProvider,
-		onChangeCurrentModel: useMemoizedFn((v: number) => {
+		onChangeCurrentModel: useMemoizedFn((v: number | null) => {
 			setCurrentModel(v === current_model ? null : v)
 		}),
 		toggleAddingModel: useMemoizedFn(() => setAddingModel(!adding_model)),

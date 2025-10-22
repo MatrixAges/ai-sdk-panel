@@ -70,6 +70,7 @@ const Index = (props: IPropsFormModels) => {
 								animate={{ opacity: 1, height: 'auto' }}
 							>
 								<ModelForm
+									locales_model_form={locales.model_form}
 									locales_features={locales.features}
 									{...{ item, index, control, register }}
 								/>

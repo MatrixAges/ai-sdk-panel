@@ -9,7 +9,7 @@ const Index = (props: IPropsDisabled) => {
 
 	return (
 		<div className='flex flex-col gap-2.5'>
-			<div className={styles.label}>Disabled Providers</div>
+			<div className={styles.label}>{locales.form.disabled.disabled_provider}</div>
 			{items.length > 0 ? (
 				<div
 					className='
@@ -32,7 +32,9 @@ const Index = (props: IPropsDisabled) => {
 						>
 							<div className='flex items-center gap-3 text-xl'>
 								<ProviderIcon name={item} />
-								<span className='text-sm'>{locales[item as keyof typeof locales]}</span>
+								<span className='text-sm'>
+									{locales.providers[item as keyof typeof locales.providers]}
+								</span>
 							</div>
 							<Switch value={false} onChange={() => onEnableProvider(item)} />
 						</div>
@@ -49,7 +51,7 @@ const Index = (props: IPropsDisabled) => {
 						rounded-2xl
 					'
 				>
-					No providers disabled
+					{locales.form.disabled.empty}
 				</div>
 			)}
 		</div>

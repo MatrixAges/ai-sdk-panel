@@ -45,7 +45,7 @@ const Index = (props: IPropsFormModel) => {
 				border-b border-border-light
 				transition-colors
 				hover:bg-bg-main-hover active:bg-bg-main-active
-				select-none cursor-pointer last:border-none ${custom && '!p-3'}
+				select-none cursor-pointer nth-last-of-type-3:border-none ${custom && '!p-3'}
 				${isDragging && 'backdrop-blur-sm !border rounded-sm z-10'}
 			`}
 			ref={setNodeRef}

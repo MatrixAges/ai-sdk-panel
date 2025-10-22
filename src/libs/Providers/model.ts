@@ -8,7 +8,7 @@ import { autoBind, downloadFile, uploadFile } from '@/utils'
 import { arrayMove } from '@dnd-kit/sortable'
 
 import type { DragEndEvent } from '@dnd-kit/core'
-import type { ArgsInit, Config, ConfigProvider, IPropsProviders } from './types'
+import type { ArgsInit, Config, ConfigProvider, IPropsProviders, ProvidersLocales } from './types'
 
 export default class Index {
 	config = null as Config | null
@@ -20,6 +20,7 @@ export default class Index {
 	upload_error = ''
 
 	refs = ref({
+		locales_upload: {} as ProvidersLocales['upload'],
 		timer_test: null as NodeJS.Timeout | null,
 		onChange: null as unknown as IPropsProviders['onChange'],
 		onTest: null as unknown as IPropsProviders['onTest']
@@ -51,10 +52,11 @@ export default class Index {
 	}
 
 	init(args: ArgsInit) {
-		const { config, onChange, onTest } = args
+		const { locales_upload, config, onChange, onTest } = args
 
 		this.config = deepClone(config)
 
+		this.refs.locales_upload = locales_upload
 		this.refs.onChange = onChange
 		this.refs.onTest = onTest
 
@@ -161,14 +163,17 @@ export default class Index {
 
 			if (res.errors.length)
 				this.upload_error = res.errors.reduce((total, item, index) => {
-					total += `${item.property.replace('instance.', '')} is not correct`
+					total += this.refs.locales_upload.validate_error.replace(
+						'{{property}}',
+						`${item.property.replace('instance.', '')}`
+					)
 
 					if (index !== res.errors.length - 1) total += ' | '
 
 					return total
-				}, '[Validate error]: ')
+				}, this.refs.locales_upload.validate_error_prefix)
 		} catch (err) {
-			if ((err as Error).message) this.upload_error = '[Upload error]: please check config format.'
+			if ((err as Error).message) this.upload_error = this.refs.locales_upload.upload_error
 		}
 
 		setTimeout(() => {

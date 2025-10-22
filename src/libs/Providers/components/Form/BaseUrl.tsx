@@ -4,13 +4,13 @@ import { memo } from '@/utils'
 import type { IPropsFormBaseUrl } from '../../types'
 
 const Index = (props: IPropsFormBaseUrl) => {
-	const { base_url, custom, register } = props
+	const { title, base_url, custom, register } = props
 
 	if (base_url === undefined) return
 
 	return (
 		<div className='flex flex-col gap-2.5'>
-			<span className={`${styles.label}`}>Base URL</span>
+			<span className={`${styles.label}`}>{title}</span>
 			<input
 				className={`
 					border-border-gray

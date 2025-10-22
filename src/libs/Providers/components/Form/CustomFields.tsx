@@ -4,7 +4,7 @@ import { memo } from '@/utils'
 import type { IPropsFormCustomFields } from '../../types'
 
 const Index = (props: IPropsFormCustomFields) => {
-	const { custom_fields, register } = props
+	const { locales_custom_fields, custom_fields, register } = props
 
 	const fields = custom_fields || {}
 	const keys = Object.keys(fields)
@@ -13,7 +13,9 @@ const Index = (props: IPropsFormCustomFields) => {
 
 	return keys.map(key => (
 		<div key={key} className='flex flex-col gap-2.5'>
-			<span className={`${styles.label}`}>{key}</span>
+			<span className={`capitalize ${styles.label}`}>
+				{locales_custom_fields[key as keyof typeof locales_custom_fields] || key.replaceAll('_', '')}
+			</span>
 			<input
 				className={`
 					h-14
