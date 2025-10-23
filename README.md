@@ -151,6 +151,15 @@ export interface Features {
 }
 ```
 
+## Test as usage
+
+Clone this repo, run commands:
+
+- `pnpm i`
+- `pnpm run test:ui`
+
+All test case will be show in the test ui.
+
 ## Providers
 
 ### Preset Providers
