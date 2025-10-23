@@ -1,4 +1,5 @@
 import { pluginReact } from '@rsbuild/plugin-react'
+import { pluginSvgr } from '@rsbuild/plugin-svgr'
 import { defineConfig } from '@rslib/core'
 
 import type { RslibConfig } from '@rslib/core'
@@ -14,7 +15,14 @@ if (is_prod) prod_output!['minify'] = {}
 
 export default defineConfig({
 	mode: is_dev ? 'development' : 'production',
-	lib: [{ format: 'esm', autoExternal: is_dev, externalHelpers: true, dts: true }],
+	lib: [
+		{
+			format: 'esm',
+			autoExternal: is_dev,
+			externalHelpers: true,
+			dts: true
+		}
+	],
 	output: {
 		target: 'web',
 		injectStyles: true,
@@ -33,5 +41,5 @@ export default defineConfig({
 	server: {
 		publicDir: { copyOnBuild: false }
 	},
-	plugins: [pluginReact()]
+	plugins: [pluginReact(), pluginSvgr()]
 })

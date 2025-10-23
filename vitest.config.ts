@@ -15,6 +15,19 @@ export default defineConfig({
 			provider: playwright(),
 			instances: [{ browser: 'chromium', headless: !ui }],
 			viewport: { width: 790, height: 1080 }
-		}
+		},
+		pool: 'threads',
+		maxWorkers: 4
+	},
+	optimizeDeps: {
+		include: [
+			'react',
+			'react-dom',
+			'@testing-library/react',
+			'ahooks',
+			'fast-equals',
+			'react-hook-form',
+			'valtio'
+		]
 	}
 })

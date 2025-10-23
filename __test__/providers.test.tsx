@@ -39,6 +39,10 @@ const props_providers_all = {
 	...props_providers
 } as IPropsProviders
 
+// console.log('-------')
+// console.log('background: ', background)
+// console.log('-------')
+
 beforeEach(() => {
 	config = null
 	user = userEvent.setup()
@@ -56,10 +60,6 @@ test('dark theme', async () => {
 
 	const background = window.getComputedStyle(actions_wrap).getPropertyValue('background-color')
 
-	console.log('-------')
-	console.log('background: ', background)
-	console.log('-------')
-
 	expect(background).toBe('oklch(0 0 0 / 0.6)')
 })
 
@@ -67,6 +67,8 @@ test('toggle tab', async () => {
 	await user.click(screen.getByText('Anthropic', { selector: 'span' }))
 
 	expect(screen.getByText('Claude Sonnet 4.5')).toBeInTheDocument()
+
+	await user.click(screen.getByText('Anthropic', { selector: 'span' }))
 })
 
 test('input api key', async () => {
@@ -82,4 +84,8 @@ test('input api key', async () => {
 	await user.type(api_key_input, api_key)
 
 	expect(api_key_input).toHaveValue(api_key)
+
+	console.log('-------')
+	console.log('config: ', config)
+	console.log('-------')
 })
