@@ -5,12 +5,15 @@ import { memo } from '@/utils'
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable'
 
+import { useGlobalState } from '../../context'
 import Item from './Item'
 
 import type { IPropsTab, ProvidersLocales } from '../../types'
 
 const Index = (props: IPropsTab) => {
-	const { locales, tab, items, current_tab, onChangeCurrentTab, onDragProvider } = props
+	const { tab, items, current_tab, onChangeCurrentTab, onDragProvider } = props
+
+	const { locales } = useGlobalState()
 
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 
@@ -34,7 +37,7 @@ const Index = (props: IPropsTab) => {
 				{items.map((item, index) => (
 					<Item
 						index={index}
-						display_name={locales[item as keyof ProvidersLocales['providers']]}
+						display_name={locales.providers[item as keyof ProvidersLocales['providers']]}
 						active={current_tab === index}
 						key={item}
 						{...{ item, onChangeCurrentTab }}

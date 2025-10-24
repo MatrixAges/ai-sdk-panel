@@ -8,11 +8,15 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { TrashIcon } from '@phosphor-icons/react'
 
+import { useGlobalState } from '../../context'
+
 import type { IPropsFormModel } from '../../types'
 
 const Index = (props: IPropsFormModel) => {
-	const { index, item, control, locales_desc, desc_keys, custom, editing, onChangeCurrentModel, remove } = props
+	const { index, item, control, desc_keys, custom, editing, onChangeCurrentModel, remove } = props
 	const { id, name, desc } = item
+
+	const { locales } = useGlobalState()
 
 	const { attributes, listeners, transform, transition, isDragging, setNodeRef } = useSortable({
 		id
@@ -25,14 +29,14 @@ const Index = (props: IPropsFormModel) => {
 
 		const exact_key = desc_keys.find(i => id === i)
 
-		if (exact_key) return locales_desc[exact_key]
+		if (exact_key) return locales.form.desc[exact_key]
 
 		const relate_key = desc_keys.find(i => id.toLowerCase().indexOf(i) !== -1)
 
-		if (relate_key) return locales_desc[relate_key]
+		if (relate_key) return locales.form.desc[relate_key]
 
-		return locales_desc.no_desc
-	}, [desc, locales_desc, desc_keys])
+		return locales.form.desc.no_desc
+	}, [desc, locales.form.desc, desc_keys])
 
 	const onRemove = useMemoizedFn(() => remove(index))
 

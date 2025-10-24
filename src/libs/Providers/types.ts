@@ -1,25 +1,18 @@
 import { providers_locales } from '@/i18n'
 
 import type { DragEndEvent } from '@dnd-kit/core'
+import type { ExoticComponent } from 'react'
 import type { Control, UseFieldArrayRemove, UseFieldArrayUpdate, UseFormRegister } from 'react-hook-form'
 import type { default as DataModel } from './model'
 
 export type ProvidersLocales = typeof providers_locales
 
-export interface TabTab {
-	type: 'tab'
-	layout: 'between' | 'scroll'
-}
-
-export interface ListTab {
-	type: 'list'
-}
-
 export interface IPropsProviders {
 	config: Config
 	tab: 'between' | 'scroll'
-	locales?: Partial<ProvidersLocales>
 	width?: number | string
+	locales?: DeepPartial<ProvidersLocales>
+	icons?: Record<string, ExoticComponent<any>>
 	onChange: (v: Config) => void
 	onTest?: (provider: PresetProvider | SpecialProvider) => Promise<boolean>
 }
@@ -29,7 +22,6 @@ export interface ArgsInit extends Pick<IPropsProviders, 'config' | 'onChange' | 
 }
 
 export interface IPropsTab {
-	locales: ProvidersLocales['providers']
 	tab: Required<IPropsProviders>['tab']
 	items: Array<string>
 	current_tab: DataModel['current_tab']
@@ -46,8 +38,6 @@ export interface IPropsTabItem extends Pick<IPropsTab, 'onChangeCurrentTab'> {
 
 export interface IPropsForm {
 	provider: Config['providers'][number]
-	locales: ProvidersLocales['form']
-	locales_custom_fields: ProvidersLocales['custom_fields']
 	test?: DataModel['test']
 	current_model: DataModel['current_model']
 	adding_model: DataModel['adding_model']
@@ -77,13 +67,11 @@ export interface IPropsFormBaseUrl {
 }
 
 export interface IPropsFormCustomFields {
-	locales_custom_fields: ProvidersLocales['custom_fields']
 	custom_fields: SpecialProvider['custom_fields']
 	register: UseFormRegister<IPropsForm['provider']>
 }
 
 export interface IPropsFormModels extends Pick<IPropsForm, 'current_model' | 'onChangeCurrentModel'> {
-	locales: IPropsForm['locales']
 	models: SpecialProvider['models']
 	control: Control<IPropsForm['provider']>
 	custom?: boolean
@@ -93,7 +81,6 @@ export interface IPropsFormModels extends Pick<IPropsForm, 'current_model' | 'on
 }
 
 export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onChangeCurrentModel' | 'remove'> {
-	locales_desc: IPropsFormModels['locales']['desc']
 	index: number
 	item: Model
 	desc_keys: Array<string>
@@ -102,8 +89,6 @@ export interface IPropsFormModel extends Pick<IPropsFormModels, 'control' | 'onC
 }
 
 export interface IPropsFormModelForm {
-	locales_model_form: IPropsFormModels['locales']['model_form']
-	locales_features: IPropsFormModels['locales']['features']
 	control: Control<IPropsForm['provider']> | Control<Model>
 	index?: number
 	item?: Model
@@ -111,27 +96,20 @@ export interface IPropsFormModelForm {
 	register: UseFormRegister<IPropsForm['provider']> | UseFormRegister<Model>
 }
 
-export interface IPropsFormModelFormFeatures {
-	locales_features: IPropsFormModelForm['locales_features']
-}
+export interface IPropsFormModelFormFeatures {}
 
 export interface IPropsCustom {
-	locales: ProvidersLocales['form']
-	locales_custom_fields: ProvidersLocales['custom_fields']
 	custom_providers: Config['custom_providers']
 	onChangeCustomProviders: DataModel['onChangeCustomProviders']
 }
 
 export interface IPropsCustomForm {
-	locales: ProvidersLocales['form']
 	toggle: () => void
 	checkExist: (name: string) => boolean
 	onAddProvider: (v: Provider) => void
 }
 
 export interface IPropsCustomProvider {
-	locales: ProvidersLocales['form']
-	locales_custom_fields: ProvidersLocales['custom_fields']
 	index: number
 	item: Provider
 	update: UseFieldArrayUpdate<{ providers: Array<Provider> }>
@@ -139,7 +117,6 @@ export interface IPropsCustomProvider {
 }
 
 export interface IPropsDisabled {
-	locales: ProvidersLocales
 	items: Array<string>
 	onEnableProvider: DataModel['onEnableProvider']
 }
@@ -194,3 +171,15 @@ export interface Features {
 	embedding?: boolean
 	reranking?: boolean
 }
+
+export type DeepPartial<T> = T extends object
+	? {
+			[P in keyof T]?: DeepPartial<T[P]>
+		}
+	: T
+
+export type DeepRequired<T> = T extends object
+	? {
+			[P in keyof T]-?: DeepRequired<T[P]>
+		}
+	: T

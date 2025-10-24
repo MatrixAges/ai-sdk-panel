@@ -3,18 +3,15 @@ import { deepClone } from 'valtio/utils'
 
 import { memo } from '@/utils'
 
+import { useGlobalState } from '../../context'
 import Feature, { feature_keys, feature_metadata } from './Feature'
 
 import type { ControllerRenderProps } from 'react-hook-form'
 import type { IPropsFormModelFormFeatures } from '../../types'
 
 const Index = (props: IPropsFormModelFormFeatures) => {
-	const {
-		locales_features,
-		name,
-		value: features = {},
-		onChange
-	} = props as IPropsFormModelFormFeatures & ControllerRenderProps
+	const { name, value: features = {}, onChange } = props as IPropsFormModelFormFeatures & ControllerRenderProps
+	const { locales } = useGlobalState()
 
 	const onItem = useMemoizedFn((key: string) => {
 		const target = deepClone(features) || {}
@@ -35,9 +32,8 @@ const Index = (props: IPropsFormModelFormFeatures) => {
 						text-soft text-base
 						border-b border-border-gray
 						hover:bg-bg-main-hover active:bg-bg-main-active
-						select-none cursor-pointer
+						select-none cursor-pointer col-span-3 ${feature_metadata[key].col ?? 'col-span-5'}
 						${feature_metadata[key].no_border_r ? 'border-r-0' : 'border-r'}
-						col-span-3 ${feature_metadata[key].col ?? 'col-span-5'}
 						${features[key as keyof typeof features] && 'text-solid'}
 						${name === 'features' && 'nth-last-of-type-[-n+3]:border-b-0'}
 					`}
@@ -46,7 +42,7 @@ const Index = (props: IPropsFormModelFormFeatures) => {
 				>
 					<Feature name={key}></Feature>
 					<span className='text-xs capitalize'>
-						{locales_features[key as keyof typeof locales_features]}
+						{locales.form.features[key as keyof typeof locales.form.features]}
 					</span>
 				</div>
 			))}

@@ -1,19 +1,26 @@
 import { AutoLabel, Controller } from '@/components'
 import { memo } from '@/utils'
 
+import { useGlobalState } from '../../context'
 import Features from './Features'
 
 import type { UseFormRegister } from 'react-hook-form'
 import type { IPropsForm, IPropsFormModelForm, Model } from '../../types'
 
 const Index = (props: IPropsFormModelForm) => {
-	const { locales_model_form, locales_features, index = 0, item, control, adding_model, register } = props
+	const { index = 0, item, control, adding_model, register } = props
 	const { name, id, desc, features, fee } = item || {}
+
+	const { locales } = useGlobalState()
 
 	return (
 		<div className='flex flex-col'>
 			<div className='grid grid-cols-2'>
-				<AutoLabel className='border-r' label={locales_model_form.model_id} valued={id || adding_model}>
+				<AutoLabel
+					className='border-r'
+					label={locales.form.model_form.model_id}
+					valued={id || adding_model}
+				>
 					<input
 						className={`
 							w-full h-full
@@ -21,7 +28,7 @@ const Index = (props: IPropsFormModelForm) => {
 							outline-none
 							placeholder:text-soft disabled:text-gray
 						`}
-						placeholder={locales_model_form.input + locales_model_form.model_id}
+						placeholder={locales.form.model_form.input + locales.form.model_form.model_id}
 						disabled={!adding_model}
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('id')
@@ -30,7 +37,7 @@ const Index = (props: IPropsFormModelForm) => {
 								))}
 					/>
 				</AutoLabel>
-				<AutoLabel label={locales_model_form.model_name} valued={name || adding_model}>
+				<AutoLabel label={locales.form.model_form.model_name} valued={name || adding_model}>
 					<input
 						className={`
 							w-full h-full
@@ -38,7 +45,7 @@ const Index = (props: IPropsFormModelForm) => {
 							outline-none
 							placeholder:text-soft
 						`}
-						placeholder={locales_model_form.input + locales_model_form.model_name}
+						placeholder={locales.form.model_form.input + locales.form.model_form.model_name}
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('name')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -48,7 +55,7 @@ const Index = (props: IPropsFormModelForm) => {
 				</AutoLabel>
 				<AutoLabel
 					className='border-r'
-					label={locales_model_form.output_fee}
+					label={locales.form.model_form.output_fee}
 					valued={fee?.output || adding_model}
 				>
 					<input
@@ -60,7 +67,9 @@ const Index = (props: IPropsFormModelForm) => {
 						`}
 						type='number'
 						step={0.01}
-						placeholder={locales_model_form.output_fee + locales_model_form.per_million}
+						placeholder={
+							locales.form.model_form.output_fee + locales.form.model_form.per_million
+						}
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('fee.output')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -68,7 +77,7 @@ const Index = (props: IPropsFormModelForm) => {
 								))}
 					/>
 				</AutoLabel>
-				<AutoLabel label={locales_model_form.input_fee} valued={fee?.input || adding_model}>
+				<AutoLabel label={locales.form.model_form.input_fee} valued={fee?.input || adding_model}>
 					<input
 						className={`
 							w-full h-full
@@ -78,7 +87,9 @@ const Index = (props: IPropsFormModelForm) => {
 						`}
 						type='number'
 						step={0.01}
-						placeholder={locales_model_form.input_fee + locales_model_form.per_million}
+						placeholder={
+							locales.form.model_form.input_fee + locales.form.model_form.per_million
+						}
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('fee.input')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -88,7 +99,7 @@ const Index = (props: IPropsFormModelForm) => {
 				</AutoLabel>
 				<AutoLabel
 					className='border-r-0 col-span-2'
-					label={locales_model_form.model_desc}
+					label={locales.form.model_form.model_desc}
 					valued={desc || adding_model}
 				>
 					<input
@@ -98,7 +109,7 @@ const Index = (props: IPropsFormModelForm) => {
 							outline-none
 							placeholder:text-soft
 						`}
-						placeholder={locales_model_form.input + locales_model_form.model_desc}
+						placeholder={locales.form.model_form.input + locales.form.model_form.model_desc}
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('desc')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -109,7 +120,7 @@ const Index = (props: IPropsFormModelForm) => {
 			</div>
 			{(features || adding_model) && (
 				<Controller name={adding_model ? 'features' : `models.${index}.features`} control={control}>
-					<Features locales_features={locales_features} />
+					<Features />
 				</Controller>
 			)}
 		</div>

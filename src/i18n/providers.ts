@@ -45,6 +45,7 @@ export default {
 		disable_provider: 'Disable Provider',
 		cancel: 'Cancel',
 		submit: 'Submit',
+		models_empty: 'No models added',
 		error: {
 			id_required: 'Model ID is required',
 			id_exsit: 'Model ID is exist',

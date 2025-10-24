@@ -10,6 +10,7 @@ import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
 import { ClockClockwiseIcon, EyeClosedIcon, PlusIcon, TrashIcon } from '@phosphor-icons/react'
 
+import { useGlobalState } from '../../context'
 import APIKey from './APIKey'
 import BaseUrl from './BaseUrl'
 import CustomFields from './CustomFields'
@@ -21,8 +22,6 @@ import type { IPropsForm, Model, SpecialProvider } from '../../types'
 
 const Index = (props: IPropsForm) => {
 	const {
-		locales,
-		locales_custom_fields,
 		provider,
 		test,
 		current_model,
@@ -37,6 +36,7 @@ const Index = (props: IPropsForm) => {
 		onDisableProvider,
 		onRemoveProvider
 	} = props
+	const { locales } = useGlobalState()
 
 	const { name, api_key, base_url } = provider
 
@@ -89,19 +89,19 @@ const Index = (props: IPropsForm) => {
 		if (!values['id']) {
 			setFocus('id')
 
-			return setError(locales.error.id_required)
+			return setError(locales.form.error.id_required)
 		}
 
 		if (target_fields.find(item => item.id === values['id'])) {
 			setFocus('id')
 
-			return setError(locales.error.id_exsit)
+			return setError(locales.form.error.id_exsit)
 		}
 
 		if (!values['name']) {
 			setFocus('name')
 
-			return setError(locales.error.name_required)
+			return setError(locales.form.error.name_required)
 		}
 
 		prepend({ ...values, enabled: true, features: values.features || {} })
@@ -156,16 +156,12 @@ const Index = (props: IPropsForm) => {
 						</div>
 					</div>
 				)}
-				<APIKey title={locales.api_key} {...{ api_key, custom, test, onTest, register }} />
-				<BaseUrl title={locales.base_url} {...{ base_url, custom, register }} />
-				<CustomFields
-					locales_custom_fields={locales_custom_fields}
-					custom_fields={(provider as SpecialProvider).custom_fields}
-					register={register}
-				/>
+				<APIKey title={locales.form.api_key} {...{ api_key, custom, test, onTest, register }} />
+				<BaseUrl title={locales.form.base_url} {...{ base_url, custom, register }} />
+				<CustomFields custom_fields={(provider as SpecialProvider).custom_fields} register={register} />
 				<div className='flex flex-col gap-2.5'>
 					<div className='flex justify-between items-center'>
-						<span className={`${styles.label}`}>{locales.models}</span>
+						<span className={`${styles.label}`}>{locales.form.models}</span>
 						{custom && (
 							<button
 								className='px-1.5 py-0.5 text-xsm rounded-2xl btn'
@@ -173,7 +169,7 @@ const Index = (props: IPropsForm) => {
 								onClick={toggleAddingModel}
 							>
 								<PlusIcon className='text-sm' />
-								{locales.add_model}
+								{locales.form.add_model}
 							</button>
 						)}
 					</div>
@@ -201,7 +197,7 @@ const Index = (props: IPropsForm) => {
 				<form className='flex flex-col gap-2.5' onSubmit={handleSubmit(onSubmit)}>
 					<div className='flex justify-between items-center'>
 						<div className={`flex items-center gap-3 ${styles.label}`}>
-							{locales.add_model}
+							{locales.form.add_model}
 							<Show
 								className='
 									text-rose-400
@@ -221,10 +217,10 @@ const Index = (props: IPropsForm) => {
 								type='button'
 								onClick={onCancel}
 							>
-								{locales.cancel}
+								{locales.form.cancel}
 							</button>
 							<button className='px-1.5 py-0.5 rounded-2xl btn' type='submit'>
-								{locales.submit}
+								{locales.form.submit}
 							</button>
 						</div>
 					</div>
@@ -237,19 +233,13 @@ const Index = (props: IPropsForm) => {
 							rounded-2xl
 						'
 					>
-						<ModelForm
-							locales_model_form={locales.model_form}
-							locales_features={locales.features}
-							control={control_model}
-							adding_model
-							register={register_model}
-						/>
+						<ModelForm control={control_model} adding_model register={register_model} />
 					</div>
 				</form>
 			</Show>
 			{!custom && (
 				<div className='flex flex-col gap-2.5'>
-					<span className={`${styles.label}`}>{locales.actions}</span>
+					<span className={`${styles.label}`}>{locales.form.actions}</span>
 					<div
 						className='
 							flex justify-between
@@ -268,7 +258,7 @@ const Index = (props: IPropsForm) => {
 								onClick={toggleAddingModel}
 							>
 								<PlusIcon className='text-sm' />
-								{locales.add_model}
+								{locales.form.add_model}
 							</button>
 							<button
 								className='px-2.5 py-1.5 rounded-2xl btn'
@@ -276,7 +266,7 @@ const Index = (props: IPropsForm) => {
 								onClick={resetModels}
 							>
 								<ClockClockwiseIcon className='text-sm' />
-								{locales.reset_model}
+								{locales.form.reset_model}
 							</button>
 							<button
 								className='px-2.5 py-1.5 rounded-2xl btn'
@@ -284,7 +274,7 @@ const Index = (props: IPropsForm) => {
 								onClick={download}
 							>
 								<ClockClockwiseIcon className='text-sm' />
-								{locales.export_config}
+								{locales.form.export_config}
 							</button>
 							<button
 								className='px-2.5 py-1.5 rounded-2xl btn'
@@ -292,7 +282,7 @@ const Index = (props: IPropsForm) => {
 								onClick={upload}
 							>
 								<ClockClockwiseIcon className='text-sm' />
-								{locales.import_config}
+								{locales.form.import_config}
 							</button>
 						</div>
 						<button
@@ -300,7 +290,7 @@ const Index = (props: IPropsForm) => {
 							onClick={onDisableProvider}
 						>
 							<EyeClosedIcon className='text-sm' />
-							{locales.disable_provider}
+							{locales.form.disable_provider}
 						</button>
 					</div>
 				</div>

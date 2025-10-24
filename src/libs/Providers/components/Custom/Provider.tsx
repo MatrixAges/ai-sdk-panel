@@ -8,15 +8,13 @@ import Form from '../Form'
 import type { IPropsCustomProvider, IPropsForm, Provider } from '../../types'
 
 const Index = (props: IPropsCustomProvider) => {
-	const { locales, locales_custom_fields, index, item, update, remove } = props
+	const { index, item, update, remove } = props
 	const [current_model, setCurrentModel] = useState<number | null>(null)
 	const [adding_model, setAddingModel] = useState(false)
 
 	const onChangeProvider = useMemoizedFn((v: Provider) => update(index, v))
 
 	const props_form: IPropsForm = {
-		locales,
-		locales_custom_fields,
 		provider: item,
 		current_model,
 		adding_model,

@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
+import { deepmerge } from 'deepmerge-ts'
 
+import { useGlobalState } from '@/libs/Providers/context'
 import { memo } from '@/utils'
 import AlibabaCloud from '@lobehub/icons-static-svg/icons/alibabacloud.svg?react'
 import Anthropic from '@lobehub/icons-static-svg/icons/anthropic.svg?react'
@@ -65,7 +67,13 @@ interface IProps {
 }
 
 const Index = ({ name, ...props }: IProps) => {
-	const Icon = useMemo(() => (name in module_icon ? module_icon[name] : RobotIcon), [name])
+	const { icons = {} } = useGlobalState()
+
+	const Icon = useMemo(() => {
+		const icon_maps = deepmerge(module_icon, icons)
+
+		return name in icon_maps ? icon_maps[name] : RobotIcon
+	}, [name, icons])
 
 	return <Icon {...props}></Icon>
 }

@@ -9,13 +9,15 @@ import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
 import { PlusIcon } from '@phosphor-icons/react'
 
+import { useGlobalState } from '../../context'
 import Form from './Form'
 import Provider from './Provider'
 
 import type { IPropsCustom, Provider as ProviderType } from '../../types'
 
 const Index = (props: IPropsCustom) => {
-	const { locales, locales_custom_fields, custom_providers = [], onChangeCustomProviders } = props
+	const { custom_providers = [], onChangeCustomProviders } = props
+	const { locales } = useGlobalState()
 	const [visible, { toggle }] = useToggle()
 
 	const { control, formState, getValues } = useForm<{
@@ -76,9 +78,9 @@ const Index = (props: IPropsCustom) => {
 			>
 				<button className='px-2.5 py-1.5 rounded-2xl btn' type='button' onClick={toggle}>
 					<PlusIcon className='text-sm' />
-					{locales.custom.add_provider}
+					{locales.form.custom.add_provider}
 				</button>
-				<span className='text-gray'>{locales.custom.openai_compatible}</span>
+				<span className='text-gray'>{locales.form.custom.openai_compatible}</span>
 			</div>
 			<Show
 				className='overflow-hidden'
@@ -86,17 +88,14 @@ const Index = (props: IPropsCustom) => {
 				initial={{ opacity: 0, height: 0 }}
 				animate={{ opacity: 1, height: 'auto' }}
 			>
-				<Form locales={locales} {...{ toggle, checkExist, onAddProvider }} />
+				<Form {...{ toggle, checkExist, onAddProvider }} />
 			</Show>
 			{target_fields.length > 0 && (
 				<div className='flex flex-col w-full gap-2.5'>
-					<span className={styles.label}>{locales.custom.providers}</span>
+					<span className={styles.label}>{locales.form.custom.providers}</span>
 					<div className='flex flex-col gap-5'>
 						{target_fields.map((item, index) => (
-							<Provider
-								{...{ locales, locales_custom_fields, index, item, update, remove }}
-								key={item.name}
-							/>
+							<Provider {...{ index, item, update, remove }} key={item.name} />
 						))}
 					</div>
 				</div>

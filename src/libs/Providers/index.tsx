@@ -1,6 +1,6 @@
 import 'react-horizontal-scrolling-menu/dist/styles.css'
 
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { useMemoizedFn } from 'ahooks'
 import { deepmerge } from 'deepmerge-ts'
 import { deepEqual } from 'fast-equals'
@@ -12,17 +12,27 @@ import { providers_locales } from '@/i18n'
 import { memo } from '@/utils'
 
 import { Custom, Disabled, Form, Tab } from './components'
+import { GlobalState } from './context'
 import Model from './model'
 
-import type { IPropsCustom, IPropsDisabled, IPropsForm, IPropsProviders, IPropsTab, ProvidersLocales } from './types'
+import type {
+	DeepRequired,
+	IPropsCustom,
+	IPropsDisabled,
+	IPropsForm,
+	IPropsProviders,
+	IPropsTab,
+	ProvidersLocales
+} from './types'
 
 const Index = (props: IPropsProviders) => {
-	const { config, locales, tab, width, onChange, onTest } = props
+	const { config, tab, width, locales, icons, onChange, onTest } = props
 	const state = useRef(proxy(new Model()))
 	const x = useProxy(state.current)
+
 	const target_config = deepClone(x.config)
 	const providers = deepClone(x.providers)
-	const target_locales = deepmerge(providers_locales, locales)
+	const target_locales = deepmerge(providers_locales, locales) as DeepRequired<ProvidersLocales>
 	const locales_upload = target_locales['upload']!
 
 	useLayoutEffect(() => {
@@ -31,13 +41,7 @@ const Index = (props: IPropsProviders) => {
 		x.init({ locales_upload, config, onChange, onTest })
 	}, [locales_upload, config, onChange, onTest])
 
-	const locales_providers = useMemo(
-		() => ({ ...providers_locales.providers, ...locales?.providers }),
-		[locales?.providers]
-	)
-
 	const props_tab: IPropsTab = {
-		locales: locales_providers,
 		tab,
 		items: deepClone(x.tabs),
 		current_tab: x.current_tab,
@@ -46,8 +50,6 @@ const Index = (props: IPropsProviders) => {
 	}
 
 	const props_form: IPropsForm = {
-		locales: target_locales['form']!,
-		locales_custom_fields: target_locales['custom_fields']!,
 		provider: deepClone(x.provider),
 		test: deepClone(x.test),
 		current_model: x.current_model,
@@ -64,14 +66,11 @@ const Index = (props: IPropsProviders) => {
 	}
 
 	const props_custom: IPropsCustom = {
-		locales: target_locales['form']!,
-		locales_custom_fields: target_locales['custom_fields']!,
 		custom_providers: deepClone(target_config?.custom_providers),
 		onChangeCustomProviders: x.onChangeCustomProviders
 	}
 
 	const props_disabled: IPropsDisabled = {
-		locales: target_locales as ProvidersLocales,
 		items: providers.disabled,
 		onEnableProvider: x.onEnableProvider
 	}
@@ -79,26 +78,28 @@ const Index = (props: IPropsProviders) => {
 	if (!x.config || !target_config) return
 
 	return (
-		<div style={{ width }} className='flex flex-col items-center gap-8'>
-			<Tab {...props_tab} />
-			<AnimateBox className='w-full'>
-				{x.current_tab === props_tab.items.length - 1 ? (
-					<Disabled {...props_disabled} />
-				) : x.current_tab === props_tab.items.length - 2 ? (
-					<Custom {...props_custom} />
-				) : (
-					<Form {...props_form} />
-				)}
-				<Show
-					className='py-2 text-rose-400 text-xsm overflow-hidden'
-					visible={x.upload_error !== ''}
-					initial={{ opacity: 0, width: 0 }}
-					animate={{ opacity: 1, width: 'auto' }}
-				>
-					{x.upload_error}
-				</Show>
-			</AnimateBox>
-		</div>
+		<GlobalState value={{ locales: target_locales, icons }}>
+			<div style={{ width }} className='flex flex-col items-center gap-8'>
+				<Tab {...props_tab} />
+				<AnimateBox className='w-full'>
+					{x.current_tab === props_tab.items.length - 1 ? (
+						<Disabled {...props_disabled} />
+					) : x.current_tab === props_tab.items.length - 2 ? (
+						<Custom {...props_custom} />
+					) : (
+						<Form {...props_form} />
+					)}
+					<Show
+						className='py-2 text-rose-400 text-xsm overflow-hidden'
+						visible={x.upload_error !== ''}
+						initial={{ opacity: 0, width: 0 }}
+						animate={{ opacity: 1, width: 'auto' }}
+					>
+						{x.upload_error}
+					</Show>
+				</AnimateBox>
+			</div>
+		</GlobalState>
 	)
 }
 

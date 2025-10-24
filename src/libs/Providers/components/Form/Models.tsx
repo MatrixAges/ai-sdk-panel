@@ -6,18 +6,20 @@ import { memo } from '@/utils'
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
+import { useGlobalState } from '../../context'
 import Model from './Model'
 import ModelForm from './ModelForm'
 
 import type { IPropsFormModels } from '../../types'
 
 const Index = (props: IPropsFormModels) => {
-	const { models, control, locales, current_model, custom, register, remove, onChangeCurrentModel, onDragModel } =
-		props
+	const { models, control, current_model, custom, register, remove, onChangeCurrentModel, onDragModel } = props
+
+	const { locales } = useGlobalState()
 
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 
-	const desc_keys = useMemo(() => Object.keys(locales.desc), [locales.desc])
+	const desc_keys = useMemo(() => Object.keys(locales.form.desc), [locales.form.desc])
 
 	const onDragStart = useMemoizedFn(() => onChangeCurrentModel(null))
 
@@ -33,7 +35,7 @@ const Index = (props: IPropsFormModels) => {
 					rounded-2xl
 				'
 			>
-				No models added
+				{locales.form.models_empty}
 			</div>
 		)
 
@@ -51,7 +53,6 @@ const Index = (props: IPropsFormModels) => {
 					{models.map((item, index) => (
 						<Fragment key={item.id}>
 							<Model
-								locales_desc={locales.desc}
 								editing={current_model === index}
 								{...{
 									index,
@@ -69,11 +70,7 @@ const Index = (props: IPropsFormModels) => {
 								initial={{ opacity: 0, height: 0 }}
 								animate={{ opacity: 1, height: 'auto' }}
 							>
-								<ModelForm
-									locales_model_form={locales.model_form}
-									locales_features={locales.features}
-									{...{ item, index, control, register }}
-								/>
+								<ModelForm {...{ item, index, control, register }} />
 							</Show>
 						</Fragment>
 					))}

@@ -2,10 +2,13 @@ import { ProviderIcon, Switch } from '@/components'
 import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
 
+import { useGlobalState } from '../../context'
+
 import type { IPropsDisabled } from '../../types'
 
 const Index = (props: IPropsDisabled) => {
-	const { locales, items, onEnableProvider } = props
+	const { items, onEnableProvider } = props
+	const { locales } = useGlobalState()
 
 	return (
 		<div className='flex flex-col gap-2.5'>

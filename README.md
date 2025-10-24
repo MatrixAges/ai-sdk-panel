@@ -66,10 +66,12 @@ export interface IPropsProviders {
 	}
 	/* Tab layout */
 	tab: 'between' | 'scroll'
-	/* I18n locales */
-	locales?: Partial<ProvidersLocales>
 	/* Component width */
 	width?: number | string
+	/* I18n locales */
+	locales?: Partial<ProvidersLocales>
+	/* Custom provider icons, ExoticComponent is react fc component */
+	icons: Record<string, ExoticComponent>
 	/* Trigger when config updated */
 	onChange: (v: Config) => void
 	/* Trigger when click API Key test button */

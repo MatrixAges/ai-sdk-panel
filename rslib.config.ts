@@ -32,6 +32,15 @@ export default defineConfig({
 		...prod_output
 	},
 	tools: {
+		swc: {
+			jsc: {
+				minify: {
+					compress: {
+						directives: false
+					}
+				}
+			}
+		},
 		lightningcssLoader: {
 			targets: 'chrome >= 120',
 			exclude: { isSelector: true }
