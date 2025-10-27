@@ -20,7 +20,8 @@ export default defineConfig({
 			format: 'esm',
 			autoExternal: is_dev,
 			externalHelpers: true,
-			dts: true
+			dts: true,
+			source: { tsconfigPath: './tsconfig.dts.json' }
 		}
 	],
 	output: {

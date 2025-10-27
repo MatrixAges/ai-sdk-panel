@@ -33,6 +33,7 @@ const Index = (props: IPropsCustomForm) => {
 		}
 
 		onAddProvider(values)
+		onCancel()
 	})
 
 	return (

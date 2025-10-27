@@ -63,6 +63,13 @@ export default class Index {
 		autoBind(this)
 	}
 
+	setEnabledProvider(v: Partial<ConfigProvider>) {
+		const name = this.providers.enabled[this.current_tab].name
+		const index = this.config!.providers.findIndex(item => item.name === name)!
+
+		this.config!.providers[index] = { ...this.config!.providers[index], ...v }
+	}
+
 	onChangeCurrentTab(v: number) {
 		this.current_model = null
 		this.adding_model = false
@@ -70,7 +77,7 @@ export default class Index {
 	}
 
 	onChangeProvider(v: Index['provider']) {
-		this.providers.enabled![this.current_tab] = v
+		this.setEnabledProvider(v)
 
 		this.onChange()
 	}
@@ -78,7 +85,7 @@ export default class Index {
 	onToggleProvider() {
 		if (this.providers.enabled!.length <= 3) return
 
-		this.providers.enabled![this.current_tab].enabled = false
+		this.setEnabledProvider({ enabled: false })
 
 		if (this.current_tab === this.providers.enabled!.length) {
 			this.current_tab = this.current_tab - 1
@@ -92,6 +99,8 @@ export default class Index {
 
 		this.config!.providers[index].enabled = true
 		this.current_tab += 1
+
+		this.onChange()
 	}
 
 	onDragProvider(args: DragEndEvent) {
@@ -124,7 +133,7 @@ export default class Index {
 	}
 
 	download() {
-		downloadFile('ai-sdk-provider.config', JSON.stringify(this.config, null, 6), 'json')
+		downloadFile('ai-sdk-panel.config', JSON.stringify(this.config, null, 6), 'json')
 	}
 
 	async onTest() {

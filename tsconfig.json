@@ -16,13 +16,12 @@
 		"jsx": "preserve",
 		"declaration": true,
 		"emitDeclarationOnly": true,
-		"rootDir": "./src",
 		"outDir": "./dist",
 		"forceConsistentCasingInFileNames": true,
 		"paths": {
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "./typings.d.ts"],
-	"exclude": ["node_modules", "__test__"]
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
 }

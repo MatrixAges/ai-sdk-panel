@@ -36,8 +36,6 @@ yarn-error.log*
 # midscene
 .env
 
-# Midscene.js dump files
-midscene_run/dump
-midscene_run/report
-midscene_run/tmp
-midscene_run/log
+# test
+__screenshots__
+__downloads__

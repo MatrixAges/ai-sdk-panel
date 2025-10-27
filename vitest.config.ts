@@ -3,6 +3,9 @@ import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
 
+import { dependencies } from './package.json'
+import { downloadFile, getPath, uploadFile } from './vitest/file'
+
 const ui = Boolean(process.env.UI)
 
 export default defineConfig({
@@ -14,20 +17,17 @@ export default defineConfig({
 			ui,
 			provider: playwright(),
 			instances: [{ browser: 'chromium', headless: !ui }],
-			viewport: { width: 790, height: 1080 }
+			viewport: { width: 790, height: 1080 },
+			commands: {
+				getPath,
+				downloadFile,
+				uploadFile
+			}
 		},
 		pool: 'threads',
 		maxWorkers: 4
 	},
 	optimizeDeps: {
-		include: [
-			'react',
-			'react-dom',
-			'@testing-library/react',
-			'ahooks',
-			'fast-equals',
-			'react-hook-form',
-			'valtio'
-		]
+		include: Object.keys(dependencies).filter(item => item !== '@lobehub/icons-static-svg')
 	}
 })
