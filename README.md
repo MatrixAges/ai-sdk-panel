@@ -1,8 +1,19 @@
-# AI SDK Panel
+<p align="center">
+  <a href="https://github.com/matrixages/ai-sdk-panel">
+    <img src="./images/logo.svg" width="100" height="100" alt="banner" /><br>
+  </a>
+</p>
 
-Still work in progress. Preview in [MatrixAges stack](https://github.com/MatrixAges/stack)
+<h1 align="center">AI SDK Panel</h1>
 
-The config panel for AI SDK built with base-ui tailwind.css react-hook-form and valtio.
+<p align="center">The config panel for AI SDK built with base-ui tailwind.css react-hook-form and valtio. Built for `AI Native` developers.</p>
+
+<p align="center">
+ <a href="https://deepwiki.com/MatrixAges/ai-sdk-panel" target="_blank"><img src="https://img.shields.io/badge/deepwiki-795548.svg?style=flat-&logo=bookstack&logoColor=white" alt="deepwiki"></a>
+  <a href="https://www.npmjs.com/package/@matrixages/ai-sdk-panel" target="_blank"><img src="https://img.shields.io/badge/version-0.1.0-8BC34A.svg?logo=npm" alt="version_img"></a>
+  <a href="#"><img src="https://img.shields.io/badge/compres%20size-132kb-607D8B.svg?logo=webpack&logoColor=white" alt="size_img"></a>
+  <a href="#"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+</p>
 
 ![ai-sdk-panel](./images/ai-sdk-panel.png)
 
@@ -14,11 +25,14 @@ pnpm i @matrixages/ai-sdk-panel
 
 ## How to use
 
+You can know ai-sdk-panel in [Deepwiki](https://deepwiki.com/MatrixAges/ai-sdk-panel).
+
 ```tsx
 const Page = () => {
 	const props_providers: IPropsProviders = {
 		config: { providers: preset_providers },
 		tab: 'between',
+		width: 690,
 		onChange: v => {
 			console.log(v)
 		},
@@ -26,8 +40,7 @@ const Page = () => {
 			await sleep(500)
 
 			return true
-		}),
-		width: 690
+		})
 	}
 
 	return (
@@ -48,12 +61,14 @@ const Page = () => {
 
 ## Features
 
-- Dark mode
-- Import and export config
-- Edit model and provider
-- Add custom providers
-- Custom fields support
-- Variant layout
+- 🌙 Dark mode
+- 📥 Import and export config
+- ✏️ Edit model and provider
+- ⚙️ Custom providers
+- 🎨 Custom locales
+- 🎨 Custom icons
+- ➕ Custom fields support
+- 📐 Variant layout
 
 ## Props
 
@@ -71,7 +86,7 @@ export interface IPropsProviders {
 	/* I18n locales */
 	locales?: Partial<ProvidersLocales>
 	/* Custom provider icons, ExoticComponent is react fc component */
-	icons: Record<string, ExoticComponent>
+	icons?: Record<string, ExoticComponent>
 	/* Trigger when config updated */
 	onChange: (v: Config) => void
 	/* Trigger when click API Key test button */
@@ -166,40 +181,42 @@ All test case will be show in the test ui.
 
 ### Preset Providers
 
-- openai
-- anthropic
-- google_gemini
-- xai
-- deepseek
-- groq
-- ollama
+- `OpenAI`
+- `Anthropic`
+- `Google Gemini`
+- `Xai`
+- `Deepseek`
+- `Groq`
+- `Ollama`
 
 ### All Providers
 
-- openai
-- anthropic
-- google_gemini
-- xai
-- deepseek
-- openrouter
-- ollama
-- cerebras
-- cohere
-- deepinfra
-- fireworks
-- groq
-- lmstudio
-- mistral
-- perplexity
-- siliconflow
-- together
-- vercel
-- zhipu
-- aliyun_bailian
-- tencent_hunyuan
-- volcengine
-- azure_openai
-- amazon_bedrock
+以下是您提供的名称，已将下划线替换为空格并大写开头：
+
+- `OpenAI`
+- `Anthropic`
+- `Google Gemini`
+- `Xai`
+- `Deepseek`
+- `Openrouter`
+- `Ollama`
+- `Cerebras`
+- `Cohere`
+- `Deepinfra`
+- `Fireworks`
+- `Groq`
+- `Lmstudio`
+- `Mistral`
+- `Perplexity`
+- `Siliconflow`
+- `Together`
+- `Vercel`
+- `Zhipu`
+- `Aliyun Bailian`
+- `Tencent Hunyuan`
+- `Volcengine`
+- `Azure Openai`
+- `Amazon Bedrock`
 
 ## License
 
