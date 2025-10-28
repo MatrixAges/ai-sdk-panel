@@ -1,4 +1,3 @@
-import { basename } from 'path'
 import { beforeEach, expect, test } from 'vitest'
 import { commands, server } from 'vitest/browser'
 
