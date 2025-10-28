@@ -17,7 +17,8 @@
 		"build": "pnpm run build:schema && cross-env NODE_ENV=production rslib build",
 		"build:schema": "bun ./scripts/schema",
 		"test": "vitest --run",
-		"test:ui": "cross-env UI=1 vitest"
+		"test:ui": "cross-env UI=1 vitest",
+		"build:test": "bun ./.github/workflows/test"
 	},
 	"dependencies": {
 		"@base-ui-components/react": "1.0.0-beta.4",
@@ -43,6 +44,7 @@
 		"valtio-reactive": "^0.1.2"
 	},
 	"devDependencies": {
+		"@jlarky/gha-ts": "^0.1.3",
 		"@rsbuild/plugin-react": "^1.4.1",
 		"@rsbuild/plugin-svgr": "^1.2.2",
 		"@rslib/core": "^0.15.0",
@@ -67,6 +69,7 @@
 		"tailwindcss": "^4.1.14",
 		"ts-json-schema-generator": "^2.4.0",
 		"typescript": "^5.9.3",
-		"vitest": "^4.0.1"
+		"vitest": "^4.0.1",
+		"yaml": "^2.8.1"
 	}
 }
