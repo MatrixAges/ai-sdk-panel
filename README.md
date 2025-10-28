@@ -191,8 +191,6 @@ All test case will be show in the test ui.
 
 ### All Providers
 
-以下是您提供的名称，已将下划线替换为空格并大写开头：
-
 - `OpenAI`
 - `Anthropic`
 - `Google Gemini`
