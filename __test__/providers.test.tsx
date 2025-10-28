@@ -198,7 +198,7 @@ test('remove model', async () => {
 test('reset model', async () => {
 	addModel()
 
-	await sleep(300)
+	await sleep(600)
 
 	const gpt_x = screen.getByText('GPT X', { selector: 'span', exact: true })
 
@@ -233,7 +233,7 @@ test('import config', async () => {
 	await writeFile(file_path, JSON.stringify(config, null, 6))
 
 	await commands.uploadFile({ element_text: 'Import Config', path })
-	await sleep(300)
+	await sleep(600)
 
 	const gpt_y = screen.getByText('GPT Y', { selector: 'span', exact: true })
 
