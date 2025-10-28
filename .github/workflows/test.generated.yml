@@ -21,6 +21,8 @@ jobs:
           node-version: latest
       - name: Install Deps
         run: pnpm i
+      - name: Install Playwright
+        run: pnpm exec playwright install
       - name: Build
         run: pnpm build
       - name: Test
