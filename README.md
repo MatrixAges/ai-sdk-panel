@@ -1,12 +1,12 @@
 <p align="center">
   <a href="https://github.com/matrixages/ai-sdk-panel">
-    <img src="./images/logo.svg" width="100" height="100" alt="banner" /><br>
+    <img src="./images/logo.svg" width="150" height="150" alt="banner" /><br>
   </a>
 </p>
 
 <h1 align="center">AI SDK Panel</h1>
 
-<p align="center">The config panel for AI SDK built with base-ui tailwind.css react-hook-form and valtio. Built for `AI Native` developers.</p>
+<p align="center">The config panel for AI SDK built with base-ui tailwind.css react-hook-form and valtio.</p>
 
 <p align="center">
  <a href="https://deepwiki.com/MatrixAges/ai-sdk-panel" target="_blank"><img src="https://img.shields.io/badge/deepwiki-795548.svg?style=flat-&logo=bookstack&logoColor=white" alt="deepwiki"></a>
