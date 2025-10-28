@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vitest/config'
 
 import react from '@vitejs/plugin-react'
@@ -26,6 +27,11 @@ export default defineConfig({
 		},
 		pool: 'threads',
 		maxWorkers: 4
+	},
+	resolve: {
+		alias: {
+			'@matrixages/ai-sdk-panel': resolve(__dirname, './dist/')
+		}
 	},
 	optimizeDeps: {
 		include: Object.keys(dependencies).filter(item => item !== '@lobehub/icons-static-svg')
