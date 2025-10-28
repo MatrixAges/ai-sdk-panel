@@ -16,7 +16,7 @@ export const wf = workflow({
 			steps: [
 				checkout({ 'fetch-depth': 0 }),
 				{ name: 'Setup Pnpm', uses: 'pnpm/action-setup@v4', with: { version: 'latest' } },
-				setupNode({ 'node-version': 'latest', cache: 'pnpm' }),
+				setupNode({ 'node-version': 'latest' }),
 				{ name: 'Install Deps', run: 'pnpm i' },
 				{ name: 'Build', run: 'pnpm build' },
 				{ name: 'Test', run: 'pnpm run test' }

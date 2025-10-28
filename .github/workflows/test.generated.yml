@@ -19,7 +19,6 @@ jobs:
       - uses: actions/setup-node@v4
         with: 
           node-version: latest
-          cache: pnpm
       - name: Install Deps
         run: pnpm i
       - name: Build
