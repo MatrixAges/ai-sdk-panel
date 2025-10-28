@@ -15,8 +15,8 @@ export const wf = workflow({
 			'runs-on': 'ubuntu-latest',
 			steps: [
 				checkout({ 'fetch-depth': 0 }),
-				setupNode({ 'node-version': 'latest', cache: 'pnpm' }),
 				{ name: 'Setup Pnpm', uses: 'pnpm/action-setup@v4', with: { version: 'latest' } },
+				setupNode({ 'node-version': 'latest', cache: 'pnpm' }),
 				{ name: 'Install Deps', run: 'pnpm i' },
 				{ name: 'Build', run: 'pnpm build' },
 				{ name: 'Test', run: 'pnpm run test' }
