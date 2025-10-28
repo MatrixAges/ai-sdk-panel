@@ -65,9 +65,9 @@ const Page = () => {
 - 📥 Import and export config
 - ✏️ Edit model and provider
 - ⚙️ Custom providers
-- 🎨 Custom locales
-- 🎨 Custom icons
-- ➕ Custom fields support
+- 🌍 Custom locales
+- ✨ Custom icons
+- 🧩 Custom fields support
 - 📐 Variant layout
 
 ## Props
