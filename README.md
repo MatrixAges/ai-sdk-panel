@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/matrixages/ai-sdk-panel">
+  <a href="https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/logo.svg">
     <img src="./images/logo.svg" width="150" height="150" alt="banner" /><br>
   </a>
 </p>
@@ -25,7 +25,7 @@ pnpm i @matrixages/ai-sdk-panel
 
 ## How to use
 
-You can know ai-sdk-panel in [Deepwiki](https://deepwiki.com/MatrixAges/ai-sdk-panel).
+You can know ai-sdk-panel in [Deepwiki](https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/ai-sdk-panel.png).
 
 ```tsx
 const Page = () => {
