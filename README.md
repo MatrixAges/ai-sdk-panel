@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/logo.svg">
-    <img src="./images/logo.svg" width="150" height="150" alt="banner" /><br>
+  <a href="https://github.com/matrixages/ai-sdk-panel">
+    <img src="https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/logo.svg" width="150" height="150" alt="banner" /><br>
   </a>
 </p>
 
@@ -15,7 +15,7 @@
   <a href="#"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
 </p>
 
-![ai-sdk-panel](./images/ai-sdk-panel.png)
+![ai-sdk-panel](https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/ai-sdk-panel.png)
 
 ## Install
 
@@ -25,7 +25,7 @@ pnpm i @matrixages/ai-sdk-panel
 
 ## How to use
 
-You can know ai-sdk-panel in [Deepwiki](https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/ai-sdk-panel.png).
+You can know ai-sdk-panel in [Deepwiki](https://deepwiki.com/MatrixAges/ai-sdk-panel).
 
 ```tsx
 const Page = () => {
