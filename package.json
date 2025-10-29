@@ -43,7 +43,7 @@
 		"test": "vitest --run",
 		"test:ui": "cross-env UI=1 vitest",
 		"build:test": "bun ./.github/workflows/test",
-		"pub": "nrm use npm && npm publish --access public --no-git-checks && nrm use taobao"
+		"pub": "npm publish --access public --no-git-checks"
 	},
 	"dependencies": {
 		"@base-ui-components/react": "1.0.0-beta.4",
