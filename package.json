@@ -1,16 +1,40 @@
 {
 	"name": "@matrixages/ai-sdk-panel",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"description": "The config panel for ai sdk.",
 	"author": "1yasa",
 	"license": "MIT",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MatrixAges/ai-sdk-panel.git"
+	},
+	"bugs": {
+		"url": "https://github.com/MatrixAges/ai-sdk-panel/issues"
+	},
+	"homepage": "https://stack.matrixages.com/ai-sdk-panel",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"keywords": [
+		"ai-sdk-panel",
+		"react",
+		"ai",
+		"ai-sdk",
+		"llm",
+		"providers",
+		"openai",
+		"gpt",
+		"anthropic",
+		"claude",
+		"google",
+		"gemini",
+		"agent",
+		"chatbot"
+	],
 	"files": [
 		"./dist",
 		"./package.json",
-		"../README.md"
+		"./README.md"
 	],
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development rslib build -w",

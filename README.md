@@ -17,6 +17,12 @@
 
 ![ai-sdk-panel](https://raw.githubusercontent.com/MatrixAges/ai-sdk-panel/master/images/ai-sdk-panel.png)
 
+## Why ai-sdk-panel
+
+We're in the middle of an AI application explosion, and every single one needs an LLM provider editor. Having built several AI apps and constantly reinventing the wheel, I'm tired of rewriting an LLM provider editor for each one. That's why I created ai-sdk-panel - it'll be the last "LLM provider editor" I ever need.
+
+The `@matrixages/ai-sdk-panel` library provides a production-ready configuration panel for applications that integrate with AI SDK providers. It enables end-users to configure, test, and manage multiple AI providers (OpenAI, Anthropic, Google Gemini, etc.) and their models through a graphical interface, eliminating the need to build custom configuration UIs.
+
 ## Install
 
 ```bash
@@ -33,9 +39,9 @@ const Page = () => {
 		config: { providers: preset_providers },
 		tab: 'between',
 		width: 690,
-		onChange: v => {
+		onChange: useMemoizedFn(v => {
 			console.log(v)
-		},
+		}),
 		onTest: useMemoizedFn(async () => {
 			await sleep(500)
 
@@ -196,17 +202,17 @@ All test case will be show in the test ui.
 - `Google Gemini`
 - `Xai`
 - `Deepseek`
-- `Openrouter`
+- `OpenRouter`
 - `Ollama`
 - `Cerebras`
 - `Cohere`
 - `Deepinfra`
 - `Fireworks`
 - `Groq`
-- `Lmstudio`
+- `LMStudio`
 - `Mistral`
 - `Perplexity`
-- `Siliconflow`
+- `SiliconFlow`
 - `Together`
 - `Vercel`
 - `Zhipu`
@@ -215,6 +221,33 @@ All test case will be show in the test ui.
 - `Volcengine`
 - `Azure Openai`
 - `Amazon Bedrock`
+
+## Development and Testing
+
+### Running Tests
+
+The library includes a comprehensive test suite using Vitest and Playwright:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests with UI
+pnpm run test:ui
+```
+
+### Building from Source
+
+```bash
+# Install dependencies
+pnpm i
+
+# Build the library
+pnpm run build
+
+# Watch mode for development
+pnpm run dev
+```
 
 ## License
 
