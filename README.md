@@ -42,6 +42,8 @@ import { all_providers, preset_providers } from '@matrixages/ai-sdk-panel'
 Also, you can extend the providers yourself according to your needs. Inside the component, the configuration will be deep merged.
 
 ```tsx
+import { preset_providers } from '@matrixages/ai-sdk-panel'
+
 const Page = () => {
 	const props_providers: IPropsProviders = {
 		config: { providers: preset_providers },

@@ -5,7 +5,7 @@ import { checkout, setupNode } from '@jlarky/gha-ts/actions'
 import { generateWorkflow } from '@jlarky/gha-ts/cli'
 import { workflow } from '@jlarky/gha-ts/workflow-types'
 
-export const wf = workflow({
+const wf = workflow({
 	name: 'Testing',
 	on: {
 		workflow_dispatch: {}
