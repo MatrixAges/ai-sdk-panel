@@ -10,7 +10,7 @@
 
 <p align="center">
  <a href="https://deepwiki.com/MatrixAges/ai-sdk-panel" target="_blank"><img src="https://img.shields.io/badge/deepwiki-795548.svg?style=flat-&logo=bookstack&logoColor=white" alt="deepwiki"></a>
-  <a href="https://www.npmjs.com/package/@matrixages/ai-sdk-panel" target="_blank"><img src="https://img.shields.io/badge/version-0.1.0-8BC34A.svg?logo=npm" alt="version_img"></a>
+  <a href="https://www.npmjs.com/package/@matrixages/ai-sdk-panel" target="_blank"><img src="https://img.shields.io/badge/version-0.1.5-8BC34A.svg?logo=npm" alt="version_img"></a>
   <a href="#"><img src="https://img.shields.io/badge/compres%20size-132kb-607D8B.svg?logo=webpack&logoColor=white" alt="size_img"></a>
   <a href="#"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
 </p>
