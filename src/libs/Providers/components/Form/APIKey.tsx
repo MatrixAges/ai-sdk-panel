@@ -37,6 +37,7 @@ const Index = (props: IPropsFormAPIKey) => {
 						${custom && '!px-3'}
 					`}
 					placeholder='sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+					autoComplete='off'
 					{...register('api_key')}
 				/>
 				{onTest && (

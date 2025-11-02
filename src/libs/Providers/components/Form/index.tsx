@@ -8,7 +8,14 @@ import { Controller, Show, Switch } from '@/components'
 import { all_providers } from '@/libs'
 import styles from '@/libs/Providers/index.module.css'
 import { memo } from '@/utils'
-import { ClockClockwiseIcon, EyeClosedIcon, PlusIcon, TrashIcon } from '@phosphor-icons/react'
+import {
+	ClockClockwiseIcon,
+	DownloadSimpleIcon,
+	ExportIcon,
+	EyeClosedIcon,
+	PlusIcon,
+	TrashIcon
+} from '@phosphor-icons/react'
 
 import { useGlobalState } from '../../context'
 import APIKey from './APIKey'
@@ -273,7 +280,7 @@ const Index = (props: IPropsForm) => {
 								type='button'
 								onClick={download}
 							>
-								<ClockClockwiseIcon className='text-sm' />
+								<ExportIcon className='text-sm' />
 								{locales.form.export_config}
 							</button>
 							<button
@@ -281,7 +288,7 @@ const Index = (props: IPropsForm) => {
 								type='button'
 								onClick={upload}
 							>
-								<ClockClockwiseIcon className='text-sm' />
+								<DownloadSimpleIcon className='text-sm' />
 								{locales.form.import_config}
 							</button>
 						</div>

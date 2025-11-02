@@ -17,6 +17,7 @@ const Index = (props: IPropsFormBaseUrl) => {
 					${styles.input_wrap} ${styles.input}
 					${custom ? 'h-9 !px-3' : 'h-14'}
 				`}
+				autoComplete='off'
 				{...register('base_url')}
 			/>
 		</div>

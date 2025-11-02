@@ -31,7 +31,15 @@ pnpm i @matrixages/ai-sdk-panel
 
 ## How to use
 
-You can know ai-sdk-panel in [Deepwiki](https://deepwiki.com/MatrixAges/ai-sdk-panel).
+You can know `ai-sdk-panel` in [Deepwiki](https://deepwiki.com/MatrixAges/ai-sdk-panel).
+
+`ai-sdk-panel` provides two built-in providers, you can pick one from `@matrixages/ai-sdk-panel`:
+
+```tsx
+import { all_providers, preset_providers } from '@matrixages/ai-sdk-panel'
+```
+
+Also, you can extend the providers yourself according to your needs. Inside the component, the configuration will be deep merged.
 
 ```tsx
 const Page = () => {

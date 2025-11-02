@@ -29,6 +29,7 @@ const Index = (props: IPropsFormModelForm) => {
 							placeholder:text-soft disabled:text-gray
 						`}
 						placeholder={locales.form.model_form.input + locales.form.model_form.model_id}
+						autoComplete='off'
 						disabled={!adding_model}
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('id')
@@ -46,6 +47,7 @@ const Index = (props: IPropsFormModelForm) => {
 							placeholder:text-soft
 						`}
 						placeholder={locales.form.model_form.input + locales.form.model_form.model_name}
+						autoComplete='off'
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('name')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -70,6 +72,7 @@ const Index = (props: IPropsFormModelForm) => {
 						placeholder={
 							locales.form.model_form.output_fee + locales.form.model_form.per_million
 						}
+						autoComplete='off'
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('fee.output')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -90,6 +93,7 @@ const Index = (props: IPropsFormModelForm) => {
 						placeholder={
 							locales.form.model_form.input_fee + locales.form.model_form.per_million
 						}
+						autoComplete='off'
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('fee.input')
 							: (register as UseFormRegister<IPropsForm['provider']>)(
@@ -110,6 +114,7 @@ const Index = (props: IPropsFormModelForm) => {
 							placeholder:text-soft
 						`}
 						placeholder={locales.form.model_form.input + locales.form.model_form.model_desc}
+						autoComplete='off'
 						{...(adding_model
 							? (register as UseFormRegister<Model>)('desc')
 							: (register as UseFormRegister<IPropsForm['provider']>)(

@@ -26,6 +26,7 @@ const Index = (props: IPropsFormCustomFields) => {
 					${styles.input_wrap} ${styles.input}
 				`}
 				placeholder={`Input field ${key}`}
+				autoComplete='off'
 				{...register(`custom_fields.${key}`)}
 			/>
 		</div>

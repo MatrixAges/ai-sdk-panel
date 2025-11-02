@@ -82,6 +82,7 @@ const Index = (props: IPropsCustomForm) => {
 							placeholder:text-soft
 						`}
 						placeholder={locales.form.model_form.input + locales.form.custom.provider_name}
+						autoComplete='off'
 						required
 						{...register('name')}
 					/>
@@ -95,6 +96,7 @@ const Index = (props: IPropsCustomForm) => {
 							placeholder:text-soft
 						`}
 						placeholder={locales.form.model_form.input + locales.form.base_url}
+						autoComplete='off'
 						required
 						{...register('base_url')}
 					/>
@@ -108,6 +110,7 @@ const Index = (props: IPropsCustomForm) => {
 							placeholder:text-soft
 						`}
 						placeholder={locales.form.model_form.input + locales.form.api_key}
+						autoComplete='off'
 						{...register('api_key')}
 					/>
 				</AutoLabel>
@@ -120,6 +123,7 @@ const Index = (props: IPropsCustomForm) => {
 							placeholder:text-soft
 						`}
 						placeholder={locales.form.custom.headers_placeholder}
+						autoComplete='off'
 						{...register('headers')}
 					/>
 				</AutoLabel>
